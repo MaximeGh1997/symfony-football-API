@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TeamsRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Teams
 {
@@ -72,6 +74,35 @@ class Teams
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="teams")
      */
     private $groupName;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * Permet d'intialiser la date de création
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializeCreatedAt(){
+        if(empty($this->createdAt)){
+            $this->createdAt = new \DateTime('Europe/Brussels');
+        }
+    }
+
+    /**
+     * Permet d'intialiser le nombre de points
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializePoints(){
+        if(empty($this->points)){
+            $this->points = 0;
+        }
+    }
 
     public function __construct()
     {
@@ -295,6 +326,18 @@ class Teams
     public function setGroupName(?Groups $groupName): self
     {
         $this->groupName = $groupName;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
