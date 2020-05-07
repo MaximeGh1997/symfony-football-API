@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use DateTime;
 use App\Entity\Teams;
 use App\Entity\Users;
+use App\Entity\Stades;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -44,6 +45,20 @@ class AppFixtures extends Fixture
             ->setCreatedAt($now);
             
         $manager->persist($team);
+
+        // ajout d'un stade
+        $stade = new Stades();
+        $now = new \DateTime('Europe/Brussels');
+
+        $stade->setName('Stade Roi Baudouin')
+            ->setCity('Bruxelles')
+            ->setCapacity(50093)
+            ->setDescription('Description du stade Roi Baudouin')
+            ->setCover('https://pbs.twimg.com/media/DOTUEAlX4AEQrxX.jpg')
+            ->setResident($team)
+            ->setCreatedAt($now);
+            
+        $manager->persist($stade);
 
 
         $manager->flush();

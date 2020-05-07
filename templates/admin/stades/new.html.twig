@@ -1,0 +1,14 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Ajout d'un stade{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-3 mb-3">Ajout d'un stade</h1>
+
+        {{form_start(form)}}
+            {{form_widget(form)}}
+            <button type="submit" class="mb-3 btn btn-success">Ajouter le stade</button>
+        {{form_end(form)}}
+    </div>
+{% endblock %}

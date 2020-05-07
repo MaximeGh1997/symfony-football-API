@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StadesRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Stades
 {
@@ -53,6 +55,23 @@ class Stades
      * @ORM\OneToMany(targetEntity="App\Entity\Matchs", mappedBy="stade")
      */
     private $matchs;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * Permet d'intialiser la date de création
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializeCreatedAt(){
+        if(empty($this->createdAt)){
+            $this->createdAt = new \DateTime('Europe/Brussels');
+        }
+    }
 
     public function __construct()
     {
@@ -163,6 +182,18 @@ class Stades
                 $match->setStade(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

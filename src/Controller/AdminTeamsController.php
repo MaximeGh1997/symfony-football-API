@@ -41,7 +41,7 @@ class AdminTeamsController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "L'événement {$team->getName()} à bien été ajouté"
+                "L'équipe {$team->getName()} à bien été ajoutée"
             );
 
             return $this->redirectToRoute('admin_teams_index');
@@ -53,53 +53,49 @@ class AdminTeamsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}/edit", name="admin_edit")
+     * @Route("/admin/teams/{id}/edit", name="admin_teams_edit")
      * 
      * @return Response
      */
-    /*
-    public function edit(Event $event, Request $request, EntityManagerInterface $manager)
+    public function edit(Teams $team, Request $request, EntityManagerInterface $manager)
     {
-        $form = $this->createForm(EventType::class, $event);
+        $form = $this->createForm(TeamType::class, $team);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $event->setCreatedAt(new \DateTime('Europe/Brussels'));
+            //$team->setCreatedAt(new \DateTime('Europe/Brussels'));
 
-            $manager->persist($event);
+            $manager->persist($team);
             $manager->flush();
 
             $this->addFlash(
                 'success',
-                "L'événement {$event->getName()} à bien été modifié"
+                "L'équipe {$team->getName()} à bien été modifiée"
             );
 
-            return $this->redirectToRoute('admin_index');
+            return $this->redirectToRoute('admin_teams_index');
         }
 
-        return $this->render('admin/edit.html.twig', [
+        return $this->render('admin/teams/edit.html.twig', [
             'form' => $form->createView(),
-            'event' => $event
+            'team' => $team
         ]);
     }
 
     /**
-     * @Route("/admin/{id}/delete", name="admin_delete")
+     * @Route("/admin/teams/{id}/delete", name="admin_teams_delete")
      * 
      * @return Response
      */
-    /*
-    public function delete(Event $event, EntityManagerInterface $manager)
+    public function delete(Teams $team, EntityManagerInterface $manager)
     {
-        $manager->remove($event);
+        $manager->remove($team);
         $manager->flush();
         $this->addFlash(
             "success",
-            "L'événement {$event->getName()} a bien été supprimé"
+            "L'équipe {$team->getName()} a bien été supprimée"
         );
-        return $this->redirectToRoute('admin_index');
+        return $this->redirectToRoute('admin_teams_index');
     }
-
-    */
 }

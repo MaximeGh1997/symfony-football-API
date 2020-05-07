@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MatchsRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Matchs
 {
@@ -73,6 +75,23 @@ class Matchs
      * @ORM\ManyToOne(targetEntity="App\Entity\Stages", inversedBy="matchs")
      */
     private $stage;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * Permet d'intialiser la date de création
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializeCreatedAt(){
+        if(empty($this->createdAt)){
+            $this->createdAt = new \DateTime('Europe/Brussels');
+        }
+    }
 
     public function getId(): ?int
     {
@@ -207,6 +226,18 @@ class Matchs
     public function setStage(?Stages $stage): self
     {
         $this->stage = $stage;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
