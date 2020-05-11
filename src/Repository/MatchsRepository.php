@@ -19,6 +19,17 @@ class MatchsRepository extends ServiceEntityRepository
         parent::__construct($registry, Matchs::class);
     }
 
+    public function findByGroup($group, $limit = null)
+    {
+        return $this->createQueryBuilder('m')
+                    ->select('m')
+                    ->where('m.groupName = :group')
+                    ->setParameter('group', $group)
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Matchs[] Returns an array of Matchs objects
     //  */
