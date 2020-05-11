@@ -33,6 +33,14 @@ class Groups
      */
     private $matchs;
 
+    /*public function addTeams($team,$group)
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+            $team->setGroupName($group);
+        }
+    }*/
+
     public function __construct()
     {
         $this->teams = new ArrayCollection();

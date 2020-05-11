@@ -19,6 +19,16 @@ class TeamsRepository extends ServiceEntityRepository
         parent::__construct($registry, Teams::class);
     }
 
+    public function findFreeTeams($limit = null)
+    {
+        return $this->createQueryBuilder('t')
+                    ->select('t')
+                    ->where('t.groupName IS NULL')
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Teams[] Returns an array of Teams objects
     //  */

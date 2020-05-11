@@ -80,6 +80,10 @@ class Teams
      */
     private $createdAt;
 
+    private $matchs;
+
+    private $draws;
+
     /**
      * Permet d'intialiser la date de création
      * 
@@ -102,6 +106,30 @@ class Teams
         if(empty($this->points)){
             $this->points = 0;
         }
+    }
+
+    // Permet de récuperer le nbr total de matchs
+    public function getAllMatchs()
+    {
+        $matchs1 = $this->getHomeMatchs()->toArray();
+        $matchs2 = $this->getAwayMatchs()->toArray();
+
+        $this->matchs = $matchs1 + $matchs2;
+
+        return $this->matchs;
+    }
+
+    // Permet de récuperer le nombre total de matchs nul
+    public function getDraws()
+    {
+        $matchs = $this->getAllMatchs();
+
+        foreach($matchs as $match){
+            if($match->getDraw() != null){
+                $this->draws[] += $match->getDraw();
+            }
+        }
+        return $this->draws;
     }
 
     public function __construct()
