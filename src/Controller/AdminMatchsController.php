@@ -42,7 +42,7 @@ class AdminMatchsController extends AbstractController
      * 
      * @return Response
      */
-    public function drawing(Groups $group, StadesRepository $stadesRepo, EntityManagerInterface $manager)
+    public function drawing(Groups $group, StadesRepository $stadesRepo, MatchsRepository $matchsRepo, EntityManagerInterface $manager)
     {
         $teams = $group->getTeams()->toArray();
         $stades = $stadesRepo->findAll();
@@ -55,11 +55,14 @@ class AdminMatchsController extends AbstractController
                     }
 
                 $stade1 = $stades[mt_rand(0,9)];
-
-                $teamMatchs = count($team->getAllMatchs());
-                $opponent1Matchs = count($opponent1->getAllMatchs());
                 
-                if($teamMatchs < 3 || $opponent1Matchs < 3){
+                $teamId = $team->getId();
+                $opponent1Id = $opponent1->getId();
+                $teamMatchs = count($matchsRepo->findByTeam($teamId));
+                $opponent1Matchs = count($matchsRepo->findByTeam($opponent1Id));
+
+                
+                if($teamMatchs < 3 && $opponent1Matchs < 3){
                     $match1 = new Matchs();
 
                     $match1->setTeam1($team)
@@ -67,8 +70,7 @@ class AdminMatchsController extends AbstractController
                         ->setDate(new \DateTime('Europe/Brussels'))
                         ->setStade($stade1)
                         ->setGroupName($group);
-                
-                
+
                     $manager->persist($match1);
                     $manager->persist($team);
                     $manager->persist($opponent1);
@@ -83,10 +85,11 @@ class AdminMatchsController extends AbstractController
 
                 $stade2 = $stades[mt_rand(0,9)];
 
-                $teamMatchs = count($team->getAllMatchs());
-                $opponent2Matchs = count($opponent2->getAllMatchs());
+                $opponent2Id = $opponent2->getId();
+                $teamMatchs = count($matchsRepo->findByTeam($teamId));
+                $opponent2Matchs = count($matchsRepo->findByTeam($opponent2Id));
 
-                if($teamMatchs < 3 || $opponent2Matchs < 3){
+                if($teamMatchs < 3 && $opponent2Matchs < 3){
                     $match2 = new Matchs();
 
                     $match2->setTeam1($opponent2)
@@ -94,7 +97,6 @@ class AdminMatchsController extends AbstractController
                         ->setDate(new \DateTime('Europe/Brussels'))
                         ->setStade($stade2)
                         ->setGroupName($group);
-                
                 
                     $manager->persist($match2);
                     $manager->persist($team);
@@ -110,12 +112,11 @@ class AdminMatchsController extends AbstractController
 
                 $stade3 = $stades[mt_rand(0,9)];
 
-                $teamMatchs = count($team->getAllMatchs());
-                $opponent3Matchs = count($opponent3->getAllMatchs());
+                $opponent3Id = $opponent3->getId();
+                $teamMatchs = count($matchsRepo->findByTeam($teamId));
+                $opponent3Matchs = count($matchsRepo->findByTeam($opponent3Id));
 
-                var_dump($teamMatchs);
-
-                if($teamMatchs < 3 || $opponent3Matchs < 3){
+                if($teamMatchs < 3 && $opponent3Matchs < 3){
                     $match3 = new Matchs();
 
                     $match3->setTeam1($team)
@@ -124,14 +125,12 @@ class AdminMatchsController extends AbstractController
                         ->setStade($stade3)
                         ->setGroupName($group);
                 
-                
                     $manager->persist($match3);
                     $manager->persist($team);
                     $manager->persist($opponent3);
                     $manager->flush();
                 }
         }
-        die();
         $this->addFlash(
             "success",
             "Les matchs du groupe {$group->getName()} ont bien été ajouté"

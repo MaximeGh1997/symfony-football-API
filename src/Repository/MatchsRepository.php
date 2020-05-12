@@ -30,6 +30,18 @@ class MatchsRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    public function findByTeam($team, $limit = null)
+    {
+        return $this->createQueryBuilder('m')
+                    ->select('m')
+                    ->where('m.team1 = :team')
+                    ->orWhere('m.team2 = :team')
+                    ->setParameter('team', $team)
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Matchs[] Returns an array of Matchs objects
     //  */
