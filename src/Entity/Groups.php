@@ -33,18 +33,16 @@ class Groups
      */
     private $matchs;
 
-    /*public function addTeams($team,$group)
-    {
-        if (!$this->teams->contains($team)) {
-            $this->teams[] = $team;
-            $team->setGroupName($group);
-        }
-    }*/
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Stades", mappedBy="groups")
+     */
+    private $stades;
 
     public function __construct()
     {
         $this->teams = new ArrayCollection();
         $this->matchs = new ArrayCollection();
+        $this->stades = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,6 +118,37 @@ class Groups
             // set the owning side to null (unless already changed)
             if ($match->getGroupName() === $this) {
                 $match->setGroupName(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Stades[]
+     */
+    public function getStades(): Collection
+    {
+        return $this->stades;
+    }
+
+    public function addStade(Stades $stade): self
+    {
+        if (!$this->stades->contains($stade)) {
+            $this->stades[] = $stade;
+            $stade->setGroups($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStade(Stades $stade): self
+    {
+        if ($this->stades->contains($stade)) {
+            $this->stades->removeElement($stade);
+            // set the owning side to null (unless already changed)
+            if ($stade->getGroups() === $this) {
+                $stade->setGroups(null);
             }
         }
 

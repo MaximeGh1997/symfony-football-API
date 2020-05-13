@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,11 +43,6 @@ class Matchs
     private $scoreT2;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $date;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Teams", inversedBy="wins")
      */
     private $winner;
@@ -80,6 +77,31 @@ class Matchs
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPlayed;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="matchNbr", orphanRemoval=true)
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Dates", mappedBy="matchNbr", cascade={"persist", "remove"})
+     */
+    private $date;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     /**
      * Permet d'intialiser la date de création
@@ -142,18 +164,6 @@ class Matchs
     public function setScoreT2(?float $scoreT2): self
     {
         $this->scoreT2 = $scoreT2;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
 
         return $this;
     }
@@ -238,6 +248,79 @@ class Matchs
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getIsPlayed(): ?bool
+    {
+        return $this->isPlayed;
+    }
+
+    public function setIsPlayed(?bool $isPlayed): self
+    {
+        $this->isPlayed = $isPlayed;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comments[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setMatchNbr($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getMatchNbr() === $this) {
+                $comment->setMatchNbr(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDate(): ?Dates
+    {
+        return $this->date;
+    }
+
+    public function setDate(?Dates $date): self
+    {
+        $this->date = $date;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newMatchNbr = null === $date ? null : $this;
+        if ($date->getMatchNbr() !== $newMatchNbr) {
+            $date->setMatchNbr($newMatchNbr);
+        }
 
         return $this;
     }

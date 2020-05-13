@@ -85,6 +85,11 @@ class Teams
     private $draws;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
+    /**
      * Permet d'intialiser la date de création
      * 
      * @ORM\PrePersist
@@ -114,7 +119,7 @@ class Teams
         $matchs1 = $this->getHomeMatchs()->toArray();
         $matchs2 = $this->getAwayMatchs()->toArray();
 
-        $this->matchs = $matchs1 + $matchs2;
+        $this->matchs = array_merge($matchs1, $matchs2);
 
         return $this->matchs;
     }
@@ -366,6 +371,18 @@ class Teams
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

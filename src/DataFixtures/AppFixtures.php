@@ -113,7 +113,7 @@ class AppFixtures extends Fixture
             'Suède'
         ];
 
-        for($i=1; $i<=15; $i++){
+        for($i=1; $i<=23; $i++){
             $teams = new Teams();
 
             $teams->setName($names[mt_rand(0,9)])
@@ -126,7 +126,8 @@ class AppFixtures extends Fixture
             $manager->persist($teams);
         }
 
-        // ajout d'un stade
+        // ajout des stade
+        for($i=1; $i<=12; $i++){
         $stade = new Stades();
         $now = new \DateTime('Europe/Brussels');
 
@@ -135,11 +136,11 @@ class AppFixtures extends Fixture
             ->setCapacity(50093)
             ->setDescription('Description du stade Roi Baudouin')
             ->setCover('https://pbs.twimg.com/media/DOTUEAlX4AEQrxX.jpg')
-            ->setResident($team)
-            ->setCreatedAt($now);
+            ->setCreatedAt($now)
+            ->setGroups($groupA);
             
         $manager->persist($stade);
-
+        }
 
         $manager->flush();
     }

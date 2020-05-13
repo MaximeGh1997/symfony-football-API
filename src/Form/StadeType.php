@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Teams;
+use App\Entity\Groups;
 use App\Entity\Stades;
 use App\Form\ApplicationType;
 use Symfony\Component\Form\AbstractType;
@@ -29,6 +30,12 @@ class StadeType extends ApplicationType
                 'choice_label' => 'name'
             ],
             $this->getConfiguration('Résident du stade','Choisissez l\'équipe résidente')
+            )
+            ->add('groups', EntityType::class, [
+                'class' => Groups::class,
+                'choice_label' => 'name'
+            ],
+            $this->getConfiguration('Groupe','Assignez un groupe au stade')
             )
         ;
     }

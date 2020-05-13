@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Groups;
 use App\Entity\Matchs;
+use App\Repository\DatesRepository;
 use App\Repository\GroupsRepository;
 use App\Repository\MatchsRepository;
 use App\Repository\StadesRepository;
@@ -42,10 +43,11 @@ class AdminMatchsController extends AbstractController
      * 
      * @return Response
      */
-    public function drawing(Groups $group, StadesRepository $stadesRepo, MatchsRepository $matchsRepo, EntityManagerInterface $manager)
+    public function drawing(Groups $group, StadesRepository $stadesRepo, MatchsRepository $matchsRepo, DatesRepository $datesRepo, EntityManagerInterface $manager)
     {
         $teams = $group->getTeams()->toArray();
-        $stades = $stadesRepo->findAll();
+        $stades = $group->getStades()->toArray();
+        $dates = $datesRepo->findFreeDates();
 
         foreach($teams as $team){
                 // Ajout Match 1
@@ -54,26 +56,25 @@ class AdminMatchsController extends AbstractController
                         $opponent1 = $teams[mt_rand(0,3)];
                     }
 
-                $stade1 = $stades[mt_rand(0,9)];
+                $stade1 = $stades[mt_rand(0,1)];
                 
                 $teamId = $team->getId();
                 $opponent1Id = $opponent1->getId();
                 $teamMatchs = count($matchsRepo->findByTeam($teamId));
                 $opponent1Matchs = count($matchsRepo->findByTeam($opponent1Id));
-
+                $max = count($dates) - 1;
+                $date = $dates[mt_rand(0,$max)];
                 
-                if($teamMatchs < 3 && $opponent1Matchs < 3){
+                if($teamMatchs < 3 && $opponent1Matchs < 3 && $max > -1){
                     $match1 = new Matchs();
 
                     $match1->setTeam1($team)
                         ->setTeam2($opponent1)
-                        ->setDate(new \DateTime('Europe/Brussels'))
+                        ->setDate($date)
                         ->setStade($stade1)
                         ->setGroupName($group);
 
                     $manager->persist($match1);
-                    $manager->persist($team);
-                    $manager->persist($opponent1);
                     $manager->flush();
                 }
 
@@ -83,24 +84,28 @@ class AdminMatchsController extends AbstractController
                         $opponent2 = $teams[mt_rand(0,3)];
                     }
 
-                $stade2 = $stades[mt_rand(0,9)];
+                $stade2 = $stades[mt_rand(0,1)];
+                    while($stade2 == $stade1){
+                        $stade2 = $stades[mt_rand(0,1)];
+                    }
 
                 $opponent2Id = $opponent2->getId();
                 $teamMatchs = count($matchsRepo->findByTeam($teamId));
                 $opponent2Matchs = count($matchsRepo->findByTeam($opponent2Id));
+                $dates = $datesRepo->findFreeDates();
+                $max = count($dates) - 1;
+                $date = $dates[mt_rand(0,$max)];
 
-                if($teamMatchs < 3 && $opponent2Matchs < 3){
+                if($teamMatchs < 3 && $opponent2Matchs < 3 && $max > -1){
                     $match2 = new Matchs();
 
                     $match2->setTeam1($opponent2)
                         ->setTeam2($team)
-                        ->setDate(new \DateTime('Europe/Brussels'))
+                        ->setDate($date)
                         ->setStade($stade2)
                         ->setGroupName($group);
                 
                     $manager->persist($match2);
-                    $manager->persist($team);
-                    $manager->persist($opponent2);
                     $manager->flush();
                 }
 
@@ -110,24 +115,23 @@ class AdminMatchsController extends AbstractController
                         $opponent3 = $teams[mt_rand(0,3)];
                     }
 
-                $stade3 = $stades[mt_rand(0,9)];
-
                 $opponent3Id = $opponent3->getId();
                 $teamMatchs = count($matchsRepo->findByTeam($teamId));
                 $opponent3Matchs = count($matchsRepo->findByTeam($opponent3Id));
+                $dates = $datesRepo->findFreeDates();
+                $max = count($dates) - 1;
+                $date = $dates[mt_rand(0,$max)];
 
-                if($teamMatchs < 3 && $opponent3Matchs < 3){
+                if($teamMatchs < 3 && $opponent3Matchs < 3 && $max > -1){
                     $match3 = new Matchs();
 
                     $match3->setTeam1($team)
                         ->setTeam2($opponent3)
-                        ->setDate(new \DateTime('Europe/Brussels'))
-                        ->setStade($stade3)
+                        ->setDate($date)
+                        ->setStade($stades[mt_rand(0,1)])
                         ->setGroupName($group);
                 
                     $manager->persist($match3);
-                    $manager->persist($team);
-                    $manager->persist($opponent3);
                     $manager->flush();
                 }
         }

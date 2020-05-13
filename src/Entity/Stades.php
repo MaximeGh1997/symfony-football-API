@@ -47,7 +47,7 @@ class Stades
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Teams", inversedBy="stade", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $resident;
 
@@ -60,6 +60,17 @@ class Stades
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="stades")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $groups;
 
     /**
      * Permet d'intialiser la date de création
@@ -194,6 +205,30 @@ class Stades
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getGroups(): ?Groups
+    {
+        return $this->groups;
+    }
+
+    public function setGroups(?Groups $groups): self
+    {
+        $this->groups = $groups;
 
         return $this;
     }

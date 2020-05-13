@@ -34,7 +34,7 @@
                 <td>{{stade.name}}</td>
                 <td>{{stade.capacity}}</td>
                 <td>{{stade.city}}</td>
-                <td>{{stade.resident.name}}</td>
+                <td>{% if stade.resident %} {{stade.resident.name}} {% else %} / {% endif %}</td>
                 <td>{{stade.createdAt | date('d/m/Y')}} {{stade.createdAt | date('H:i')}}</td>
                 <td class="text-align-center">
                     <a href="{{path('admin_stades_edit', {'id':stade.id})}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
