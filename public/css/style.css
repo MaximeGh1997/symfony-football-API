@@ -14,3 +14,62 @@ html,body{
     border-radius: 40px;
     object-fit: contain;
 }
+
+.home-slide img{
+    height: 70vh;
+    object-fit: cover;
+    overflow: hidden;
+    background-position: center center;
+}
+
+#carouselExampleIndicators{
+    height: 100%;
+}
+
+.carousel-caption{
+    text-shadow: 1px 1px 2px black;
+}
+
+.match-card{
+    height: 300px;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.light-text{
+    font-size: 12px;
+    color: gray;
+}
+
+.scoreboard{
+    height: 150px;
+    line-height: 150px;
+}
+
+.scoreboard img{
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    object-fit: contain;
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+.score{
+    font-weight: bold;
+    font-size: 40px;
+    color: black;
+    margin: 5px 5px 5px 5px;
+}
+
+.group-name{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}

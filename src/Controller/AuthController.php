@@ -33,4 +33,13 @@ class AuthController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+    /**
+     * Redirection vers connection
+     * @Route("/admin", name="redirect")
+     */
+    public function redirectTolog()
+    {
+        return $this->redirectToRoute('app_login');
+    }
 }

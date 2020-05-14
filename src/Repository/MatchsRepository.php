@@ -42,6 +42,29 @@ class MatchsRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    public function findByDate($order, $limit = null)
+    {
+        return $this->createQueryBuilder('m')
+                    ->select('m, d')
+                    ->join('m.date', 'd')
+                    ->orderBy('d.date', $order)
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function findLastsResults($limit = null)
+    {
+        return $this->createQueryBuilder('m')
+                    ->select('m, d')
+                    ->where('m.isPlayed = true')
+                    ->join('m.date', 'd')
+                    ->orderBy('d.date', 'DESC')
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Matchs[] Returns an array of Matchs objects
     //  */
