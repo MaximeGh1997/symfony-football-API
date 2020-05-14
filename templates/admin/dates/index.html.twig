@@ -29,10 +29,10 @@
             <tr>
                 <td scope="row">{{date.id}}</td>
                 <td>{{date.date | date('d/m/Y')}} {{date.date | date('H:i')}}</td>
-                <td>{% if date.matchNbr %} {{date.matchNbr.team1}} - {{date.matchNbr.team2}} {% else %} A définir {% endif %}</td>
+                <td>{% if date.matchNbr %} {{date.matchNbr.team1.name}} - {{date.matchNbr.team2.name}} {% else %} A définir {% endif %}</td>
                 <td class="text-align-center">
                     <a href="{{path('admin_dates_edit', {'id':date.id})}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                    <a href="{{path('admin_dates_delete', {'id':date.id})}}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la date ?')"><i class="fas fa-trash"></i></a>
+                    <a href="{{path('admin_dates_delete', {'id':date.id})}}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la date ? Cela supprimera également le match qui lui est assigné !')"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
             {% endfor %}

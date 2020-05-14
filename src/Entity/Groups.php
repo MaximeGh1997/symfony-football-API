@@ -25,6 +25,7 @@ class Groups
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Teams", mappedBy="groupName")
+     * @ORM\OrderBy({"points" = "DESC"})
      */
     private $teams;
 

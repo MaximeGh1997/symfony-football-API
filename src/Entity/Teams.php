@@ -82,6 +82,8 @@ class Teams
 
     private $matchs;
 
+    private $matchsPlayed;
+
     private $draws;
 
     /**
@@ -122,6 +124,20 @@ class Teams
         $this->matchs = array_merge($matchs1, $matchs2);
 
         return $this->matchs;
+    }
+
+    // Permet de récuperer le nbr total de matchs joués
+    public function getMatchsPlayed()
+    {
+        $matchs = $this->getAllMatchs();
+
+        foreach($matchs as $match){
+            if($match->getIsPlayed() != false){
+                $this->matchsPlayed[] += $match->getIsPlayed();
+            }
+        }
+
+        return $this->matchsPlayed;
     }
 
     // Permet de récuperer le nombre total de matchs nul
