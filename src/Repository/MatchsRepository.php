@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Matchs;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Matchs|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,6 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MatchsRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Matchs::class);
@@ -48,6 +49,20 @@ class MatchsRepository extends ServiceEntityRepository
                     ->select('m, d')
                     ->join('m.date', 'd')
                     ->orderBy('d.date', $order)
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function findNextsMatchs($now, $limit = null)
+    {
+        return $this->createQueryBuilder('m')
+                    ->select('m, d')
+                    ->join('m.date', 'd')
+                    ->where('d.date > :now')
+                    ->andWhere('m.isPlayed IS NULL')
+                    ->orderBy('d.date', 'ASC')
+                    ->setParameter('now', $now)
                     ->setMaxResults($limit)
                     ->getQuery()
                     ->getResult();

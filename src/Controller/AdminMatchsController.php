@@ -58,7 +58,7 @@ class AdminMatchsController extends AbstractController
                         $opponent1 = $teams[mt_rand(0,3)];
                     }
 
-                $stade1 = $stades[mt_rand(0,2)];
+                $stade1 = $stades[mt_rand(0,1)];
                 
                 $teamId = $team->getId();
                 $opponent1Id = $opponent1->getId();
@@ -89,9 +89,9 @@ class AdminMatchsController extends AbstractController
                         $opponent2 = $teams[mt_rand(0,3)];
                     }
 
-                $stade2 = $stades[mt_rand(0,2)];
+                $stade2 = $stades[mt_rand(0,1)];
                     while($stade2 == $stade1){
-                        $stade2 = $stades[mt_rand(0,2)];
+                        $stade2 = $stades[mt_rand(0,1)];
                     }
 
                 $opponent2Id = $opponent2->getId();
@@ -137,7 +137,7 @@ class AdminMatchsController extends AbstractController
                     $match3->setTeam1($team)
                         ->setTeam2($opponent3)
                         ->setDate($date)
-                        ->setStade($stades[mt_rand(0,2)])
+                        ->setStade($stades[mt_rand(0,1)])
                         ->setGroupName($group);
                 
                     $manager->persist($match3);

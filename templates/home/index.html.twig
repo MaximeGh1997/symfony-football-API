@@ -3,7 +3,13 @@
 {% block title %}Acceuil{% endblock %}
 
 {% block body %}
-<div class="home-slide">
+    <div class="row d-flex h-75" style="background-image: url(/uploads/body_background.jpg); background-attachment: fixed; color: white;">
+        <div class="col-10 offset-1 text-center align-self-center">
+            <h5 class="special-font mb-2" style="font-size: 30px; text-shadow: 1px 1px 2px rgba(21, 78, 88, 0.7);">L'UEFA EURO 2020 est une compétition de football internationale rassemblant les meilleures nations européennes</h5>
+            <p class="special-font" style="font-size: 20px; text-shadow: 1px 1px 2px rgba(21, 78, 88, 0.7);">Découvrez les équipes engagées, stades, résultats et classement et échangez avec d'autres passionnés sur les plus belles rencontres de football européennes !</p>
+        </div>  
+    </div>
+<div class="home-slider">
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -45,27 +51,33 @@
 </div>
 
 <div class="container">
-    <h3 class="mt-3 mb-3">Les 3 prochaines rencontres</h3>
-    {% for match in nextsMatchs %}
-        {% if match.date.date > now and not match.isPlayed %}
-            <p>Match n°{{match.id}}</p>
-            <p>{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}</p>
-        {% endif %}
-    {% endfor %}
+    <h3 class="mt-3 mb-3 special-font">Prochaines rencontres</h3>
+    <div class="row justify-content-center mt-5 mb-5">
+        {% for match in nextsMatchs %}
+                <div class="col-3 match-card justify-content-center text-center">
+                    <p class="light-text text-center">{{match.stade.name}} <br> Groupe {{match.groupName.name}}</p>
+                    <div class="row scoreboard justify-content-center"><img src="{{match.team1.logo}}" alt=""> <div class="light-text text-center" style="font-size: 15px;">{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}</div> <img src="{{match.team2.logo}}" alt=""></div>
+                    <button type="button" class="btn btn-outline-info mt-4">Voir plus</button>
+                </div>
+        {% endfor %}
+    </div>
+    
 
-    <h3 class="mt-3 mb-3">Les 3 derniers résultats</h3>
-    {% if lastsMatchs|length >= 3 %}
-        <div class="row justify-content-center">
+    <h3 class="mt-3 mb-3 special-font">Derniers résultats</h3>
+    {% if lastsMatchs|length >= 1 %}
+        <div class="row justify-content-center mt-5 mb-5">
             {% for match in lastsMatchs %}
-                <div class="col-3 match-card justify-content-center">
-                    <p class="light-text text-center">{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}} <br> {{match.stade.name}}</p>
+                <div class="col-3 match-card justify-content-center text-center">
+                    <p class="light-text text-center">{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}} <br> {{match.stade.name}} <br> Groupe {{match.groupName.name}} {%  if match.date.date > now %} <br> (Match simulé) {% endif %}</p>
                     <div class="row scoreboard justify-content-center"><img src="{{match.team1.logo}}" alt=""> <div class="score">{{match.scoreT1}} - {{match.scoreT2}}</div> <img src="{{match.team2.logo}}" alt=""></div>
-                    <p class="light-text text-center group-name">Groupe {{match.groupName.name}}</p>
+                    <button type="button" class="btn btn-outline-info">Voir plus</button>
                 </div>
             {% endfor %}
         </div>
     {% else %}
-        <h4>Aucun match n'a encore été joué</h4>
+        <div class="row match-card mt-5 mb-5">
+            <h4 class="col-12 align-self-center text-center special-font">Aucun match n'a encore été joué</h4>
+        </div> 
     {% endif %}
 </div>
 

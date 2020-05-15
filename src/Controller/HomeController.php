@@ -19,7 +19,7 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'lastsMatchs' => $matchsRepo->findLastsResults(3),
-            'nextsMatchs' => $matchsRepo->findByDate('ASC', 3),
+            'nextsMatchs' => $matchsRepo->findNextsMatchs($now, 3),
             'now' => $now
         ]);
     }
