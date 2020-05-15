@@ -10,15 +10,20 @@ html,body{
     height: 100%;
 }
 
+a{
+    text-decoration: none;
+}
+
 .special-font{
     font-family: 'Ubuntu', sans-serif;
 }
 
-.logo-team{
+.logo-team-admin{
     width: 40px;
     height: 40px;
     border-radius: 40px;
-    object-fit: contain;
+    object-fit: cover;
+    border: 2px solid lightgray;
 }
 
 .home-slider img{
@@ -57,13 +62,15 @@ html,body{
 }
 
 .scoreboard img{
-    width: 80px;
-    height: 80px;
-    border-radius: 80px;
-    object-fit: contain;
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    border: 2px solid lightgray;
+    object-fit: cover;
     position: relative;
     top:50%;
     transform: translateY(-50%);
+    margin: 0px 10px 0px 10px;
 }
 
 .score{
@@ -71,4 +78,25 @@ html,body{
     font-size: 40px;
     color: black;
     margin: 5px 5px 5px 5px;
+}
+
+/** PAGE TEAMS **/
+
+.logo-team{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    object-fit: cover;
+    border: 2px solid lightgray;
+}
+
+.team a{
+    color: black;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s;
+}
+
+.team a:hover{
+    color: rgb(66, 66, 66);
 }

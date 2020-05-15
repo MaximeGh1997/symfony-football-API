@@ -29,6 +29,16 @@ class TeamsRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    public function findOrderName($limit = null)
+    {
+        return $this->createQueryBuilder('t')
+                    ->select('t')
+                    ->orderBy('t.name', 'ASC')
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Teams[] Returns an array of Teams objects
     //  */

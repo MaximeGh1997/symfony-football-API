@@ -29,7 +29,7 @@
             {% for team in teams %}
             <tr>
                 <td scope="row">{{team.id}}</td>
-                <td><img src="{{team.logo}}" alt="" class="logo-team"></td>
+                <td><img src="{{team.logo}}" alt="" class="logo-team-admin"></td>
                 <td>{{team.name}}</td>
                 <td>{{team.createdAt | date('d/m/Y')}} {{team.createdAt | date('H:i')}}</td>
                 <td class="text-align-center">
