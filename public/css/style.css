@@ -10,6 +10,49 @@ html,body{
     height: 100%;
 }
 
+/** NAV **/
+
+nav{
+    background-image: url(/uploads/body_background.jpg);
+    box-shadow: 1px 1px 4px rgba(21, 78, 88, 0.7);
+}
+
+nav a{
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    font-size: 20px;
+    transition: all 0.4s;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+}
+
+nav a:hover{
+    color:  rgb(21, 85, 97);
+    text-shadow: none;
+}
+
+
+/** FOOTER **/
+
+footer{
+    background-image: url(/uploads/body_background.jpg);
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+}
+
+footer a{
+    color: white;
+    transition: all 0.4s;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+}
+
+
+footer a:hover{
+    color:  rgb(21, 85, 97);
+    text-decoration: none;
+    text-shadow: none;
+}
+
 .special-font{
     font-family: 'Ubuntu', sans-serif;
 }
@@ -70,6 +113,7 @@ html,body{
 }
 
 .score{
+    font-family: 'Ubuntu', sans-serif;
     font-weight: bold;
     font-size: 40px;
     color: black;
@@ -150,4 +194,30 @@ html,body{
     text-align: center;
     line-height: 50px;
     font-size: 18px;
+}
+
+/** PAGE RANKINGS **/
+
+.table-borderless td, .table-borderless th{
+    border: 0;
+}
+
+.match{
+    height: 120px;
+    border-top:1px solid lightgrey;
+    /*line-height: 120px;*/
+}
+
+.match .score{
+    font-size: 30px;
+    margin: 0px;
+}
+
+.match .logo-team{
+    width: 50px;
+    height: 50px;
+    border-radius: 60px;
+    object-fit: cover;
+    border: 2px solid lightgray;
+
 }

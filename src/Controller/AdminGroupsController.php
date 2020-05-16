@@ -74,6 +74,7 @@ class AdminGroupsController extends AbstractController
                 
             foreach ($teams as $team) {
                 $group->removeTeam($team);
+                $team->setPoints(0);
                 $manager->persist($team);
                 $manager->persist($group);
             }

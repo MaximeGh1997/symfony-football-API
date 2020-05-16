@@ -6,6 +6,7 @@ use App\Entity\Groups;
 use App\Entity\Matchs;
 use App\Form\MatchScoreType;
 use App\Repository\DatesRepository;
+use App\Repository\TeamsRepository;
 use App\Repository\GroupsRepository;
 use App\Repository\MatchsRepository;
 use App\Repository\StadesRepository;
@@ -289,14 +290,22 @@ class AdminMatchsController extends AbstractController
      * 
      * @return Response
      */
-    public function emptying(MatchsRepository $matchsRepo, EntityManagerInterface $manager)
+    public function emptying(MatchsRepository $matchsRepo, TeamsRepository $teamsRepo, EntityManagerInterface $manager)
     {
         $matchs = $matchsRepo->findAll();
+        $teams = $teamsRepo->findAll();
 
         foreach ($matchs as $match) {
                 $manager->remove($match);
                 $manager->flush();
             }
+        
+        foreach ($teams as $team){
+            $team->setPoints(0);
+            $manager->persist($team);
+        }
+
+        $manager->flush();
 
         $this->addFlash(
             "success",
