@@ -10,9 +10,9 @@
             <div class="row">
                 {% for team in teams %}
                 <div class="team col-2 text-center mt-3 mb-3">
-                    <a href="{{path('teams_show', {'id':team.id})}}" class="text-center">
-                        <img src="{{team.logo}}" alt="" class="logo-team mb-2">
-                        <h5 class="special-font text-center">{{team.name}}</h5>
+                    <a href="{{path('teams_show', {'id':team.id})}}" class="text-center special-font">
+                        <img src="{{team.logo}}" alt="" class="logo-team mb-2"><br>
+                        {{team.name}}
                     </a>
                 </div>
                 {% endfor %}

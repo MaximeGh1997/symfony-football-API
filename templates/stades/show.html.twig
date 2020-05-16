@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{stade.name}}{% endblock %}
+
+{% block body %}
+    <div class="team-cover mb-5">
+        <img src="{{stade.cover}}" alt="">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 stade-icon">
+                <img src="/uploads/stadium-icon.png" alt="">
+            </div>
+            <div class="col-6 align-self-center">
+                <h1 class="special-font team-title">{{stade.name}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="info-stade">
+                <ul>
+                    <li>Ville: <em>{{stade.city}}</em></li>
+                    <li>Capacité: <em>{{stade.capacity}} places</em></li>
+                    <li>Résident: {% if stade.resident %} <em>{{stade.resident.name}}</em> {% else %} / {% endif %}</li>
+                    <li>Hôte du groupe <em>{{stade.groups.name}}</em></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row team-desc">
+            <p>
+                {{stade.description | raw }}
+            </p>
+        </div>
+    </div> 
+{% endblock %}

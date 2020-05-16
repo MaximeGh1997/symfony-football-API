@@ -19,6 +19,16 @@ class StadesRepository extends ServiceEntityRepository
         parent::__construct($registry, Stades::class);
     }
 
+    public function findOrderName($limit = null)
+    {
+        return $this->createQueryBuilder('s')
+                    ->select('s')
+                    ->orderBy('s.name', 'ASC')
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Stades[] Returns an array of Stades objects
     //  */
