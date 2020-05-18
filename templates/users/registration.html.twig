@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    {% if not app.user %}
+    <div class="container register">
+        <h1 class="mb-3 special-font">Inscription sur SymFoot</h1>
+        {{form_start(form)}}
+
+        {{form_widget(form)}}
+            <button type="submit" class="btn btn-info">Confirmez l'inscription</button>
+        {{form_end(form)}}
+    </div>
+    {% else %}
+    <div class="container register h-100">
+        <p class="mb-3 text-center">
+            Vous avez déjà un compte, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+        </p>
+    </div>
+    {% endif %}
+{% endblock %}

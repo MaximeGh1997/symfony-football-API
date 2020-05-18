@@ -2,13 +2,20 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
+ * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
+ *  fields={"username"},
+ *  message="Ce nom d'utilisateur est déjà pris, choisissez en un autre"
+ * )
  */
 class Users implements UserInterface
 {
@@ -36,6 +43,11 @@ class Users implements UserInterface
     private $password;
 
     /**
+     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas correctement confirmé votre mot de passe")
+     */
+    public $passwordConfirm;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
@@ -52,6 +64,8 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Image(mimeTypes={"image/png","image/jpeg","image/gif"}, mimeTypesMessage="Vous devez uploade un fichier png, jpg ou gif")
+     * @Assert\File(maxSize="1024k", maxSizeMessage="taille du fichier trop grande")
      */
     private $picture;
 
@@ -68,6 +82,19 @@ class Users implements UserInterface
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+    }
+
+    /**
+     * Permet d'intialiser le role user
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializeRole()
+    {
+            if(empty($this->roles)){
+                $this->roles[] = 'ROLE_USER';
+            }
     }
 
     public function getId(): ?int
@@ -94,6 +121,7 @@ class Users implements UserInterface
 
     /**
      * @see UserInterface
+     * 
      */
     public function getRoles(): array
     {
