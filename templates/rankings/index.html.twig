@@ -66,15 +66,19 @@
                     <div class="col-2 align-self-center"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
                     {% if match.isPlayed %}
                         <div class="col-4 score">
+                        <a href="{{path('matchs_show',{'id':match.id})}}">
                             <div class="row justify-content-center align-self-center">
                             {{match.scoreT1}} - {{match.scoreT2}}
                             </div>
+                        </a>
                         </div>
                     {% else %}
-                        <div class="col-4 light-text align-self-center" style="font-size: 14px;">
+                        <div class="col-4 align-self-center">
+                        <a href="{{path('matchs_show',{'id':match.id})}}" class="light-text" style="font-size: 14px; color: gray;">
                             <div class="row justify-content-center">Groupe {{match.groupName.name}}</div>
                             <div class="row justify-content-center">{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}</div>
                             <div class="row justify-content-center">{{match.stade.name}}</div>
+                        </a>
                         </div>
                     {% endif %}
                     <div class="col-2 align-self-center"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>
@@ -92,15 +96,19 @@
                     <div class="col-2 align-self-center"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
                     {% if match.isPlayed %}
                         <div class="col-4 score">
+                        <a href="{{path('matchs_show',{'id':match.id})}}">
                             <div class="row justify-content-center align-self-center">
                             {{match.scoreT1}} - {{match.scoreT2}}
                             </div>
+                        </a>
                         </div>
                     {% else %}
-                        <div class="col-4 light-text align-self-center" style="font-size: 14px;">
+                        <div class="col-4 align-self-center">
+                        <a href="{{path('matchs_show',{'id':match.id})}}" class="light-text" style="font-size: 14px; color: gray;">
                             <div class="row justify-content-center">Groupe {{match.groupName.name}}</div>
                             <div class="row justify-content-center">{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}</div>
                             <div class="row justify-content-center">{{match.stade.name}}</div>
+                        </a>
                         </div>
                     {% endif %}
                     <div class="col-2 align-self-center"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>

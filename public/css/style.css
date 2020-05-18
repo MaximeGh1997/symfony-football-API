@@ -12,12 +12,12 @@ html,body{
 
 /** NAV **/
 
-nav{
+.nav-front{
     background-image: url(/uploads/body_background.jpg);
     box-shadow: 1px 1px 4px rgba(21, 78, 88, 0.7);
 }
 
-nav a{
+.nav-front a{
     font-family: 'Ubuntu', sans-serif;
     color: white;
     font-size: 20px;
@@ -25,7 +25,7 @@ nav a{
     text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
 }
 
-nav a:hover{
+.nav-front a:hover{
     color:  rgb(21, 85, 97);
     text-shadow: none;
 }
@@ -33,21 +33,21 @@ nav a:hover{
 
 /** FOOTER **/
 
-footer{
+.footer-front{
     background-image: url(/uploads/body_background.jpg);
     font-family: 'Ubuntu', sans-serif;
     color: white;
     text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
 }
 
-footer a{
+.footer-front a{
     color: white;
     transition: all 0.4s;
     text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
 }
 
 
-footer a:hover{
+.footer-front a:hover{
     color:  rgb(21, 85, 97);
     text-decoration: none;
     text-shadow: none;
@@ -205,7 +205,16 @@ footer a:hover{
 .match{
     height: 120px;
     border-top:1px solid lightgrey;
-    /*line-height: 120px;*/
+}
+
+.match a{
+    color: black;
+    display: block;
+}
+
+.match a:hover{
+    text-decoration: none;
+    color: black;
 }
 
 .match .score{
@@ -220,4 +229,143 @@ footer a:hover{
     object-fit: cover;
     border: 2px solid lightgray;
 
+}
+
+/** PAGE LOGIN **/
+
+.login-bloc{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.login-bloc a{
+    color: rgb(34, 127, 143);
+}
+
+.login-bloc a:hover{
+    text-decoration: none;
+    color: rgb(27, 99, 112);
+}
+
+/** PAGE MATCH SHOW **/
+
+.match-cover{
+    margin-top: 65px;
+    height: 400px;
+    background-image: url(/uploads/match-background2.jpg);
+    background-size: 100%;
+    background-position: center;
+}
+
+.match-cont{
+    padding-top: 100px;
+}
+
+.match-cont .match-info{
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.match-info .light-text{
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 1px black;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.match-scoreboard{
+    height: 150px;
+    font-size: 35px;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    text-shadow: 1px 1px 4px black;
+}
+
+.match-scoreboard .logo-team{
+    width: 90px;
+    height: 90px;
+    border-radius: 90px;
+    border: 3px solid lightgrey;
+}
+
+.match-info{
+    height: 250px;
+    background-color: rgb(247, 247, 247);
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.match-info a{
+    height: 130px;
+    margin: auto;
+    color: black;
+    transition: all 0.2s;
+}
+
+.match-info a:hover{
+    text-decoration: none;
+    color: rgb(21, 85, 97);
+}
+
+.match-info .team-flag img{
+    width: 150px;
+    height: 100px;
+    margin-bottom: 5px;
+}
+
+.team-stat{
+    height: 250px;
+    background-color: rgb(247, 247, 247);
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.team-stat .stat{
+    margin: auto;
+}
+
+.team-stat .stat p{
+    margin-bottom: 0;
+}
+
+.team-stat .stat .stat-nbr{
+    height: 100px;
+    width: 100px;
+    border-radius: 100px;
+    border: 3px solid rgb(34, 127, 143);
+    font-size: 40px;
+    margin: auto;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.team-stat .stat .stat-nbr-wins{
+    height: 100px;
+    width: 100px;
+    border-radius: 100px;
+    border: 3px solid rgb(48, 230, 72);
+    font-size: 40px;
+    margin: auto;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.team-stat .stat .stat-nbr-defeats{
+    height: 100px;
+    width: 100px;
+    border-radius: 100px;
+    border: 3px solid rgb(255, 55, 55);
+    font-size: 40px;
+    margin: auto;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.stat-nbr div, .stat-nbr-wins div, .stat-nbr-defeats div{
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
 }

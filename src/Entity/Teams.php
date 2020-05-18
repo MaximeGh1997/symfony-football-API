@@ -86,6 +86,8 @@ class Teams
 
     private $draws;
 
+    private $goals;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -151,6 +153,21 @@ class Teams
             }
         }
         return $this->draws;
+    }
+
+    // Permet de récupérer le nbr de buts marqués
+    public function getGoals(){
+        $this->goals = 0;
+
+        foreach ($this->homeMatchs as $match) {
+            $this->goals = $this->goals + $match->getScoreT1();
+        }
+
+        foreach ($this->awayMatchs as $match) {
+            $this->goals = $this->goals + $match->getScoreT2();
+        }
+
+        return $this->goals;
     }
 
     public function __construct()

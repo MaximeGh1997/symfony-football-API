@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{match.team1.name}} - {{match.team2.name}}{% endblock %}
+
+{% block body %}
+<div class="match-cover align-self-center">
+    <div class="container h-100 align-self-center match-cont">
+        <div class="row justify-content-center align-self-center match-info">
+            <p class="text-center light-text">{{match.stade.name}} - {{match.stade.city}} <br> Groupe {{match.groupName.name}}</p>
+        </div>
+        <div class="row match-scoreboard">
+            <div class="col-2 align-self-center text-right">{{match.team1.name}}</div>
+            <div class="col-2 align-self-center text-left"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
+            <div class="col-4 align-self-center text-center">
+                {% if match.isPlayed %}
+                    {{match.scoreT1}} - {{match.scoreT2}}
+                {% else %}
+                    {{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}
+                {% endif %}
+            </div>
+            <div class="col-2 align-self-center text-right"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>
+            <div class="col-2 align-self-center text-left">{{match.team2.name}}</div>
+            
+        </div>  
+    </div>
+</div>
+<div class="container mt-5 mb-5">
+    <h3 class="special-font">Infos de base</h3>
+    <div class="row mt-3 mb-5">
+        <div class="col-8 offset-2">
+            <div class="row match-info">
+                <a href="{{path('teams_show', {'id':match.team1.id} )}}">
+                    <div class="team-flag">
+                        <img src="{{match.team1.logo}}" alt="">
+                        <p class="special-font align-self-center">{{match.team1.name}}</p>
+                    </div>
+                </a>
+                <a href="{{path('stades_show', {'id':match.stade.id} )}}">
+                    <div class="team-flag">
+                        <img src="{{match.stade.cover}}" alt="">
+                        <p class="special-font align-self-center">{{match.stade.name}}</p>
+                    </div>
+                </a>
+                <a href="{{path('teams_show', {'id':match.team2.id} )}}">
+                    <div class="team-flag">
+                        <img src="{{match.team2.logo}}" alt="">
+                        <p class="special-font align-self-center">{{match.team2.name}}</p>
+                    </div>
+                </a> 
+            </div>
+        </div>
+    </div>
+    
+    <h3 class="special-font">Statistiques {{match.team1.name}}</h3>
+    <div class="row mt-3 mb-5">
+        <div class="col-8 offset-2">
+            <div class="row team-stat">
+                <div class="col-3 stat">
+                    <div class="stat-nbr-wins">
+                        <div>{{match.team1.wins|length}}</div>
+                    </div>
+                    <p class="text-center">Victoires</p>
+                </div>
+                <div class="col-3 stat">
+                    <div class="stat-nbr">
+                        <div>{{match.team1.Draws|length}}</div>
+                    </div>
+                    <p class="text-center">Matchs nul</p>
+                </div>
+                <div class="col-3 stat">
+                    <div class="stat-nbr-defeats">
+                        <div>{{match.team1.defeats|length}}</div>
+                    </div>
+                    <p class="text-center">Défaites</p>
+                </div>
+                <div class="col-3 stat">
+                    <div class="stat-nbr">
+                        <div>{{match.team1.Goals}}</div>
+                    </div>
+                    <p class="text-center">Buts marqués</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <h3 class="special-font">Statistiques {{match.team2.name}}</h3>
+    <div class="row mt-3 mb-5">
+        <div class="col-8 offset-2">
+            <div class="row team-stat">
+                <div class="col-3 stat">
+                    <div class="stat-nbr-wins">
+                        <div>{{match.team2.wins|length}}</div>
+                    </div>
+                    <p class="text-center">Victoires</p>
+                </div>
+                <div class="col-3 stat">
+                    <div class="stat-nbr">
+                        <div>{{match.team2.Draws|length}}</div>
+                    </div>
+                    <p class="text-center">Matchs nul</p>
+                </div>
+                <div class="col-3 stat">
+                    <div class="stat-nbr-defeats">
+                        <div>{{match.team2.defeats|length}}</div>
+                    </div>
+                    <p class="text-center">Défaites</p>
+                </div>
+                <div class="col-3 stat">
+                    <div class="stat-nbr">
+                        <div>{{match.team2.Goals}}</div>
+                    </div>
+                    <p class="text-center">Buts marqués</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
