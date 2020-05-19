@@ -115,6 +115,29 @@ class Matchs
         }
     }
 
+    /**
+     * Permet de récuperer la note globale du match
+     *
+     * @return float
+     */
+    public function getGlobalRating()
+    {   
+        $comments = $this->comments->toArray();
+        $sum = 0;
+        foreach ($comments as $comment) {
+            $sum = $sum + $comment->getRating(); 
+        }
+
+        if($sum > 0){
+            $moy = $sum / count($comments);
+
+            return round($moy,1);
+        }
+        else{
+            return 0;
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;

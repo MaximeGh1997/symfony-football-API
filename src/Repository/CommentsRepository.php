@@ -19,6 +19,45 @@ class CommentsRepository extends ServiceEntityRepository
         parent::__construct($registry, Comments::class);
     }
 
+    public function findByUserAndDate($user, $limit = null)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.author = :user')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setParameter('user', $user)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByMatchAndDate($match, $limit = null)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.matchNbr = :match')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setParameter('match', $match)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByRatings($match, $limit = null)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.matchNbr = :match')
+            ->andWhere('c.rating IS NOT NULL')
+            ->setParameter('match', $match)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Comments[] Returns an array of Comments objects
     //  */

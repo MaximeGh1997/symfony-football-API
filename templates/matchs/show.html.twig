@@ -114,5 +114,55 @@
             </div>
         </div>
     </div>
+
+    <h3 class="special-font">Avis & commentaires</h3>
+    <hr>
+    {% if app.user %}
+        {{ form_start(form) }}
+            {% if match.isPlayed %}
+                <div class="rating" name="rating">
+                    {% for i in 1..5 %}
+                        <i value={{i}} class="fa fa-star"></i>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {{form_widget(form)}}
+            <button type="submit" class="btn btn-info">Envoyer</button>
+        {{form_end(form)}}
+    {% endif %}
+    <hr>
+    {% if rating|length > 0 and match.isPlayed %}
+        <p class="special-font">Note globale: <strong>{{match.GlobalRating}}</strong></p>
+    {% elseif not match.isPlayed %}
+    
+    {% else %}
+        <p class="special-font">Ce match n'a pas encore été noté</p>
+    {% endif %}
+    {% for comment in comments %}
+    {% if comment.author == app.user %}
+        <div class="row justify-content-center mt-2 mb-2">
+            <div class="col-1 align-self-center text-center">
+                <img src="/uploads/{{comment.author.picture}}" alt="avatar de {{comment.author.username}}" class="avatar-medium">
+            </div>
+            <div class="col-6 comment" style="background-color: rgb(230, 230, 230);">
+                <p class="font-italic">Vous {% if comment.rating %} avez donné une note de {{comment.rating}}/5 {% endif %}</p>
+                <p class="content">{{comment.content}}</p>
+                <p class="light-text font-italic date">le {{comment.createdAt | date('d/m/Y')}} à {{comment.createdAt | date('H:i')}}</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="row justify-content-center mt-2 mb-2">
+            <div class="col-6 comment">
+                <p class="font-italic"><a href="{{path('user_show',{id:comment.author.id})}}">@{{comment.author.username}}</a>
+                {% if comment.rating %} à donné une note de {{comment.rating}}/5 {% endif %}</p>
+                <p class="content">{{comment.content}}</p>
+                <p class="light-text font-italic date">le {{comment.createdAt | date('d/m/Y')}} à {{comment.createdAt | date('H:i')}}</p>
+            </div>
+            <div class="col-1 align-self-center text-center">
+                <img src="/uploads/{{comment.author.picture}}" alt="avatar de {{comment.author.username}}" class="avatar-medium">
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}

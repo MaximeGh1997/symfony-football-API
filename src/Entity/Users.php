@@ -98,6 +98,19 @@ class Users implements UserInterface
             }
     }
 
+     /**
+     * Permet d'initialiser une photo de profil
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializePP()
+    {
+        if(empty($this->picture)){
+            $this->setPicture('unknow.jpg');
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;

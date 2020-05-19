@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentsRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Comments
 {
@@ -42,6 +43,18 @@ class Comments
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
+
+    /**
+     * Permet d'intialiser la date de création
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializeCreatedAt(){
+        if(empty($this->createdAt)){
+            $this->createdAt = new \DateTime('Europe/Brussels');
+        }
+    }
 
     public function getId(): ?int
     {

@@ -8,6 +8,7 @@ use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
 use Symfony\Component\Form\FormError;
+use App\Repository\CommentsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,10 +24,14 @@ class UsersController extends AbstractController
      * Permet d'afficher le profil d'un utilisateur
      * @Route("/user/{id}", name="user_show")
      */
-    public function index(Users $user)
+    public function index(Users $user, CommentsRepository $commentsRepo)
     {
+        $userId = $user->getId();
+        $comments = $commentsRepo->findByUserAndDate($userId);
+
         return $this->render('users/index.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'comments' => $comments
         ]);
     }
 
@@ -37,9 +42,14 @@ class UsersController extends AbstractController
      *
      * @return Response
      */
-    public function myAccount(){
+    public function myAccount(CommentsRepository $commentsRepo)
+    {
+        $userId = $this->getUser()->getId();
+        $comments = $commentsRepo->findByUserAndDate($userId);
+
         return $this->render('users/index.html.twig',[
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
+            'comments' => $comments
         ]);
     }
 
@@ -217,10 +227,11 @@ class UsersController extends AbstractController
     public function removeImage(EntityManagerInterface $manager){
 
         $user = $this->getUser();
-        if(!empty($user->getPicture())){
+        $unknow = "unknow.jpg";
+        if($user->getPicture() !== $unknow){
             unlink($this->getParameter('uploads_directory').'/'.$user->getPicture());
         }
-        $user->setPicture(null);
+        $user->setPicture($unknow);
         $manager->persist($user);
         $manager->flush();
 

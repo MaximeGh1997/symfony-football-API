@@ -3,6 +3,7 @@
 *{
     margin:0px;
     padding:0px;
+    /*overflow-x: hidden;*/
 }
 
 html,body{
@@ -14,13 +15,15 @@ html,body{
 
 .nav-front{
     background-image: url(/uploads/body_background.jpg);
-    box-shadow: 1px 1px 4px rgba(21, 78, 88, 0.7);
+    box-shadow: 1px 1px 3px rgba(21, 78, 88, 0.7);
 }
 
 .nav-front a{
     font-family: 'Ubuntu', sans-serif;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
+    margin-left: 10px;
+    margin-right: 10px;
     transition: all 0.4s;
     text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
 }
@@ -28,6 +31,33 @@ html,body{
 .nav-front a:hover{
     color:  rgb(21, 85, 97);
     text-shadow: none;
+}
+
+.avatar-mini{
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    object-fit: cover;
+}
+
+.dropdown-menu{
+    background-image: url(/uploads/body_background.jpg);
+    height: auto;
+}
+
+.dropdown-menu a{
+    margin: 0 auto;
+    padding: 0;
+    font-size: 15px;
+    text-align: center;
+}
+
+.dropdown-menu a:hover{
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.dropdown-menu .dropdown-divider{
+    border-top: 1px solid rgb(32, 126, 143) ;s
 }
 
 
@@ -62,7 +92,7 @@ html,body{
     height: 40px;
     border-radius: 40px;
     object-fit: cover;
-    border: 2px solid lightgray;
+    border: 2px solid rgb(228, 228, 228);
 }
 
 .home-slider img{
@@ -98,13 +128,14 @@ html,body{
 .scoreboard{
     height: 150px;
     line-height: 150px;
+    overflow: hidden;
 }
 
 .scoreboard img{
     width: 60px;
     height: 60px;
     border-radius: 60px;
-    border: 2px solid lightgray;
+    border: 2px solid rgb(228, 228, 228);
     object-fit: cover;
     position: relative;
     top:50%;
@@ -127,7 +158,7 @@ html,body{
     height: 60px;
     border-radius: 60px;
     object-fit: cover;
-    border: 2px solid lightgray;
+    border: 2px solid rgb(228, 228, 228);
 }
 
 .team a{
@@ -282,6 +313,7 @@ html,body{
 .match-cont .match-info{
     height: 50px;
     background-color: rgba(255, 255, 255, 0);
+    /*overflow: hidden;*/
 }
 
 .match-info .light-text{
@@ -303,7 +335,7 @@ html,body{
     width: 90px;
     height: 90px;
     border-radius: 90px;
-    border: 3px solid lightgrey;
+    border: 3px solid rgb(228, 228, 228);
 }
 
 .match-info{
@@ -311,6 +343,7 @@ html,body{
     background-color: rgb(247, 247, 247);
     padding: 10px;
     border-radius: 20px;
+    /*overflow: hidden;*/
 }
 
 .match-info a{
@@ -318,6 +351,7 @@ html,body{
     margin: auto;
     color: black;
     transition: all 0.2s;
+    overflow: hidden;
 }
 
 .match-info a:hover{
@@ -384,4 +418,65 @@ html,body{
     top: 50%;
     left:50%;
     transform: translate(-50%,-50%);
+}
+
+/** COMMENTS **/
+
+.rating{
+    height: 40px;
+    width: 130px;
+}
+
+.rating .fa-star {
+    color: gray;
+    cursor: pointer;
+    margin: -3.5px;
+    font-size: 25px;
+    display: inline;
+}
+
+.rating:hover .fa-star {
+    color: #ffdc0f;
+}
+
+.rating .fa-star:hover ~ .fa-star {
+    color: gray;
+}
+
+.avatar-medium{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    object-fit: cover;
+}
+
+.comment{
+    height: auto;
+    background-color: rgb(247, 247, 247);
+    border-radius: 10px;
+    padding: 15px;
+    line-height: 15px;
+}
+
+.comment a{
+    color: rgb(34, 127, 143);
+    font-style: italic;
+}
+
+.comment a:hover{
+    color: rgb(21, 85, 97);
+    text-decoration: none;
+}
+
+.comment .content{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.comment .date{
+    margin-bottom: 0px;
+}
+
+.comment-title{
+    color: rgb(34, 127, 143);
 }
