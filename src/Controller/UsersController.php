@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Users;
 use App\Form\AccountType;
+use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
+use App\Form\PasswordUpdateType;
+use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,9 +107,10 @@ class UsersController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function profile(Request $request, EntityManagerInterface $manager){
+    public function edit(Request $request, EntityManagerInterface $manager){
         
         $user = $this->getUser(); //récup l'utilisateur connecté
+        $userPic = $user->getPicture();
 
         $form = $this->createForm(AccountType::class, $user);
 
@@ -129,6 +133,10 @@ class UsersController extends AbstractController
                     return $e->getMessage();
                 }
                 $user->setPicture($newFilename);
+            }else{
+                if(!empty($userPic)){
+                    $user->setPicture($userPic);
+                }
             }
 
             $manager->persist($user);
@@ -136,7 +144,7 @@ class UsersController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Les données ont été enregistrées avec succés'
+                'Votre profil à bien été modifié'
             );
 
             return $this->redirectToRoute('account_index');
@@ -147,5 +155,80 @@ class UsersController extends AbstractController
             'form' => $form->createView()
         ]);
 
+    }
+
+    /**
+     * Permet de modifier le mdp
+     * @Route("/account/password-update", name="account_password")
+     * @IsGranted("ROLE_USER")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param UserPasswordEncoderInterface $encoder
+     * @return Response
+     */
+    public function updatePassword(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
+
+        $passwordUpdate = new PasswordUpdate(); // fausse entité
+
+        $user = $this->getUser(); // récup l'utilisateur connecté
+
+        $form = $this->createForm(PasswordUpdateType::class,$passwordUpdate);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            // verification que le mot de passe corresponde à l'ancien (oldPassword)
+            if(!password_verify($passwordUpdate->getOldPassword(), $user->getPassword())){
+                //Gérer l'érreur
+                $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez inséré est incorrect"));
+            }else{
+                $newPassword = $passwordUpdate->getNewPassword();
+                $hash = $encoder->encodePassword($user,$newPassword);
+
+                $user->setPassword($hash);
+                $manager->persist($user);
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    'Votre mot de passe à bien été modifié'
+                );
+
+                return $this->redirectToRoute('account_index');
+            } 
+
+        }
+
+        return $this->render('users/password.html.twig',[
+
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * Permet de supp l'image de l'user
+     * @Route("/account/delimg", name="account_delimg")
+     * @IsGranted("ROLE_USER")
+     *
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function removeImage(EntityManagerInterface $manager){
+
+        $user = $this->getUser();
+        if(!empty($user->getPicture())){
+            unlink($this->getParameter('uploads_directory').'/'.$user->getPicture());
+        }
+        $user->setPicture(null);
+        $manager->persist($user);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            'Votre image à bien été supprimée'
+        );
+
+        return $this->redirectToRoute('account_index');
     }
 }

@@ -16,12 +16,12 @@ class AccountType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, $this->getConfiguration('Nom d\'utilisateur','Votre nom d\'utilisateur'))
+            /*->add('username', TextType::class, $this->getConfiguration('Nom d\'utilisateur','Votre nom d\'utilisateur'))*/
             ->add('firstname', TextType::class, $this->getConfiguration('Prénom','Votre Prénom'))
             ->add('lastname', TextType::class, $this->getConfiguration("Nom", "Votre nom"))
             ->add('email', EmailType::class, $this->getConfiguration("Email", "Votre adresse e-mail"))
             ->add('picture', FileType::class, [
-                'label' => "Image de profil (jpg,png,gif) (sera supprimé si vous laissez le champ vide !)",
+                'label' => "Image de profil (jpg,png,gif)",
                 'required' => false,
                 'data_class' => null
             ]);
