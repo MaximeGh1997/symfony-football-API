@@ -3,7 +3,7 @@
 {% block title %}Modification de la date{% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container h-100 cont-admin">
     <h3 class="mt-3 mb-3">Modification de la date <strong>{{date.date | date('d/m/Y')}} {{date.date | date('H:i')}}</strong></h3>
     {{form_start(form)}}
         {{form_widget(form)}}

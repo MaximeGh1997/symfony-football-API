@@ -10,7 +10,7 @@
         </div>
         <div class="col-10">
             <h1 style="overflow: hidden;">{{user.firstname}} {{user.lastname}}</h1>
-            <p class="font-italic">@{{user.username}} - {{user.email}}</p>
+            <p class="font-italic">@{{user.username}}{% if user is same as (app.user) %} - {{user.email}}{% endif %}</p>
             {% if user is same as (app.user) %}
                 <div class="mt-3">
                     {% for label, messages in app.flashes %}

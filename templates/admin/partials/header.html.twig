@@ -1,10 +1,12 @@
-<nav class="navbar navbar-light bg-light nav nav-pills nav-fill">
-   <a class="navbar-brand" href="{{path('home')}}">
-    <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
+<nav class="navbar navbar-expand-lg bg-light fixed-top nav-back">
+   <a class="navbar-brand" href="{{path('admin_teams_index')}}">
+    <img src="/uploads/UEFA_Euro_2020_Logo.svg.png" width="35" height="40" alt="">
    </a>
-   <a class="nav-item nav-link" href="{{path('admin_teams_index')}}">Les équipes</a>
-   <a class="nav-item nav-link" href="{{path('admin_stades_index')}}">Les stades</a>
-   <a class="nav-item nav-link" href="{{path('admin_groups_index')}}">Les groupes</a>
-   <a class="nav-item nav-link" href="{{path('admin_matchs_index')}}">Les matchs</a>
-   <a class="nav-item nav-link" href="{{path('admin_dates_index')}}">Le calendrier</a>
+   <h4>Administration</h4>
+   <a class="nav-item nav-link" href="{{path('admin_teams_index')}}">Equipes</a>
+   <a class="nav-item nav-link" href="{{path('admin_stades_index')}}">Stades</a>
+   <a class="nav-item nav-link" href="{{path('admin_groups_index')}}">Groupes</a>
+   <a class="nav-item nav-link" href="{{path('admin_matchs_index')}}">Matchs</a>
+   <a class="nav-item nav-link" href="{{path('admin_dates_index')}}">Calendrier</a>
+   <a class="nav-item nav-link ml-auto" href="{{path('home')}}"><i class="fas fa-door-open"></i> Retour au site</a>
 </nav>

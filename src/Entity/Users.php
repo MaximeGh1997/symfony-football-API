@@ -85,19 +85,6 @@ class Users implements UserInterface
         $this->comments = new ArrayCollection();
     }
 
-    /**
-     * Permet d'intialiser le role user
-     * 
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function initializeRole()
-    {
-            if(empty($this->roles)){
-                $this->roles[] = 'ROLE_USER';
-            }
-    }
-
      /**
      * Permet d'initialiser une photo de profil
      * 

@@ -16,6 +16,13 @@
     {% if not app.user %}
         <div class="container-fluid w-50 login-bloc">
         <h3 class="h3 mb-3 font-weight-normal text-center">Connectez-vous</h3>
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}">
+                {% for message in messages %}
+                    <p>{{ message | raw }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger"><p>Nom d'utilisateur ou mot de passe incorrect !</p></div>

@@ -39,6 +39,18 @@ class TeamsRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    public function findBestsTeams($group, $limit = null)
+    {
+        return $this->createQueryBuilder('t')
+                    ->select('t')
+                    ->where('t.groupName = :group')
+                    ->orderBy('t.points', 'DESC')
+                    ->setParameter('group', $group)
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Teams[] Returns an array of Teams objects
     //  */
