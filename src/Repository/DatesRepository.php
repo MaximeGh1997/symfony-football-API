@@ -24,6 +24,7 @@ class DatesRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('d')
             ->select('d')
             ->where('d.matchNbr IS NULL')
+            ->orderBy('d.date','ASC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()

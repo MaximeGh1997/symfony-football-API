@@ -17,7 +17,8 @@
         </div>
         {% endfor %}
     </div>
-
+</div>
+<div class="container-fluid">
     {% for stage in stages %}
     <h3 class="mt-2 mb-2">{{stage.name}}</h3>
     <table class="table table-hover mb-5">
@@ -49,8 +50,8 @@
                 {% if match.stage %} <td>{{match.stage.name}}</td> {%  elseif match.groupName %} <td>Groupe {{match.groupName.name}}</td> {% endif %}
                 <td class="text-align-center">
                 {% if not match.isPlayed %}
-                    {#<a href="{{path('admin_matchs_edit', {'id':match.id})}}" class="btn btn-info"><i class="fas fa-edit"></i></a>#}
-                    {#<a href="{{path('admin_matchs_simul', {'id':match.id})}}" class="btn btn-warning" onclick="return confirm('Êtes-vous sûr de vouloir simuler ce match ?')"><i class="fas fa-forward"></i></a>#}
+                    <a href="{{path('admin_matchs_edit', {'id':match.id})}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                    <a href="{{path('admin_matchs_simul', {'id':match.id})}}" class="btn btn-warning" onclick="return confirm('Êtes-vous sûr de vouloir simuler ce match ?')"><i class="fas fa-forward"></i></a>
                 {% endif %}
                 </td>
             </tr>

@@ -134,7 +134,7 @@ class Teams
         $matchs = $this->getAllMatchs();
 
         foreach($matchs as $match){
-            if($match->getIsPlayed() != false){
+            if($match->getIsPlayed() != false && $match->getStage() == null){
                 $this->matchsPlayed[] += $match->getIsPlayed();
             }
         }

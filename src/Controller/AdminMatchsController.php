@@ -177,29 +177,35 @@ class AdminMatchsController extends AbstractController
                       ->setLooser($team2)
                       ->setDraw(false);
                 
-                $points = $team1->getPoints();
-                $newPoints = $points + 3;
-                $team1->setPoints($newPoints);
+                if($match->getStage() == null){
+                    $points = $team1->getPoints();
+                    $newPoints = $points + 3;
+                    $team1->setPoints($newPoints);
+                }
             }
             elseif($scoreT1 == $scoreT2){
                 $match->setDraw(true);
 
-                $pointsT1 = $team1->getPoints();
-                $pointsT2 = $team2->getPoints();
-                $newPointsT1 = $pointsT1 + 1;
-                $newPointsT2 = $pointsT2 + 1;
+                if($match->getStage() == null){
+                    $pointsT1 = $team1->getPoints();
+                    $pointsT2 = $team2->getPoints();
+                    $newPointsT1 = $pointsT1 + 1;
+                    $newPointsT2 = $pointsT2 + 1;
                 
-                $team1->setPoints($newPointsT1);
-                $team2->setPoints($newPointsT2);
+                    $team1->setPoints($newPointsT1);
+                    $team2->setPoints($newPointsT2);
+                }
             }
             else{
                 $match->setWinner($team2)
                       ->setLooser($team1)
                       ->setDraw(false);
                 
-                $points = $team2->getPoints();
-                $newPoints = $points + 3;
-                $team2->setPoints($newPoints);
+                if($match->getStage() == null){
+                    $points = $team2->getPoints();
+                    $newPoints = $points + 3;
+                    $team2->setPoints($newPoints);
+                }
             }
 
             $manager->persist($team1);
@@ -243,22 +249,26 @@ class AdminMatchsController extends AbstractController
                       ->setLooser($team2)
                       ->setDraw(false);
                 
-                $points = $team1->getPoints();
-                $newPoints = $points + 3;
-                $team1->setPoints($newPoints);
+                if($match->getStage() == null){
+                    $points = $team1->getPoints();
+                    $newPoints = $points + 3;
+                    $team1->setPoints($newPoints);
+                }
             }
             elseif($scoreT1 == $scoreT2){
                 $match->setScoreT1($scoreT1)
                       ->setScoreT2($scoreT2)
                       ->setDraw(true);
 
-                $pointsT1 = $team1->getPoints();
-                $pointsT2 = $team2->getPoints();
-                $newPointsT1 = $pointsT1 + 1;
-                $newPointsT2 = $pointsT2 + 1;
-                
-                $team1->setPoints($newPointsT1);
-                $team2->setPoints($newPointsT2);
+                if($match->getStage() == null){
+                    $pointsT1 = $team1->getPoints();
+                    $pointsT2 = $team2->getPoints();
+                    $newPointsT1 = $pointsT1 + 1;
+                    $newPointsT2 = $pointsT2 + 1;
+                        
+                    $team1->setPoints($newPointsT1);
+                    $team2->setPoints($newPointsT2);
+                }
             }
             else{
                 $match->setScoreT1($scoreT1)
@@ -267,9 +277,11 @@ class AdminMatchsController extends AbstractController
                       ->setLooser($team1)
                       ->setDraw(false);
                 
-                $points = $team2->getPoints();
-                $newPoints = $points + 3;
-                $team2->setPoints($newPoints);
+                if($match->getStage() == null){
+                    $points = $team2->getPoints();
+                    $newPoints = $points + 3;
+                    $team2->setPoints($newPoints);
+                }
             }
 
             $manager->persist($team1);
