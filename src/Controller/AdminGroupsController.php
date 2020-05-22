@@ -6,6 +6,7 @@ use App\Entity\Teams;
 use App\Entity\Groups;
 use App\Repository\TeamsRepository;
 use App\Repository\GroupsRepository;
+use App\Repository\MatchsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -65,27 +66,36 @@ class AdminGroupsController extends AbstractController
      * 
      * @return Response
      */
-    public function emptying(GroupsRepository $groupsRepo, EntityManagerInterface $manager)
+    public function emptying(GroupsRepository $groupsRepo, MatchsRepository $matchsRepo, EntityManagerInterface $manager)
     {
         $groups = $groupsRepo->findAll();
-
-        foreach ($groups as $group) {
+        
+        if($matchsRepo->findAll() == null){
+            
+            foreach ($groups as $group) {
             $teams = $group->getTeams()->toArray();
                 
-            foreach ($teams as $team) {
-                $group->removeTeam($team);
-                $team->setPoints(0);
-                $manager->persist($team);
-                $manager->persist($group);
+                foreach ($teams as $team) {
+                    $group->removeTeam($team);
+                    $team->setPoints(0);
+                    $manager->persist($team);
+                    $manager->persist($group);
+                }
             }
+
+            $manager->flush();
+
+            $this->addFlash(
+                "success",
+                "Les groupes ont bien été vidé"
+            );
+            return $this->redirectToRoute('admin_groups_index');
+        }else{
+            $this->addFlash(
+                "danger",
+                "Vous ne pouvez pas vider les groupes tant qu'il y des matchs au calendrier !"
+            );
+            return $this->redirectToRoute('admin_groups_index');
         }
-
-        $manager->flush();
-
-        $this->addFlash(
-            "success",
-            "Les groupes ont bien été vidé"
-        );
-        return $this->redirectToRoute('admin_groups_index');
     }
 }

@@ -20,7 +20,8 @@ class AdminDatesController extends AbstractController
     public function index(DatesRepository $datesRepo)
     {
         return $this->render('admin/dates/index.html.twig', [
-            'dates' => $datesRepo->findAll()
+            'dates' => $datesRepo->findByDate('ASC'),
+            'freeDates' => $datesRepo->findFreeDates()
         ]);
     }
 
@@ -65,7 +66,6 @@ class AdminDatesController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            //$team->setCreatedAt(new \DateTime('Europe/Brussels'));
 
             $manager->persist($date);
             $manager->flush();

@@ -84,7 +84,13 @@ class Teams
 
     private $matchsPlayed;
 
+    private $groupWins;
+
     private $draws;
+
+    private $groupDraws;
+
+    private $groupDefeats;
 
     private $goals;
 
@@ -142,7 +148,34 @@ class Teams
         return $this->matchsPlayed;
     }
 
-    // Permet de récuperer le nombre total de matchs nul
+    // Permet de récupérer le nbr de victoire (UNIQUEMENT SUR LES MATCHS DE GROUPES)
+    public function getGroupWins()
+    {
+        $matchs = $this->getWins();
+
+        foreach ($matchs as $match) {
+            if($match->getStage() == null){
+                $this->groupWins[] = $match;
+            }
+        }
+
+        return $this->groupWins;
+    }
+
+    // Permet de récuperer le nombre total de matchs nul (UNIQUEMENT SUR LES MATCHS DE GROUPES)
+    public function getGroupDraws()
+    {
+        $matchs = $this->getAllMatchs();
+
+        foreach($matchs as $match){
+            if($match->getDraw() != null && $match->getStage() == null){
+                $this->groupDraws[] += $match->getDraw();
+            }
+        }
+        return $this->groupDraws;
+    }
+
+    // Permet de récuperer le nombre total de matchs nul (SUR TOUTS LES MATCHS)
     public function getDraws()
     {
         $matchs = $this->getAllMatchs();
@@ -153,6 +186,20 @@ class Teams
             }
         }
         return $this->draws;
+    }
+
+    // Permet de récupérer le nbr de défaites (UNIQUEMENT SUR LES MATCHS DE GROUPES)
+    public function getGroupDefeats()
+    {
+        $matchs = $this->getDefeats();
+
+        foreach ($matchs as $match) {
+            if($match->getStage() == null){
+                $this->groupDefeats[] = $match;
+            }
+        }
+
+        return $this->groupDefeats;
     }
 
     // Permet de récupérer le nbr de buts marqués

@@ -34,12 +34,15 @@
             <h3>Tous les matchs</h3>
         {% endif %}
 
+        {% if group and matchs == null and dates|length >= 6 %}
+            <a href="{{path('admin_matchs_drawing', {'id':group.id})}}"><button type="button" class="btn btn-info mb-3">Tirer au sort le calendrier</button></a>
+        {% elseif group and matchs == null and dates|length < 6 %}
+            <div class="alert alert-warning">Vous devez avoir au moins 6 dates disponibles pour éffectuer le tirage au sort</div>
+        {% endif %}
+
         {% if not matchs and not group %}
             <div class="alert alert-warning">Effectuez les différents tirages au sort</div>
-        {% elseif group and matchs == null and dates|length >= 6 %}
-            <a href="{{path('admin_matchs_drawing', {'id':group.id})}}"><button type="button" class="btn btn-info mb-3">Tirer au sort le calendrier</button></a>
         {% else %}
-            <div class="alert alert-warning">Vous devez avoir au moins 6 dates disponibles pour éffectuer le tirage au sort</div>
             <table class="table table-hover mb-5">
             <thead>
                 <tr>

@@ -31,6 +31,16 @@ class DatesRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByDate($order, $limit = null)
+    {
+        return $this->createQueryBuilder('d')
+                    ->select('d')
+                    ->orderBy('d.date', $order)
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Dates[] Returns an array of Dates objects
     //  */

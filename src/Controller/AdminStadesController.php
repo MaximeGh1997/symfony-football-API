@@ -18,7 +18,7 @@ class AdminStadesController extends AbstractController
     public function index(StadesRepository $stadesRepo)
     {
         return $this->render('admin/stades/index.html.twig', [
-            'stades' => $stadesRepo->findAll()
+            'stades' => $stadesRepo->findOrderName()
         ]);
     }
 
@@ -27,6 +27,7 @@ class AdminStadesController extends AbstractController
      * 
      * @return Response
      */
+    /** Commenté car j'oblige l'admin à toujours avoir 12 stades
     public function create(Request $request, EntityManagerInterface $manager)
     {
         $stade = new Stades();
@@ -51,6 +52,7 @@ class AdminStadesController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    */
 
     /**
      * @Route("/admin/stades/{id}/edit", name="admin_stades_edit")
@@ -88,6 +90,7 @@ class AdminStadesController extends AbstractController
      * 
      * @return Response
      */
+    /** Commenté car j'oblige l'admin à toujours avoir 12 stades
     public function delete(Stades $stade, EntityManagerInterface $manager)
     {
         $manager->remove($stade);
@@ -98,4 +101,5 @@ class AdminStadesController extends AbstractController
         );
         return $this->redirectToRoute('admin_stades_index');
     }
+    */
 }

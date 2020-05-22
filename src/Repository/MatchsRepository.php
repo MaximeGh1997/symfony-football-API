@@ -80,6 +80,29 @@ class MatchsRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    public function findGroupMatchsPlayed($limit = null)
+    {
+        return $this->createQueryBuilder('m')
+                    ->select('m')
+                    ->where('m.isPlayed = true')
+                    ->andWhere('m.groupName IS NOT NULL')
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function findStageMatchsPlayed($stage, $limit = null)
+    {
+        return $this->createQueryBuilder('m')
+                    ->select('m')
+                    ->where('m.isPlayed = true')
+                    ->andWhere('m.stage = :stage')
+                    ->setParameter('stage', $stage)
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Matchs[] Returns an array of Matchs objects
     //  */

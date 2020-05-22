@@ -23,7 +23,7 @@ class AdminMatchsController extends AbstractController
      */
     public function index(MatchsRepository $matchsRepo, GroupsRepository $groupsRepo, DatesRepository $datesRepo, Request $request)
     {
-        $matchs = $matchsRepo->findAll();
+        $matchs = $matchsRepo->findByDate('DESC');
         $group = null;
 
         $groupId = $request->request->get('group'); // récupération de l'id correspondant au groupe
@@ -52,8 +52,14 @@ class AdminMatchsController extends AbstractController
         $stades = $group->getStades()->toArray();
         $dates = $datesRepo->findFreeDates();
 
-        foreach($teams as $team){
-                // Ajout Match 1
+        //RECUPERATION DES EQUIPES,STADES, ET DATES DISPO DANS LE GROUPE
+        //VERIFICATION QU'IL Y A SUFFISAMENT D'ELEMENTS POUR FAIRE LE TIRAGE
+
+        if(count($teams) == 4 && count($dates) >= 6 && count($stades) >= 2){
+            //POUR CHAQUE EQUIPE DU GROUPE ON AJOUTE 3 MATCHS
+            foreach($teams as $team){
+                // MATCH 1
+                // Choix de l'adversaire, il ne peut être égale a lui même
                 $opponent1 = $teams[mt_rand(0,3)];
                     while($opponent1 == $team){
                         $opponent1 = $teams[mt_rand(0,3)];
@@ -61,6 +67,9 @@ class AdminMatchsController extends AbstractController
 
                 $stade1 = $stades[mt_rand(0,1)];
                 
+                //Je compte le nbr de matchs que l'équipe et l'adversaire ont déjà
+                //Je récupère la clé maximale de mon tableau de dates dispos
+                //S'il reste au moins une date, j'en choisis une
                 $teamId = $team->getId();
                 $opponent1Id = $opponent1->getId();
                 $teamMatchs = count($matchsRepo->findByTeam($teamId));
@@ -70,7 +79,8 @@ class AdminMatchsController extends AbstractController
                     $date = $dates[mt_rand(0,$max)];
                 }
                 
-                
+                //Je vérifie que mon équipe et l'adversaire ont moins de 3 matchs et que j'ai une date
+                // Si oui, j'ajoute le match
                 if($teamMatchs < 3 && $opponent1Matchs < 3 && $max >= 0){
                     $match1 = new Matchs();
 
@@ -84,7 +94,8 @@ class AdminMatchsController extends AbstractController
                     $manager->flush();
                 }
 
-                // ajout Match 2
+                // MATCH 2
+                // Choix de l'adversaire, il ne peut ni être égale a lui même ni au premier adversaire
                 $opponent2 = $teams[mt_rand(0,3)];
                     while($opponent2 == $team || $opponent2 == $opponent1){
                         $opponent2 = $teams[mt_rand(0,3)];
@@ -95,6 +106,9 @@ class AdminMatchsController extends AbstractController
                         $stade2 = $stades[mt_rand(0,1)];
                     }
 
+                //Je compte le nbr de matchs que l'équipe et l'adversaire ont déjà
+                //Je récupère la clé maximale de mon tableau de dates dispos
+                //S'il reste au moins une date, j'en choisis une
                 $opponent2Id = $opponent2->getId();
                 $teamMatchs = count($matchsRepo->findByTeam($teamId));
                 $opponent2Matchs = count($matchsRepo->findByTeam($opponent2Id));
@@ -103,7 +117,9 @@ class AdminMatchsController extends AbstractController
                 if($max >= 0){
                     $date = $dates[mt_rand(0,$max)];
                 }
-
+                
+                // Je vérifie que mon équipe et l'adversaire ont moins de 3 matchs et que j'ai une date
+                // Si oui, j'ajoute le match
                 if($teamMatchs < 3 && $opponent2Matchs < 3 && $max >= 0){
                     $match2 = new Matchs();
 
@@ -117,12 +133,16 @@ class AdminMatchsController extends AbstractController
                     $manager->flush();
                 }
 
-                // ajout Match 3
+                // MATCH 3
+                // Choix de l'adversaire, il ne peut ni être égale a lui même ni au premier et au second adversaire
                 $opponent3 = $teams[mt_rand(0,3)];
                     while($opponent3 == $team || $opponent3 == $opponent1 || $opponent3 == $opponent2){
                         $opponent3 = $teams[mt_rand(0,3)];
                     }
 
+                //Je compte le nbr de matchs que l'équipe et l'adversaire ont déjà
+                //Je récupère la clé maximale de mon tableau de dates dispos
+                //S'il reste au moins une date, j'en choisis une
                 $opponent3Id = $opponent3->getId();
                 $teamMatchs = count($matchsRepo->findByTeam($teamId));
                 $opponent3Matchs = count($matchsRepo->findByTeam($opponent3Id));
@@ -132,6 +152,8 @@ class AdminMatchsController extends AbstractController
                     $date = $dates[mt_rand(0,$max)];
                 }
 
+                // Je vérifie que mon équipe et l'adversaire ont moins de 3 matchs et que j'ai une date
+                // Si oui, j'ajoute le match
                 if($teamMatchs < 3 && $opponent3Matchs < 3 && $max >= 0){
                     $match3 = new Matchs();
 
@@ -144,12 +166,22 @@ class AdminMatchsController extends AbstractController
                     $manager->persist($match3);
                     $manager->flush();
                 }
+            }
+            // FIN DE BOUCLE TOUT EST OK
+            $this->addFlash(
+                "success",
+                "Les matchs du groupe {$group->getName()} ont bien été ajouté"
+            );
+            return $this->redirectToRoute('admin_matchs_index');
+
+        }else{
+            // PAS 4 EQUIPES DANS LE GROUPE || PAS ASSEZ DE DATES || STADES 
+            $this->addFlash(
+                "danger",
+                "Attention, toutes les conditions ne sont pas remplies pour ajouter les matchs !"
+            );
+            return $this->redirectToRoute('admin_matchs_index');
         }
-        $this->addFlash(
-            "success",
-            "Les matchs du groupe {$group->getName()} ont bien été ajouté"
-        );
-        return $this->redirectToRoute('admin_matchs_index');
     }
 
     /**
@@ -160,33 +192,37 @@ class AdminMatchsController extends AbstractController
      */
     public function editResult(Matchs $match, Request $request, EntityManagerInterface $manager)
     {
+        // FORMULAIRE D'ENCODAGE DU SCORE
         $form = $this->createForm(MatchScoreType::class, $match);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            // RECUPERATION DES DEUX EQUIPES ET LEURS SCORE
             $team1 = $match->getTeam1();
             $team2 = $match->getTeam2();
             $scoreT1 = $match->getScoreT1();
             $scoreT2 = $match->getScoreT2();
 
-            $match->setIsPlayed(true);
-
+            $match->setIsPlayed(true); // MATCH JOUER
+     
+            // SI EQUIPE 1 A GAGNER
             if($scoreT1 > $scoreT2){
                 $match->setWinner($team1)
                       ->setLooser($team2)
                       ->setDraw(false);
                 
-                if($match->getStage() == null){
+                if($match->getStage() == null){ // VERIFIER SI C'EST UN MATCH DE GROUPE POUR AJOUT DES POINTS
                     $points = $team1->getPoints();
                     $newPoints = $points + 3;
                     $team1->setPoints($newPoints);
                 }
             }
+            // SI MATCH NUL
             elseif($scoreT1 == $scoreT2){
                 $match->setDraw(true);
 
-                if($match->getStage() == null){
+                if($match->getStage() == null){ // VERIFIER SI C'EST UN MATCH DE GROUPE POUR AJOUT DES POINTS
                     $pointsT1 = $team1->getPoints();
                     $pointsT2 = $team2->getPoints();
                     $newPointsT1 = $pointsT1 + 1;
@@ -196,12 +232,13 @@ class AdminMatchsController extends AbstractController
                     $team2->setPoints($newPointsT2);
                 }
             }
+            // SI EQUIPE 2 A GAGNER
             else{
                 $match->setWinner($team2)
                       ->setLooser($team1)
                       ->setDraw(false);
                 
-                if($match->getStage() == null){
+                if($match->getStage() == null){ // VERIFIER SI C'EST UN MATCH DE GROUPE POUR AJOUT DES POINTS
                     $points = $team2->getPoints();
                     $newPoints = $points + 3;
                     $team2->setPoints($newPoints);
@@ -235,6 +272,7 @@ class AdminMatchsController extends AbstractController
      */
     public function simulResult(Matchs $match, EntityManagerInterface $manager)
     {
+        // PROCECUS IDEM QUE MATCH EDIT
             $team1 = $match->getTeam1();
             $team2 = $match->getTeam2();
             $scoreT1 = rand(0,5);

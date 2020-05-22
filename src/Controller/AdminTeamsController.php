@@ -18,15 +18,16 @@ class AdminTeamsController extends AbstractController
     public function index(TeamsRepository $teamsRepo)
     {
         return $this->render('admin/teams/index.html.twig', [
-            'teams' => $teamsRepo->findAll()
+            'teams' => $teamsRepo->findOrderName()
         ]);
     }
-
+    
     /**
      * @Route("/admin/teams/new", name="admin_teams_create")
      * 
      * @return Response
      */
+    /** Commenté car j'oblige l'admin à toujours avoir 24  équipes
     public function create(Request $request, EntityManagerInterface $manager)
     {
         $team = new Teams();
@@ -51,6 +52,7 @@ class AdminTeamsController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    */
 
     /**
      * @Route("/admin/teams/{id}/edit", name="admin_teams_edit")
@@ -88,6 +90,7 @@ class AdminTeamsController extends AbstractController
      * 
      * @return Response
      */
+    /** Commenté car j'oblige l'admin à toujours avoir 24  équipes
     public function delete(Teams $team, EntityManagerInterface $manager)
     {
         $manager->remove($team);
@@ -98,4 +101,5 @@ class AdminTeamsController extends AbstractController
         );
         return $this->redirectToRoute('admin_teams_index');
     }
+    */
 }
