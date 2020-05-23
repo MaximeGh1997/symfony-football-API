@@ -6,6 +6,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StadesRepository")
@@ -22,26 +23,36 @@ class Stades
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, minMessage="Le nom du stade doit faire au moins 5 caractères")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ est obligatoire")
      */
     private $city;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Type(
+     *     type="float",
+     *     message="La capacité entrée est invalide."
+     * )
      */
     private $capacity;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=20, minMessage="La description doit faire au moins 20 caractères")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ est obligatoire")
+     * @Assert\Url()
+     * @Assert\Length(max=255, maxMessage="L'url de l'image doit faire moins de 255 caractères")
      */
     private $cover;
 

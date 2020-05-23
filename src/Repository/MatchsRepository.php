@@ -23,8 +23,10 @@ class MatchsRepository extends ServiceEntityRepository
     public function findByGroup($group, $limit = null)
     {
         return $this->createQueryBuilder('m')
-                    ->select('m')
+                    ->select('m, d')
                     ->where('m.groupName = :group')
+                    ->join('m.date', 'd')
+                    ->orderBy('d.date', 'ASC')
                     ->setParameter('group', $group)
                     ->setMaxResults($limit)
                     ->getQuery()

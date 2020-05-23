@@ -58,7 +58,7 @@
     </form>
 
     {% if not matchs %}
-        {% for match in group.matchs %}
+        {% for match in group.matchs | sort((a,b) => a.date.date <=> b.date.date) %}
             <div class="row justify-content-center match">
                 <div class="col-6 align-self-center">
                 <div class="row">
@@ -88,7 +88,7 @@
             </div>
         {% endfor %}
     {% else %}
-        {% for match in matchs %}
+        {% for match in matchs | sort((a,b) => a.date.date <=> b.date.date) %}
             <div class="row justify-content-center match">
                 <div class="col-6 align-self-center">
                 <div class="row">

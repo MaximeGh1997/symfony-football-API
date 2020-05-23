@@ -6,6 +6,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MatchsRepository")
@@ -34,11 +35,19 @@ class Matchs
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type(
+     *     type="float",
+     *     message="Le score entré est invalide."
+     * )
      */
     private $scoreT1;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type(
+     *     type="float",
+     *     message="Le score entré est invalide."
+     * )
      */
     private $scoreT2;
 

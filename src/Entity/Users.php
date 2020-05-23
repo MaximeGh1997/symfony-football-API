@@ -28,6 +28,7 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Length(min=4, max=15, minMessage="Votre nom d'utilisateur doit faire au moins 4 caractères", maxMessage="Votre nom d'utilisateur doit faire moins de 15 caractères", allowEmptyString = false)
      */
     private $username;
 
@@ -50,22 +51,25 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ est obligatoire")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ est obligatoire")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="Veuillez renseigner une adresse email valide")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Image(mimeTypes={"image/png","image/jpeg","image/gif"}, mimeTypesMessage="Vous devez uploade un fichier png, jpg ou gif")
+     * @Assert\Image(mimeTypes={"image/png","image/jpeg","image/gif"}, mimeTypesMessage="Votre image doit être au format png, jpg ou gif")
      * @Assert\File(maxSize="1024k", maxSizeMessage="taille du fichier trop grande")
      */
     private $picture;

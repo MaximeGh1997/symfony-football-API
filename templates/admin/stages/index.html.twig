@@ -36,28 +36,28 @@
     <h3 class="mt-2 mb-2">{{stage.name}}</h3>
     {% if stage.id == 1 %}
         {% if GroupMatchs|length == 36 and dates|length == 8 %}
-            <a href="{{path('admin_stages-1_drawing')}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
+            <a href="{{path('admin_eight_drawing', {'id':stage.id})}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
         {% elseif GroupMatchs|length == 36 %}
         {% else %}
             <div class="alert alert-warning">Vous devez terminer la phase précédente et avoir suffisament de dates disponibles</div>
         {% endif %}
     {% elseif stage.id == 2 %}
         {% if EighthMatchs|length == 8 and dates|length == 4 %}
-            <a href="{{path('admin_stages-2_drawing')}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
-        {% elseif EighthMatchs|length == 8 %}
+            <a href="{{path('admin_quarter_drawing', {'id':stage.id})}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
+        {% elseif EighthMatchs|length == 8 %}#}
         {% else %}
             <div class="alert alert-warning">Vous devez terminer la phase précédente et avoir suffisament de dates disponibles</div>
         {% endif %}
     {% elseif stage.id == 3 %}
         {% if QuarterMatchs|length == 4 and dates|length == 2 %}
-            <a href="{{path('admin_stages-3_drawing')}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
+            <a href="{{path('admin_semi_drawing', {'id':stage.id})}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
         {% elseif QuarterMatchs|length == 4 %}
         {% else %}
             <div class="alert alert-warning">Vous devez terminer la phase précédente et avoir suffisament de dates disponibles</div>
         {% endif %}
     {% elseif stage.id == 4 %}
         {% if SemiMatchs|length == 2 and dates|length == 1 %}
-            <a href="{{path('admin_stages-4_drawing')}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
+            <a href="{{path('admin_final_drawing', {'id':stage.id})}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
         {% elseif SemiMatchs|length == 2 %}
         {% else %}
             <div class="alert alert-warning">Vous devez terminer la phase précédente et avoir suffisament de dates disponibles</div>
@@ -79,7 +79,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for match in stage.matchs %}
+            {% for match in stage.matchs | sort((a,b) => a.date.date <=> b.date.date) %}
             <tr>
                 <td scope="row">{{match.id}}</td>
                 <td>{{match.team1.name}} - {{match.team2.name}}</td>

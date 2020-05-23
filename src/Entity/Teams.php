@@ -6,6 +6,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TeamsRepository")
@@ -22,21 +23,29 @@ class Teams
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ est obligatoire")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ est obligatoire")
+     * @Assert\Url()
+     * @Assert\Length(max=255, maxMessage="L'url de l'image doit faire moins de 255 caractères")
      */
     private $logo;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=20, minMessage="La description doit faire au moins 20 caractères")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ est obligatoire")
+     * @Assert\Url()
+     * @Assert\Length(max=255, maxMessage="L'url de l'image doit faire moins de 255 caractères")
      */
     private $cover;
 

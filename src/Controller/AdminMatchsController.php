@@ -23,7 +23,7 @@ class AdminMatchsController extends AbstractController
      */
     public function index(MatchsRepository $matchsRepo, GroupsRepository $groupsRepo, DatesRepository $datesRepo, Request $request)
     {
-        $matchs = $matchsRepo->findByDate('DESC');
+        $matchs = $matchsRepo->findByDate('ASC');
         $group = null;
 
         $groupId = $request->request->get('group'); // récupération de l'id correspondant au groupe
@@ -53,132 +53,150 @@ class AdminMatchsController extends AbstractController
         $dates = $datesRepo->findFreeDates();
 
         //RECUPERATION DES EQUIPES,STADES, ET DATES DISPO DANS LE GROUPE
+
         //VERIFICATION QU'IL Y A SUFFISAMENT D'ELEMENTS POUR FAIRE LE TIRAGE
-
-        if(count($teams) == 4 && count($dates) >= 6 && count($stades) >= 2){
-            //POUR CHAQUE EQUIPE DU GROUPE ON AJOUTE 3 MATCHS
-            foreach($teams as $team){
-                // MATCH 1
-                // Choix de l'adversaire, il ne peut être égale a lui même
-                $opponent1 = $teams[mt_rand(0,3)];
-                    while($opponent1 == $team){
+        if(count($teams) == 4){
+            if(count($dates) >= 6){
+                if(count($stades) >= 2){
+                    // SI TOUT EST OK POUR CHAQUE EQUIPE DU GROUPE ON AJOUTE 3 MATCHS
+                    foreach($teams as $team){
+                        // MATCH 1
+                        // Choix de l'adversaire, il ne peut être égale a lui même
                         $opponent1 = $teams[mt_rand(0,3)];
-                    }
+                            while($opponent1 == $team){
+                                $opponent1 = $teams[mt_rand(0,3)];
+                            }
 
-                $stade1 = $stades[mt_rand(0,1)];
-                
-                //Je compte le nbr de matchs que l'équipe et l'adversaire ont déjà
-                //Je récupère la clé maximale de mon tableau de dates dispos
-                //S'il reste au moins une date, j'en choisis une
-                $teamId = $team->getId();
-                $opponent1Id = $opponent1->getId();
-                $teamMatchs = count($matchsRepo->findByTeam($teamId));
-                $opponent1Matchs = count($matchsRepo->findByTeam($opponent1Id));
-                $max = count($dates) - 1;
-                if($max >= 0){
-                    $date = $dates[mt_rand(0,$max)];
-                }
-                
-                //Je vérifie que mon équipe et l'adversaire ont moins de 3 matchs et que j'ai une date
-                // Si oui, j'ajoute le match
-                if($teamMatchs < 3 && $opponent1Matchs < 3 && $max >= 0){
-                    $match1 = new Matchs();
+                        $stade1 = $stades[mt_rand(0,1)];
+                        
+                        //Je compte le nbr de matchs que l'équipe et l'adversaire ont déjà
+                        //Je récupère la clé maximale de mon tableau de dates dispos
+                        //S'il reste au moins une date, j'en choisis une
+                        $teamId = $team->getId();
+                        $opponent1Id = $opponent1->getId();
+                        $teamMatchs = count($matchsRepo->findByTeam($teamId));
+                        $opponent1Matchs = count($matchsRepo->findByTeam($opponent1Id));
+                        $max = count($dates) - 1;
+                        if($max >= 0){
+                            $date = $dates[mt_rand(0,$max)];
+                        }
+                        
+                        //Je vérifie que mon équipe et l'adversaire ont moins de 3 matchs et que j'ai une date
+                        // Si oui, j'ajoute le match
+                        if($teamMatchs < 3 && $opponent1Matchs < 3 && $max >= 0){
+                            $match1 = new Matchs();
 
-                    $match1->setTeam1($team)
-                        ->setTeam2($opponent1)
-                        ->setDate($date)
-                        ->setStade($stade1)
-                        ->setGroupName($group);
+                            $match1->setTeam1($team)
+                                ->setTeam2($opponent1)
+                                ->setDate($date)
+                                ->setStade($stade1)
+                                ->setGroupName($group);
 
-                    $manager->persist($match1);
-                    $manager->flush();
-                }
+                            $manager->persist($match1);
+                            $manager->flush();
+                        }
 
-                // MATCH 2
-                // Choix de l'adversaire, il ne peut ni être égale a lui même ni au premier adversaire
-                $opponent2 = $teams[mt_rand(0,3)];
-                    while($opponent2 == $team || $opponent2 == $opponent1){
+                        // MATCH 2
+                        // Choix de l'adversaire, il ne peut ni être égale a lui même ni au premier adversaire
                         $opponent2 = $teams[mt_rand(0,3)];
-                    }
+                            while($opponent2 == $team || $opponent2 == $opponent1){
+                                $opponent2 = $teams[mt_rand(0,3)];
+                            }
 
-                $stade2 = $stades[mt_rand(0,1)];
-                    while($stade2 == $stade1){
                         $stade2 = $stades[mt_rand(0,1)];
-                    }
+                            while($stade2 == $stade1){
+                                $stade2 = $stades[mt_rand(0,1)];
+                            }
 
-                //Je compte le nbr de matchs que l'équipe et l'adversaire ont déjà
-                //Je récupère la clé maximale de mon tableau de dates dispos
-                //S'il reste au moins une date, j'en choisis une
-                $opponent2Id = $opponent2->getId();
-                $teamMatchs = count($matchsRepo->findByTeam($teamId));
-                $opponent2Matchs = count($matchsRepo->findByTeam($opponent2Id));
-                $dates = $datesRepo->findFreeDates();
-                $max = count($dates) - 1;
-                if($max >= 0){
-                    $date = $dates[mt_rand(0,$max)];
-                }
-                
-                // Je vérifie que mon équipe et l'adversaire ont moins de 3 matchs et que j'ai une date
-                // Si oui, j'ajoute le match
-                if($teamMatchs < 3 && $opponent2Matchs < 3 && $max >= 0){
-                    $match2 = new Matchs();
+                        //Je compte le nbr de matchs que l'équipe et l'adversaire ont déjà
+                        //Je récupère la clé maximale de mon tableau de dates dispos
+                        //S'il reste au moins une date, j'en choisis une
+                        $opponent2Id = $opponent2->getId();
+                        $teamMatchs = count($matchsRepo->findByTeam($teamId));
+                        $opponent2Matchs = count($matchsRepo->findByTeam($opponent2Id));
+                        $dates = $datesRepo->findFreeDates();
+                        $max = count($dates) - 1;
+                        if($max >= 0){
+                            $date = $dates[mt_rand(0,$max)];
+                        }
+                        
+                        // Je vérifie que mon équipe et l'adversaire ont moins de 3 matchs et que j'ai une date
+                        // Si oui, j'ajoute le match
+                        if($teamMatchs < 3 && $opponent2Matchs < 3 && $max >= 0){
+                            $match2 = new Matchs();
 
-                    $match2->setTeam1($opponent2)
-                        ->setTeam2($team)
-                        ->setDate($date)
-                        ->setStade($stade2)
-                        ->setGroupName($group);
-                
-                    $manager->persist($match2);
-                    $manager->flush();
-                }
+                            $match2->setTeam1($opponent2)
+                                ->setTeam2($team)
+                                ->setDate($date)
+                                ->setStade($stade2)
+                                ->setGroupName($group);
+                        
+                            $manager->persist($match2);
+                            $manager->flush();
+                        }
 
-                // MATCH 3
-                // Choix de l'adversaire, il ne peut ni être égale a lui même ni au premier et au second adversaire
-                $opponent3 = $teams[mt_rand(0,3)];
-                    while($opponent3 == $team || $opponent3 == $opponent1 || $opponent3 == $opponent2){
+                        // MATCH 3
+                        // Choix de l'adversaire, il ne peut ni être égale a lui même ni au premier et au second adversaire
                         $opponent3 = $teams[mt_rand(0,3)];
+                            while($opponent3 == $team || $opponent3 == $opponent1 || $opponent3 == $opponent2){
+                                $opponent3 = $teams[mt_rand(0,3)];
+                            }
+
+                        //Je compte le nbr de matchs que l'équipe et l'adversaire ont déjà
+                        //Je récupère la clé maximale de mon tableau de dates dispos
+                        //S'il reste au moins une date, j'en choisis une
+                        $opponent3Id = $opponent3->getId();
+                        $teamMatchs = count($matchsRepo->findByTeam($teamId));
+                        $opponent3Matchs = count($matchsRepo->findByTeam($opponent3Id));
+                        $dates = $datesRepo->findFreeDates();
+                        $max = count($dates) - 1;
+                        if($max >= 0){
+                            $date = $dates[mt_rand(0,$max)];
+                        }
+
+                        // Je vérifie que mon équipe et l'adversaire ont moins de 3 matchs et que j'ai une date
+                        // Si oui, j'ajoute le match
+                        if($teamMatchs < 3 && $opponent3Matchs < 3 && $max >= 0){
+                            $match3 = new Matchs();
+
+                            $match3->setTeam1($team)
+                                ->setTeam2($opponent3)
+                                ->setDate($date)
+                                ->setStade($stades[mt_rand(0,1)])
+                                ->setGroupName($group);
+                        
+                            $manager->persist($match3);
+                            $manager->flush();
+                        }
                     }
+                    // FIN DE BOUCLE TOUT EST OK
+                    $this->addFlash(
+                        "success",
+                        "Les matchs du groupe {$group->getName()} ont bien été ajouté"
+                    );
+                    return $this->redirectToRoute('admin_matchs_index');
 
-                //Je compte le nbr de matchs que l'équipe et l'adversaire ont déjà
-                //Je récupère la clé maximale de mon tableau de dates dispos
-                //S'il reste au moins une date, j'en choisis une
-                $opponent3Id = $opponent3->getId();
-                $teamMatchs = count($matchsRepo->findByTeam($teamId));
-                $opponent3Matchs = count($matchsRepo->findByTeam($opponent3Id));
-                $dates = $datesRepo->findFreeDates();
-                $max = count($dates) - 1;
-                if($max >= 0){
-                    $date = $dates[mt_rand(0,$max)];
+                }else{
+                    // GESTION ERREUR PAS 2 STADES DISPOS
+                    $this->addFlash(
+                        "danger",
+                        "Attention, vous devez assigné deux stades hôtes pour le groupe !"
+                    );
+                    return $this->redirectToRoute('admin_matchs_index');
                 }
-
-                // Je vérifie que mon équipe et l'adversaire ont moins de 3 matchs et que j'ai une date
-                // Si oui, j'ajoute le match
-                if($teamMatchs < 3 && $opponent3Matchs < 3 && $max >= 0){
-                    $match3 = new Matchs();
-
-                    $match3->setTeam1($team)
-                        ->setTeam2($opponent3)
-                        ->setDate($date)
-                        ->setStade($stades[mt_rand(0,1)])
-                        ->setGroupName($group);
-                
-                    $manager->persist($match3);
-                    $manager->flush();
-                }
+            }else{
+                // GESTION ERREUR PAS 6 DATES DISPOS
+                $this->addFlash(
+                    "danger",
+                    "Attention, vous devez avoir au moins 6 dates disponibles !"
+                );
+                return $this->redirectToRoute('admin_matchs_index');
             }
-            // FIN DE BOUCLE TOUT EST OK
-            $this->addFlash(
-                "success",
-                "Les matchs du groupe {$group->getName()} ont bien été ajouté"
-            );
-            return $this->redirectToRoute('admin_matchs_index');
-
         }else{
-            // PAS 4 EQUIPES DANS LE GROUPE || PAS ASSEZ DE DATES || STADES 
+            // GESTION ERREUR PAS 4 EQUIPES DANS LE GROUPE
             $this->addFlash(
                 "danger",
-                "Attention, toutes les conditions ne sont pas remplies pour ajouter les matchs !"
+                "Attention, vous devez d'abord tirer au sort les groupes !"
             );
             return $this->redirectToRoute('admin_matchs_index');
         }

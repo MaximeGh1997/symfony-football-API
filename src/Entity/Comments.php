@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentsRepository")
@@ -29,6 +30,7 @@ class Comments
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Ce champ est obligatoire")
      */
     private $content;
 

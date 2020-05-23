@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DatesRepository")
@@ -18,6 +19,8 @@ class Dates
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Date(message="Attention, la date doit être au bon format")
+     * @Assert\GreaterThan("today", message="La date doit être utlérieure à la date d'aujourd'hui")
      */
     private $date;
 
