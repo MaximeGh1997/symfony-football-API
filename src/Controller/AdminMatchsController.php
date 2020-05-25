@@ -248,6 +248,18 @@ class AdminMatchsController extends AbstractController
                 
                     $team1->setPoints($newPointsT1);
                     $team2->setPoints($newPointsT2);
+                }else{                          // SI MATCH DE PHASE FINALE ET MATCH NUL ON PREND UN GAGNANT AU HASARD (APRES PROLONGATION)
+                    $teams = [
+                        $team1,
+                        $team2
+                    ];
+                    $winner = $teams[mt_rand(0,1)];
+                    $looser = $teams[mt_rand(0,1)];
+                    while($looser == $winner){
+                        $looser = $teams[mt_rand(0,1)];
+                    }
+                    $match->setWinner($winner)
+                          ->setLooser($looser);
                 }
             }
             // SI EQUIPE 2 A GAGNER
@@ -270,7 +282,7 @@ class AdminMatchsController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Le résultat du match n°{$match->getId()}: {$match->getTeam1()->getName()} - {$match->getTeam2()->getName()} à bien été encodé"
+                "Le résultat du match n° {$match->getId()} : {$match->getTeam1()->getName()} {$match->getScoreT1()} - {$match->getScoreT2()} {$match->getTeam2()->getName()} à bien été encodé"
             );
 
             return $this->redirectToRoute('admin_matchs_index');
@@ -293,8 +305,8 @@ class AdminMatchsController extends AbstractController
         // PROCECUS IDEM QUE MATCH EDIT
             $team1 = $match->getTeam1();
             $team2 = $match->getTeam2();
-            $scoreT1 = rand(0,5);
-            $scoreT2 = rand(0,5);
+            $scoreT1 = rand(0,4);
+            $scoreT2 = rand(0,4);
 
             $match->setIsPlayed(true);
 
@@ -324,6 +336,18 @@ class AdminMatchsController extends AbstractController
                         
                     $team1->setPoints($newPointsT1);
                     $team2->setPoints($newPointsT2);
+                }else{
+                    $teams = [
+                        $team1,
+                        $team2
+                    ];
+                    $winner = $teams[mt_rand(0,1)];
+                    $looser = $teams[mt_rand(0,1)];
+                    while($looser == $winner){
+                        $looser = $teams[mt_rand(0,1)];
+                    }
+                    $match->setWinner($winner)
+                          ->setLooser($looser);
                 }
             }
             else{
@@ -347,7 +371,7 @@ class AdminMatchsController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Le match n°{$match->getId()}: {$match->getTeam1()->getName()} - {$match->getTeam2()->getName()} à bien été simulé"
+                "Le résultat du match n° {$match->getId()} : {$match->getTeam1()->getName()} {$match->getScoreT1()} - {$match->getScoreT2()} {$match->getTeam2()->getName()} à bien été simulé"
             );
 
             return $this->redirectToRoute('admin_matchs_index');

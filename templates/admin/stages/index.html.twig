@@ -34,33 +34,22 @@
     {% endfor %}
     {% for stage in stages %}
     <h3 class="mt-2 mb-2">{{stage.name}}</h3>
+    <p class="font-weight-light">* Vous devez terminer la phase précédente et avoir suffisament de dates disponibles</p>
     {% if stage.id == 1 %}
-        {% if GroupMatchs|length == 36 and dates|length == 8 %}
+        {% if GroupMatchs|length == 36 and dates|length >= 8 %}
             <a href="{{path('admin_eight_drawing', {'id':stage.id})}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
-        {% elseif GroupMatchs|length == 36 %}
-        {% else %}
-            <div class="alert alert-warning">Vous devez terminer la phase précédente et avoir suffisament de dates disponibles</div>
         {% endif %}
     {% elseif stage.id == 2 %}
-        {% if EighthMatchs|length == 8 and dates|length == 4 %}
+        {% if EighthMatchs|length == 8 and dates|length >= 4 %}
             <a href="{{path('admin_quarter_drawing', {'id':stage.id})}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
-        {% elseif EighthMatchs|length == 8 %}#}
-        {% else %}
-            <div class="alert alert-warning">Vous devez terminer la phase précédente et avoir suffisament de dates disponibles</div>
         {% endif %}
     {% elseif stage.id == 3 %}
-        {% if QuarterMatchs|length == 4 and dates|length == 2 %}
+        {% if QuarterMatchs|length == 4 and dates|length >= 2 %}
             <a href="{{path('admin_semi_drawing', {'id':stage.id})}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
-        {% elseif QuarterMatchs|length == 4 %}
-        {% else %}
-            <div class="alert alert-warning">Vous devez terminer la phase précédente et avoir suffisament de dates disponibles</div>
         {% endif %}
     {% elseif stage.id == 4 %}
-        {% if SemiMatchs|length == 2 and dates|length == 1 %}
+        {% if SemiMatchs|length == 2 and dates|length >= 1 %}
             <a href="{{path('admin_final_drawing', {'id':stage.id})}}"><button type="button" class="btn btn-info mb-3">Ajouter</button></a>
-        {% elseif SemiMatchs|length == 2 %}
-        {% else %}
-            <div class="alert alert-warning">Vous devez terminer la phase précédente et avoir suffisament de dates disponibles</div>
         {% endif %}
     {% endif %}
     <table class="table table-hover mb-5">
@@ -71,11 +60,10 @@
                 <th scope="col">Date</th>
                 <th scope="col">Stade</th>
                 <th scope="col">Score final</th>
+                <th scope="col">Prolongations</th>
                 <th scope="col">Vainqueur</th>
                 <th scope="col">Perdant</th>
-                <th scope="col">Match nul</th>
                 <th scope="col">Phase</th>
-                {#<th scope="col">Actions</th>#}
             </tr>
         </thead>
         <tbody>
@@ -85,17 +73,11 @@
                 <td>{{match.team1.name}} - {{match.team2.name}}</td>
                 <td>{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}</td>
                 <td>{{match.stade.name}}</td>
-                {% if match.scoreT1 or match.scoreT2 %} <td>{{match.scoreT1}} - {{match.scoreT2}}</td> {% else %} <td>A définir</td> {% endif %}
+                {% if match.scoreT1 or match.scoreT2 %} <td>{{match.scoreT1}} - {{match.scoreT2}}</td> {% else %} <td>0 - 0</td> {% endif %}
+                {% if match.draw == true %} <td>Oui</td> {%  elseif match.winner %} <td>Non</td> {% else %} <td>A définir</td> {% endif %}
                 {% if match.winner %} <td>{{match.winner.name}}</td> {% elseif not match.winner and match.isPlayed %} <td>/</td> {% else %} <td>A définir</td> {% endif %}
                 {% if match.looser %} <td>{{match.looser.name}}</td> {% elseif not match.looser and match.isPlayed %} <td>/</td> {% else %} <td>A définir</td> {% endif %}
-                {% if match.draw == true %} <td>Oui</td> {%  elseif match.winner %} <td>Non</td> {% else %} <td>A définir</td> {% endif %}
                 {% if match.stage %} <td>{{match.stage.name}}</td> {%  elseif match.groupName %} <td>Groupe {{match.groupName.name}}</td> {% endif %}
-                {#<td class="text-align-center">
-                {% if not match.isPlayed %}
-                    <a href="{{path('admin_matchs_edit', {'id':match.id})}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                    <a href="{{path('admin_matchs_simul', {'id':match.id})}}" class="btn btn-warning" onclick="return confirm('Êtes-vous sûr de vouloir simuler ce match ?')"><i class="fas fa-forward"></i></a>
-                {% endif %}
-                </td>#}
             </tr>
             {% endfor %}
         </tbody>
