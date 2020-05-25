@@ -288,8 +288,8 @@ class AdminStagesController extends AbstractController
                         //MATCH 2
                         $match2 = new Matchs();
 
-                        $match2->setTeam1($winners[3])
-                            ->setTeam2($winners[2])
+                        $match2->setTeam1($winners[2])
+                            ->setTeam2($winners[3])
                             ->setDate($dates[1])
                             ->setStade($stades[1])
                             ->setStage($stage);
@@ -310,8 +310,8 @@ class AdminStagesController extends AbstractController
                         //MATCH 4
                         $match4 = new Matchs();
 
-                        $match4->setTeam1($winners[7])
-                            ->setTeam2($winners[6])
+                        $match4->setTeam1($winners[6])
+                            ->setTeam2($winners[7])
                             ->setDate($dates[3])
                             ->setStade($stades[2])
                             ->setStage($stage);
@@ -395,8 +395,8 @@ class AdminStagesController extends AbstractController
                         //MATCH 2
                         $match2 = new Matchs();
 
-                        $match2->setTeam1($winners[3])
-                            ->setTeam2($winners[2])
+                        $match2->setTeam1($winners[2])
+                            ->setTeam2($winners[3])
                             ->setDate($dates[1])
                             ->setStade($stades[0])
                             ->setStage($stage);

@@ -524,3 +524,98 @@ html,body{
 .comment-title{
     color: rgb(34, 127, 143);
 }
+
+/** BRACKET FINAL */
+
+.bracket-container{
+    display: flex;
+    flex-direction: row;
+    height: 90%;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .bracket-level{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    flex-grow: 1;
+    transition: all ease .5s;
+  }
+  
+  .bracket-matchup{
+    width: 90%;
+    margin: auto;
+    max-height: 50px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .bracket-team{
+    height: 100%;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    transition: all ease .5s;
+    margin: 2px;
+    padding: 5px;
+  }
+
+  .bracket-finalist{
+    width: 90%;
+    margin: auto;
+    max-height: 50px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .logo-team-bracket{
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    object-fit: cover;
+    border: 2px solid rgb(228, 228, 228);
+  }
+  
+  .bracket-name{
+    font-family: 'Ubuntu', sans-serif;
+    width: 75%;
+    font-size: 18px;
+    padding: .2em;
+    line-height: 1.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: black;
+    margin-left: 2px;
+  }
+  
+  .bracket-score{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+    padding: .2em;
+    line-height: 1.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    color: black;
+    text-align: right;
+  }
+  
+  .winner>.bracket-name, .winner>.bracket-score{
+    font-weight: bold;
+    color: rgb(34, 127, 143);
+  }
+  
+  .bracket-team:hover{
+    background-color: #E8E8E8;
+    height: 100%;
+    transition: all ease .5s;
+  }

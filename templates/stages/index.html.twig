@@ -1,0 +1,204 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Phase finale{% endblock %}
+
+{% block body %}
+<div class="container match-cont">
+    <h1 class="special-font">Phase finale</h1>
+    <hr class="mb-3">
+</div>
+
+<div class="bracket-container mb-5">
+
+{# 1/8 de finales left #}
+  <div class="bracket-level">
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{eight[0].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[0].team1.name}}</div><div class="bracket-score">{{eight[0].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{eight[0].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[0].team2.name}}</div><div class="bracket-score">{{eight[0].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{eight[1].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[1].team1.name}}</div><div class="bracket-score">{{eight[1].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{eight[1].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[1].team2.name}}</div><div class="bracket-score">{{eight[1].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{eight[2].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[2].team1.name}}</div><div class="bracket-score">{{eight[2].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{eight[2].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[2].team2.name}}</div><div class="bracket-score">{{eight[2].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{eight[3].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[3].team1.name}}</div><div class="bracket-score">{{eight[3].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{eight[3].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[3].team2.name}}</div><div class="bracket-score">{{eight[3].scoreT2}}</div>
+      </div>
+    </div>
+  </div>
+{# #}
+
+{# 1/4 de finales left #}
+  <div class="bracket-level">
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{quarter[0].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[0].team1.name}}</div><div class="bracket-score">{{quarter[0].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{quarter[0].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[0].team2.name}}</div><div class="bracket-score">{{quarter[0].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{quarter[1].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[1].team1.name}}</div><div class="bracket-score">{{quarter[1].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{quarter[1].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[1].team2.name}}</div><div class="bracket-score">{{quarter[1].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+  </div>
+{# #}
+
+{# 1/2 finales left #}
+  <div class="bracket-level">
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{semi[0].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{semi[0].team1.name}}</div><div class="bracket-score">{{semi[0].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{semi[0].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{semi[0].team2.name}}</div><div class="bracket-score">{{semi[0].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+  </div>
+{# #}
+
+{# finaliste #}
+  <div class="bracket-level-final">
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-finalist">
+      <div class="bracket-team">
+          <div class="bracket-name">Espagne</div>
+        </div>
+        <div class="bracket-team">
+          
+        </div>
+    </div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>  
+  </div>
+{#  #}
+
+
+{# 1/2 finales right #}
+  <div class="bracket-level">
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{semi[1].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{semi[1].team1.name}}</div><div class="bracket-score">{{semi[1].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{semi[1].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{semi[1].team2.name}}</div><div class="bracket-score">{{semi[1].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+  </div>
+{# #}
+
+{# 1/4 de finales right #}
+  <div class="bracket-level">
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{quarter[2].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[2].team1.name}}</div><div class="bracket-score">{{quarter[2].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{quarter[2].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[2].team2.name}}</div><div class="bracket-score">{{quarter[2].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{quarter[3].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[3].team1.name}}</div><div class="bracket-score">{{quarter[3].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{quarter[3].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[3].team2.name}}</div><div class="bracket-score">{{quarter[3].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+  </div>
+{# #}
+
+{# 1/8 de finales right #}
+  <div class="bracket-level">
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{eight[4].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[4].team1.name}}</div><div class="bracket-score">{{eight[4].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{eight[4].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[4].team2.name}}</div><div class="bracket-score">{{eight[4].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{eight[5].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[5].team1.name}}</div><div class="bracket-score">{{eight[5].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{eight[5].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[5].team2.name}}</div><div class="bracket-score">{{eight[5].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{eight[6].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[6].team1.name}}</div><div class="bracket-score">{{eight[6].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{eight[6].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[6].team2.name}}</div><div class="bracket-score">{{eight[6].scoreT2}}</div>
+      </div>
+    </div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+        <img src="{{eight[7].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[7].team1.name}}</div><div class="bracket-score">{{eight[7].scoreT1}}</div>
+      </div>
+      <div class="bracket-team">
+        <img src="{{eight[7].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[7].team2.name}}</div><div class="bracket-score">{{eight[7].scoreT2}}</div>
+      </div>
+    </div>
+  </div>
+{# #}
+
+</div>
+{% endblock %}
