@@ -16,6 +16,9 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
                <a href="{{path('account_index')}}" class="dropdown-item">Mon profil</a>
                <a href="{{path('account_edit')}}" class="dropdown-item">Modifier mon profil</a>
+               {% if 'ROLE_ADMIN' in app.user.roles %}
+               <a href="{{path('admin_teams_index')}}" class="dropdown-item">Administration</a>
+               {% endif %}
                <div class="dropdown-divider"></div>
                <a href="{{path('app_logout')}}" class="dropdown-item">Déconnexion</a>
             </div>

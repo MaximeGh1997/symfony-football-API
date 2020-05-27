@@ -17,6 +17,10 @@ html,body{
     padding-top: 75px;
 }
 
+.cont-padding{
+    padding-top: 200px;
+}
+
 /** NAV **/
 
 .nav-front{
@@ -357,7 +361,6 @@ html,body{
 .match-cont .match-info{
     height: 50px;
     background-color: rgba(255, 255, 255, 0);
-    /*overflow: hidden;*/
 }
 
 .match-info .light-text{

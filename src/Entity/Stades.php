@@ -79,7 +79,7 @@ class Stades
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="stades")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $groups;
 

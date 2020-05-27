@@ -28,116 +28,67 @@ class AppFixtures extends Fixture
 
         $admin->setUsername('admin')
               ->setRoles(['ROLE_USER','ROLE_ADMIN'])
-              ->setPassword($this->passwordEncoder->encodePassword($admin,'epse'))
-              ->setFirstName('Maxime')
-              ->setLastName('Ghislain')
-              ->setEmail('maxime@symfoot.be');
+              ->setPassword($this->passwordEncoder->encodePassword($admin,'password'))
+              ->setFirstName('Prénom')
+              ->setLastName('Nom')
+              ->setEmail('admin@symfoot.be')
+              ->setPicture('http://www.placehold.it/60x60');
         
         $manager->persist($admin);
 
         //fixtures ajout des groupes
-        $groupA = new Groups();
-        $groupA->setName('A');
-        $manager->persist($groupA);
-
-        $groupB = new Groups();
-        $groupB->setName('B');
-        $manager->persist($groupB);
-
-        $groupC = new Groups();
-        $groupC->setName('C');
-        $manager->persist($groupC);
-
-        $groupD = new Groups();
-        $groupD->setName('D');
-        $manager->persist($groupD);
-
-        $groupE = new Groups();
-        $groupE->setName('E');
-        $manager->persist($groupE);
-
-        $groupF = new Groups();
-        $groupF->setName('F');
-        $manager->persist($groupF);
-
-        $groups = [
-            $groupA,
-            $groupB,
-            $groupC,
-            $groupD,
-            $groupE,
-            $groupF
-        ];
+        $groupNames = ['A','B','C','D','E','F'];
+        $g=0;
+        for($i=1; $i<=6; $i++){
+            $group = new Groups();
+            $group->setName($groupNames[$g]);
+            $manager->persist($group);
+            $g++;
+        }
 
         //fixtures ajout des phases
-        $stage1 = new Stages();
-        $stage1->setName('1/8');
-        $manager->persist($stage1);
+        $stageNames = [
+            'Huitième de finale',
+            'Quart de finale',
+            'Demi finale',
+            'Finale'
+        ];
+        $s=0;
+        for($i=1; $i<=4; $i++){
+            $stage = new Stages();
+            $stage->setName($stageNames[$s]);
+            $manager->persist($stage);
+            $s++;
+        }
 
-        $stage2 = new Stages();
-        $stage2->setName('1/4');
-        $manager->persist($stage2);
 
-        $stage3 = new Stages();
-        $stage3->setName('1/2');
-        $manager->persist($stage3);
-
-        $stage4 = new Stages();
-        $stage4->setName('Finale');
-        $manager->persist($stage4);
-
-        // ajout d'une équipe
-        $team = new Teams();
+        // ajout des équipes
         $now = new \DateTime('Europe/Brussels');
 
-        $team->setName('Belgique')
-            ->setLogo('https://upload.wikimedia.org/wikipedia/fr/thumb/6/65/Logo_F%C3%A9d%C3%A9ration_Belge_Football_2019.svg/1200px-Logo_F%C3%A9d%C3%A9ration_Belge_Football_2019.svg.png')
-            ->setDescription('Description de l\'équipe nationale de foot belge')
-            ->setCover('https://www.aimgroupinternational.com/upload/_1600x900/brussels-cover.jpg')
-            ->setPoints(0)
-            ->setCreatedAt($now);
-            
-        $manager->persist($team);
+        for($i=1; $i<=24; $i++){
+            $team = new Teams();
 
-        // ajout de plusieurs équipes
-        $names = [
-            'France',
-            'Allemagne',
-            'Espagne',
-            'Angleterre',
-            'Croatie',
-            'Portugal',
-            'Suisse',
-            'Russie',
-            'Pologne',
-            'Suède'
-        ];
-
-        for($i=1; $i<=23; $i++){
-            $teams = new Teams();
-
-            $teams->setName($names[mt_rand(0,9)])
-                 ->setLogo('https://upload.wikimedia.org/wikipedia/fr/thumb/e/ea/Football_Br%C3%A9sil_federation.svg/1200px-Football_Br%C3%A9sil_federation.svg.png')
-                 ->setDescription('Description de l\'équipe nationale de foot')
-                 ->setCover('https://cdn.pixabay.com/photo/2016/11/16/02/19/new-york-city-1828013_960_720.jpg')
+            $team->setName('Nom de l\'équipe')
+                 ->setLogo('http://www.placehold.it/100x100')
+                 ->setDescription('Description de l\'équipe')
+                 ->setCover('http://www.placehold.it/1000x300')
                  ->setPoints(0)
                  ->setCreatedAt($now);
             
-            $manager->persist($teams);
+            $manager->persist($team);
         }
+
 
         // ajout des stade
         for($i=1; $i<=12; $i++){
         $stade = new Stades();
-        $now = new \DateTime('Europe/Brussels');
 
-        $stade->setName('Stade Roi Baudouin')
-            ->setCity('Bruxelles')
-            ->setCapacity(50093)
-            ->setDescription('Description du stade Roi Baudouin')
-            ->setCover('https://pbs.twimg.com/media/DOTUEAlX4AEQrxX.jpg')
-            ->setCreatedAt($now)
-            ->setGroups($groupA);
+        $stade->setName('Nom du stade')
+            ->setCity('Ex: Bruxelles')
+            ->setCapacity(1000)
+            ->setDescription('Description du stade')
+            ->setCover('http://www.placehold.it/1000x300')
+            ->setCreatedAt($now);
             
         $manager->persist($stade);
         }
