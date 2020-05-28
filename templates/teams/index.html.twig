@@ -3,13 +3,13 @@
 {% block title %}Les équipes{% endblock %}
 
 {% block body %}
-    <div class="w-100 h-100 pt-5">
+    <div class="w-100 pt-5 pb-5">
         <div class="col-10 offset-1">
             <h1 class="special-font mt-5 mb-3">Les équipes qualifiées</h1>
             <hr class="mb-5">
             <div class="row">
                 {% for team in teams %}
-                <div class="team col-2 text-center mt-3 mb-3">
+                <div class="team col-6 col-sm-3 col-md-2 text-center mt-3 mb-3">
                     <a href="{{path('teams_show', {'id':team.id})}}" class="text-center special-font">
                         <img src="{{team.logo}}" alt="" class="logo-team mb-2"><br>
                         {{team.name}}

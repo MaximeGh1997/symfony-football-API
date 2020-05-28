@@ -230,6 +230,12 @@ html,body{
     object-position: center center;
 }
 
+@media all and (max-width: 1000px) {
+    .team-cover img{
+        height: 300px;
+    }
+}
+
 .team-flag img{
     object-fit: cover;
     width: 300px;
@@ -243,9 +249,14 @@ html,body{
 .team-desc{
     margin-top: 80px;
     margin-bottom: 30px;
+    padding: 15px;
 }
 
 /** PAGE STADES **/
+
+#stades-show{
+    min-height: 100vh;
+}
 
 .logo-stade{
     width: 90px;
@@ -274,6 +285,19 @@ html,body{
     line-height: 50px;
     font-size: 18px;
 }
+
+/** STADES SHOW **/
+@media all and (max-width: 1000px) {
+    .team-title{
+        font-size: 4em;
+    }
+  }
+
+  @media all and (max-width: 500px) {
+    .team-title{
+        font-size: 2.5em;
+    }
+  }
 
 /** PAGE RANKINGS **/
 
@@ -390,7 +414,6 @@ html,body{
     background-color: rgb(247, 247, 247);
     padding: 10px;
     border-radius: 20px;
-    /*overflow: hidden;*/
 }
 
 .match-info a{
@@ -465,6 +488,12 @@ html,body{
     top: 50%;
     left:50%;
     transform: translate(-50%,-50%);
+}
+
+@media all and (max-width: 800px) {
+    .match-cover{
+        height: 300px;
+    }
 }
 
 /** COMMENTS **/

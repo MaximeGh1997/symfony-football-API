@@ -29,8 +29,10 @@
             </div>
          </li>
       {% else %}
+      <div class="collapse navbar-collapse">
          <a href="{{path('account_register')}}" class="nav-item nav-link">S'inscrire</a>
          <a href="{{path('app_login')}}" class="nav-item nav-link">Se connecter</a>
+      </div>
       {% endif %}
    </ul>
 </nav>
