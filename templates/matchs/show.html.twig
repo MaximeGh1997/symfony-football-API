@@ -3,23 +3,23 @@
 {% block title %}{{match.team1.name}} - {{match.team2.name}}{% endblock %}
 
 {% block body %}
-<div class="match-cover align-self-center">
-    <div class="container h-100 align-self-center match-cont">
-        <div class="row justify-content-center align-self-center match-info">
+<div class="match-cover">
+    <div class="container h-100 match-cont">
+        <div class="row justify-content-center match-info">
             <p class="text-center light-text">{{match.stade.name}} - {{match.stade.city}} <br> {% if match.groupName %} Groupe {{match.groupName.name}} {% elseif match.stage %} {{match.stage.name}} {% endif %}</p>
         </div>
-        <div class="row match-scoreboard">
-            <div class="col-2 align-self-center text-right">{{match.team1.name}}</div>
-            <div class="col-2 align-self-center text-left"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
-            <div class="col-4 align-self-center text-center">
+        <div class="row match-scoreboard justify-content-center">
+            <div class="col-3 col-lg-2 align-self-center text-right d-none d-md-block">{{match.team1.name}}</div>
+            <div class="col-auto col-lg-2 align-self-center text-left"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
+            <div class="col-auto col-lg-4 align-self-center text-center">
                 {% if match.isPlayed %}
                     {{match.scoreT1}} - {{match.scoreT2}}
                 {% else %}
                     {{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}
                 {% endif %}
             </div>
-            <div class="col-2 align-self-center text-right"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>
-            <div class="col-2 align-self-center text-left">{{match.team2.name}}</div>
+            <div class="col-auto col-lg-2 align-self-center text-right"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>
+            <div class="col-3 col-lg-2 align-self-center text-left d-none d-md-block">{{match.team2.name}}</div>
             
         </div>  
     </div>
@@ -28,23 +28,23 @@
     <h3 class="special-font">Infos de base</h3>
     <div class="row mt-3 mb-5">
         <div class="col-8 offset-2">
-            <div class="row match-info">
-                <a href="{{path('teams_show', {'id':match.team1.id} )}}">
-                    <div class="team-flag">
+            <div class="row" id="infos">
+                <a class="col-md-4 align-self-center" href="{{path('teams_show', {'id':match.team1.id} )}}">
+                    <div class="team-flag text-center">
                         <img src="{{match.team1.logo}}" alt="">
-                        <p class="special-font align-self-center">{{match.team1.name}}</p>
+                        <p class="special-font">{{match.team1.name}}</p>
                     </div>
                 </a>
-                <a href="{{path('stades_show', {'id':match.stade.id} )}}">
-                    <div class="team-flag">
+                <a class="col-md-4 align-self-center" href="{{path('stades_show', {'id':match.stade.id} )}}">
+                    <div class="team-flag text-center">
                         <img src="{{match.stade.cover}}" alt="">
-                        <p class="special-font align-self-center">{{match.stade.name}}</p>
+                        <p class="special-font">{{match.stade.name}}</p>
                     </div>
                 </a>
-                <a href="{{path('teams_show', {'id':match.team2.id} )}}">
-                    <div class="team-flag">
+                <a class="col-md-4 align-self-center" href="{{path('teams_show', {'id':match.team2.id} )}}">
+                    <div class="team-flag text-center">
                         <img src="{{match.team2.logo}}" alt="">
-                        <p class="special-font align-self-center">{{match.team2.name}}</p>
+                        <p class="special-font">{{match.team2.name}}</p>
                     </div>
                 </a> 
             </div>
@@ -55,25 +55,25 @@
     <div class="row mt-3 mb-5">
         <div class="col-8 offset-2">
             <div class="row team-stat">
-                <div class="col-3 stat">
+                <div class="col-md-auto col-lg-3 stat">
                     <div class="stat-nbr-wins">
                         <div>{{match.team1.wins|length}}</div>
                     </div>
                     <p class="text-center">Victoires</p>
                 </div>
-                <div class="col-3 stat">
+                <div class="col-md-auto col-lg-3 stat">
                     <div class="stat-nbr">
                         <div>{{match.team1.Draws|length}}</div>
                     </div>
                     <p class="text-center">Matchs nul</p>
                 </div>
-                <div class="col-3 stat">
+                <div class="col-md-auto col-lg-3 stat">
                     <div class="stat-nbr-defeats">
                         <div>{{match.team1.defeats|length}}</div>
                     </div>
                     <p class="text-center">Défaites</p>
                 </div>
-                <div class="col-3 stat">
+                <div class="col-md-auto col-lg-3 stat">
                     <div class="stat-nbr">
                         <div>{{match.team1.Goals}}</div>
                     </div>
@@ -87,25 +87,25 @@
     <div class="row mt-3 mb-5">
         <div class="col-8 offset-2">
             <div class="row team-stat">
-                <div class="col-3 stat">
+                <div class="col-md-auto col-lg-3 stat">
                     <div class="stat-nbr-wins">
                         <div>{{match.team2.wins|length}}</div>
                     </div>
                     <p class="text-center">Victoires</p>
                 </div>
-                <div class="col-3 stat">
+                <div class="col-md-auto col-lg-3 stat">
                     <div class="stat-nbr">
                         <div>{{match.team2.Draws|length}}</div>
                     </div>
                     <p class="text-center">Matchs nul</p>
                 </div>
-                <div class="col-3 stat">
+                <div class="col-md-auto col-lg-3 stat">
                     <div class="stat-nbr-defeats">
                         <div>{{match.team2.defeats|length}}</div>
                     </div>
                     <p class="text-center">Défaites</p>
                 </div>
-                <div class="col-3 stat">
+                <div class="col-md-auto col-lg-3 stat">
                     <div class="stat-nbr">
                         <div>{{match.team2.Goals}}</div>
                     </div>
@@ -140,25 +140,25 @@
     {% endif %}
     {% for comment in comments %}
     {% if comment.author == app.user %}
-        <div class="row justify-content-center mt-2 mb-2">
-            <div class="col-1 align-self-center text-center">
+        <div class="row justify-content-start justify-content-md-center mt-2 mb-2">
+            <div class="col-auto align-self-center text-center">
                 <img src="/uploads/{{comment.author.picture}}" alt="avatar de {{comment.author.username}}" class="avatar-medium">
             </div>
-            <div class="col-6 comment" style="background-color: rgb(230, 230, 230);">
+            <div class="col-auto col-sm-6 comment" style="background-color: rgb(230, 230, 230);">
                 <p class="font-italic">Vous {% if comment.rating %} avez donné une note de {{comment.rating}}/5 {% endif %}</p>
                 <p class="content">{{comment.content}}</p>
                 <p class="light-text font-italic date">le {{comment.createdAt | date('d/m/Y')}} à {{comment.createdAt | date('H:i')}}</p>
             </div>
         </div>
     {% else %}
-        <div class="row justify-content-center mt-2 mb-2">
-            <div class="col-6 comment">
+        <div class="row justify-content-end justify-content-md-center mt-2 mb-2">
+            <div class="col-auto col-sm-6 comment">
                 <p class="font-italic"><a href="{{path('user_show',{id:comment.author.id})}}">@{{comment.author.username}}</a>
                 {% if comment.rating %} à donné une note de {{comment.rating}}/5 {% endif %}</p>
                 <p class="content">{{comment.content}}</p>
                 <p class="light-text font-italic date">le {{comment.createdAt | date('d/m/Y')}} à {{comment.createdAt | date('H:i')}}</p>
             </div>
-            <div class="col-1 align-self-center text-center">
+            <div class="col-auto align-self-center text-center">
                 <img src="/uploads/{{comment.author.picture}}" alt="avatar de {{comment.author.username}}" class="avatar-medium">
             </div>
         </div>

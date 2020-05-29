@@ -374,7 +374,8 @@ html,body{
     margin-top: 65px;
     height: 400px;
     background-image: url(/uploads/match-background2.jpg);
-    background-size: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
 }
 
@@ -409,27 +410,29 @@ html,body{
     border: 3px solid rgb(228, 228, 228);
 }
 
-.match-info{
+#infos{
     height: 250px;
     background-color: rgb(247, 247, 247);
     padding: 10px;
     border-radius: 20px;
 }
 
-.match-info a{
-    height: 130px;
-    margin: auto;
+#infos a{
     color: black;
     transition: all 0.2s;
     overflow: hidden;
 }
 
-.match-info a:hover{
+#infos a:hover{
     text-decoration: none;
     color: rgb(21, 85, 97);
 }
 
-.match-info .team-flag img{
+#infos .team-flag p{
+    margin-bottom: 0px;
+}
+
+#infos .team-flag img{
     width: 150px;
     height: 100px;
     margin-bottom: 5px;
@@ -490,9 +493,66 @@ html,body{
     transform: translate(-50%,-50%);
 }
 
+@media all and (max-width: 1000px) {
+    #infos{
+        height: auto;
+    }
+
+    #infos .team-flag img{
+        width: 100px;
+        height: 66px;
+    }
+
+    .team-stat{
+        height: auto;
+    }
+
+    .team-stat .stat .stat-nbr{
+        height: 60px;
+        width: 60px;
+        border-radius: 60px;
+        border: 2px solid rgb(34, 127, 143);
+        font-size: 20px;
+    }
+
+    .team-stat .stat p{
+        font-size: 12px;
+    }
+
+    .team-stat .stat .stat-nbr-wins{
+        height: 60px;
+        width: 60px;
+        border-radius: 60px;
+        border: 2px solid rgb(48, 230, 72);
+        font-size: 20px;
+    }
+    
+    .team-stat .stat .stat-nbr-defeats{
+        height: 60px;
+        width: 60px;
+        border-radius: 60px;
+        border: 2px solid rgb(255, 55, 55);
+        font-size: 20px;
+    }
+}
+
 @media all and (max-width: 800px) {
     .match-cover{
         height: 300px;
+    }
+
+    .match-cont{
+        padding-top: 50px;
+    }
+
+    #infos a{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .team-stat .stat{
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
 }
 
