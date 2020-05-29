@@ -26,7 +26,7 @@ class RankingsController extends AbstractController
         $teamId = $request->request->get('team');
         $matchs = null;
         if($teamId != null){
-            $matchs = $matchsRepo->findByTeam($teamId);
+            $matchs = $matchsRepo->findGroupMatchsByTeam($teamId);
             $team = $teamsRepo->findOneById($teamId);
             $group = $team->getGroupName();
         }

@@ -45,6 +45,19 @@ class MatchsRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    public function findGroupMatchsByTeam($team, $limit = null)
+    {
+        return $this->createQueryBuilder('m')
+                    ->select('m')
+                    ->where('m.groupName IS NOT NULL')
+                    ->andwhere('m.team1 = :team')
+                    ->orWhere('m.team2 = :team')
+                    ->setParameter('team', $team)
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     public function findByDate($order, $limit = null)
     {
         return $this->createQueryBuilder('m')

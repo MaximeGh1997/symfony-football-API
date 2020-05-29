@@ -4,11 +4,11 @@
 
 {% block body %}
 <div class="container match-cont">
-    <h1 class="special-font">Arbre final</h1>
-    <hr class="mb-3">
+    <h1 class="special-font d-none d-xl-block">Arbre final</h1>
+    <hr class="mb-3 d-none d-xl-block">
 </div>
 
-<div class="bracket-container mb-5">
+<div class="bracket-container mb-5 d-none d-xl-flex">
 
 {# 1/8 de finales left #}
   <div class="bracket-level">
@@ -465,10 +465,10 @@
 
     {% for match in matchs | sort((a,b) => a.date.date <=> b.date.date) %}
         <div class="row justify-content-center match">
-            <div class="col-6 align-self-center">
+            <div class="col-10 col-lg-6 align-self-center">
             <div class="row">
-                <div class="col-2 align-self-center">{{match.team1.name}}</div>
-                <div class="col-2 align-self-center"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
+                <div class="col-2 align-self-center d-none d-sm-block">{{match.team1.name}}</div>
+                <div class="col-4 col-sm-2 align-self-center text-center"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
                 {% if match.isPlayed %}
                     <div class="col-4 score">
                     <a href="{{path('matchs_show',{'id':match.id})}}">
@@ -479,15 +479,15 @@
                     </div>
                 {% else %}
                     <div class="col-4 align-self-center">
-                    <a href="{{path('matchs_show',{'id':match.id})}}" class="light-text" style="font-size: 14px; color: gray;">
+                    <a href="{{path('matchs_show',{'id':match.id})}}" class="light-text text-center" style="font-size: 14px; color: gray;">
                         <div class="row justify-content-center">{{match.stage.name}}</div>
                         <div class="row justify-content-center">{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}</div>
                         <div class="row justify-content-center">{{match.stade.name}}</div>
                     </a>
                     </div>
                 {% endif %}
-                <div class="col-2 align-self-center"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>
-                <div class="col-2 align-self-center">{{match.team2.name}}</div>
+                <div class="col-4 col-sm-2 align-self-center text-center"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>
+                <div class="col-2 align-self-center d-none d-sm-block">{{match.team2.name}}</div>
             </div>
             </div>
         </div>
