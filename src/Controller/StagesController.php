@@ -29,7 +29,8 @@ class StagesController extends AbstractController
             'semi' => $matchsRepo->findByStage(3),
             'final' => $matchsRepo->findByStage(4),
             'stages' => $stagesRepo->findAll(),
-            'matchs' => $matchs
+            'matchs' => $matchs,
+            'stageId' => $stageId
         ]);
     }
 }

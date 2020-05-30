@@ -9,17 +9,19 @@
             <p class="text-center light-text">{{match.stade.name}} - {{match.stade.city}} <br> {% if match.groupName %} Groupe {{match.groupName.name}} {% elseif match.stage %} {{match.stage.name}} {% endif %}</p>
         </div>
         <div class="row match-scoreboard justify-content-center">
-            <div class="col-3 col-lg-2 align-self-center text-right d-none d-md-block">{{match.team1.name}}</div>
+            <div class="col-3 col-lg-2 align-self-center text-right d-none d-lg-block">{{match.team1.name}}</div>
             <div class="col-auto col-lg-2 align-self-center text-left"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
             <div class="col-auto col-lg-4 align-self-center text-center">
                 {% if match.isPlayed %}
                     {{match.scoreT1}} - {{match.scoreT2}}
                 {% else %}
-                    {{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}
+                    <div id="date">
+                        {{match.date.date | date('d/m/Y')}} <br> {{match.date.date | date('H:i')}}
+                    </div>
                 {% endif %}
             </div>
             <div class="col-auto col-lg-2 align-self-center text-right"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>
-            <div class="col-3 col-lg-2 align-self-center text-left d-none d-md-block">{{match.team2.name}}</div>
+            <div class="col-3 col-lg-2 align-self-center text-left d-none d-lg-block">{{match.team2.name}}</div>
             
         </div>  
     </div>

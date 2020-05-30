@@ -5,14 +5,16 @@
 {% block body %}
 <div class="container register h-100">
     <div class="row align-items-center">
-        <div class="col-2 text-center">
+        <div class="col-md-2 text-center">
             <img src="/uploads/{{user.picture}}" alt="avatar de {{user.username}}" class="avatar mb-3">
         </div>
-        <div class="col-10">
+        <div class="col-md-10 text-center text-md-left">
             <h1 style="overflow: hidden;">{{user.firstname}} {{user.lastname}}</h1>
             <p class="font-italic">@{{user.username}}{% if user is same as (app.user) %} - {{user.email}}{% endif %}</p>
+        </div>
+        <div class="col-lg-10 offset-lg-2">
             {% if user is same as (app.user) %}
-                <div class="mt-3">
+                <div class="mt-3 text-center text-md-left">
                     {% for label, messages in app.flashes %}
                         <div class="alert alert-{{ label }}">
                             {% for message in messages %}
@@ -20,9 +22,9 @@
                             {% endfor %}
                         </div>
                     {% endfor %}
-                    <a href="{{path('account_edit')}}" class="btn btn-info mr-2 mb-2">Modifier mon profil</a>
-                    <a href="{{path('account_password')}}" class="btn btn-warning mr-2 mb-2">Modifier mon mot de passe</a>
-                    <a href="{{path('account_delimg')}}" class="btn btn-danger mb-2">Supprimer mon image de profil</a>
+                    <a href="{{path('account_edit')}}" class="btn btn-info d-block d-md-inline-block mr-2 mb-2">Modifier mon profil</a>
+                    <a href="{{path('account_password')}}" class="btn btn-warning d-block d-md-inline-block mr-2 mb-2">Modifier mon mot de passe</a>
+                    <a href="{{path('account_delimg')}}" class="btn btn-danger d-block d-md-inline-block mb-2">Supprimer mon image de profil</a>
                 </div>
             {% endif %}
         </div>

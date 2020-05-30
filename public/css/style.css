@@ -93,6 +93,208 @@ html,body{
     border-top: 1px solid rgb(32, 126, 143) ;
 }
 
+/** NAV SMARTPHONE - BURGER **/
+
+.burger{
+    width: 35px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: -35px;
+}
+
+.burger:hover span{
+    background-color: rgb(21, 85, 97);
+}
+
+.burger.active:hover span{
+    background-color: rgb(255, 98, 98);
+}
+
+.burger span{
+    width: 100%;
+    height: 5px;
+    background-color: white;
+    margin-bottom: 8px;
+    display: block;
+    transition: all 0.3s;
+}
+
+.burger.active span:nth-child(1){
+    margin-bottom: 0px;
+    margin-top: 15px;
+    transform: rotate(45deg);
+}
+
+.burger.active span:nth-child(2){
+    display: none;
+}
+
+.burger.active span:nth-child(3){
+    margin-bottom: 0px;
+    margin-top: -5px;
+    transform: rotate(-45deg);
+}
+
+#nav-burger{
+    width: 100%;
+    height: 100%;
+    background-image: url(/uploads/body_background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    z-index: 1000;
+    transition: all 0.5s;
+    transform: translateY(-100%);
+}
+
+#nav-burger.active{
+    transform: translateY(0%);
+}
+
+#nav-burger ul{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+#nav-burger ul a{
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    width: auto;
+    transition: all 0.4s;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+}
+
+#nav-burger ul a:hover{
+    color:  rgb(21, 85, 97);
+    text-shadow: none;
+}
+
+#nav-burger #links{
+    min-width: 250px;
+    height: auto;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#nav-burger #links a{
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    width: auto;
+    transition: all 0.4s;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+    float:left;
+}
+
+#nav-burger #links a:hover{
+    color:  rgb(21, 85, 97);
+    text-shadow: none;
+}
+
+.burger-admin{
+    width: 35px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.burger-admin:hover span{
+    background-color: rgb(21, 85, 97);
+}
+
+.burger-admin.active:hover span{
+    background-color: rgb(255, 98, 98);
+}
+
+.burger-admin span{
+    width: 100%;
+    height: 5px;
+    background-color: rgb(34, 127, 143);
+    margin-bottom: 8px;
+    display: block;
+    transition: all 0.3s;
+}
+
+.burger-admin.active span:nth-child(1){
+    margin-bottom: 0px;
+    margin-top: 15px;
+    transform: rotate(45deg);
+}
+
+.burger-admin.active span:nth-child(2){
+    display: none;
+}
+
+.burger-admin.active span:nth-child(3){
+    margin-bottom: 0px;
+    margin-top: -5px;
+    transform: rotate(-45deg);
+}
+
+#nav-burger-admin{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(249,249,249);
+    position: fixed;
+    z-index: 1000;
+    transition: all 0.5s;
+    transform: translateY(-100%);
+}
+
+#nav-burger-admin.active{
+    transform: translateY(0%);
+}
+
+#nav-burger-admin ul{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+#nav-burger-admin ul a{
+    color: rgb(34, 127, 143);
+    font-size: 24px;
+    text-align: center;
+    width: auto;
+    transition: all 0.4s;
+}
+
+#nav-burger-admin ul a:hover{
+    color:  rgb(21, 85, 97);
+}
+
+@media all and (max-width: 1000px) {
+    .nav-front a{
+        font-size: 14px;
+    }
+
+    .nav-back{
+        line-height: 0px;
+    }
+}
+
+
+@media all and (max-width: 768px) {
+    .logo{
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .nav-front{
+        box-shadow: none;
+    }
+}
+
 
 /** FOOTER **/
 
@@ -403,6 +605,14 @@ html,body{
     text-shadow: 1px 1px 4px black;
 }
 
+.match-scoreboard #date{
+    height: auto;
+    font-size: 30px;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    text-shadow: 1px 1px 4px black;
+}
+
 .match-scoreboard .logo-team{
     width: 90px;
     height: 90px;
@@ -494,6 +704,10 @@ html,body{
 }
 
 @media all and (max-width: 1000px) {
+    .match-scoreboard #date{
+        font-size: 25px;
+    }
+
     #infos{
         height: auto;
     }

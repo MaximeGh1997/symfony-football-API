@@ -10,7 +10,7 @@
     {% if teams and teams|length == 16 %}
         <div class="row mb-3">
             {% for team in teams %}
-            <div class="team col-2 text-center mt-3 mb-3">
+            <div class="team col-auto col-md-2 text-center mt-3 mb-3">
                 <p class="text-center">
                     <img src="{{team.logo}}" alt="" class="logo-team-admin mb-2"><br>
                     {{team.name}}
