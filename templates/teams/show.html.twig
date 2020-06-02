@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{team.name}}{% endblock %}
+
+{% block body %}
+    <div class="team-cover pt-5 mb-5">
+        <img src="{{team.cover}}" alt="">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="text-center mb-3 col-md-6 team-flag">
+                <img src="{{team.logo}}" alt="">
+            </div>
+            <div class="text-center col-md-6 align-self-center">
+                <h1 class="special-font team-title">{{team.name}}</h1>
+            </div>
+        </div>
+        <div class="row team-desc">
+            <p>
+                {{team.description | raw }}
+            </p>
+        </div>
+    </div> 
+{% endblock %}

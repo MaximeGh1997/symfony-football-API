@@ -1,0 +1,197 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{match.team1.name}} - {{match.team2.name}}{% endblock %}
+
+{% block body %}
+<div class="match-cover">
+    <div class="container h-100 match-cont">
+        <div class="row justify-content-center match-info">
+            <p class="text-center light-text">{{match.stade.name}} - {{match.stade.city}} <br> {% if match.groupName %} Groupe {{match.groupName.name}} {% elseif match.stage %} {{match.stage.name}} {% endif %}</p>
+        </div>
+        <div class="row match-scoreboard justify-content-center">
+            <div class="col-3 col-lg-2 align-self-center text-right d-none d-lg-block">{{match.team1.name}}</div>
+            <div class="col-auto col-lg-2 align-self-center text-left"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
+            <div class="col-auto col-lg-4 align-self-center text-center">
+                {% if match.isPlayed %}
+                    {{match.scoreT1}} - {{match.scoreT2}}
+                {% else %}
+                    <div id="date">
+                        {{match.date.date | date('d/m/Y')}} <br> {{match.date.date | date('H:i')}}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-auto col-lg-2 align-self-center text-right"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>
+            <div class="col-3 col-lg-2 align-self-center text-left d-none d-lg-block">{{match.team2.name}}</div>
+            
+        </div>  
+    </div>
+</div>
+<div class="container mt-5 mb-5">
+    <h3 class="special-font">Infos de base</h3>
+    <div class="row mt-3 mb-5">
+        <div class="col-8 offset-2">
+            <div class="row" id="infos">
+                <a class="col-md-4 align-self-center" href="{{path('teams_show', {'id':match.team1.id} )}}">
+                    <div class="team-flag text-center">
+                        <img src="{{match.team1.logo}}" alt="">
+                        <p class="special-font">{{match.team1.name}}</p>
+                    </div>
+                </a>
+                <a class="col-md-4 align-self-center" href="{{path('stades_show', {'id':match.stade.id} )}}">
+                    <div class="team-flag text-center">
+                        <img src="{{match.stade.cover}}" alt="">
+                        <p class="special-font">{{match.stade.name}}</p>
+                    </div>
+                </a>
+                <a class="col-md-4 align-self-center" href="{{path('teams_show', {'id':match.team2.id} )}}">
+                    <div class="team-flag text-center">
+                        <img src="{{match.team2.logo}}" alt="">
+                        <p class="special-font">{{match.team2.name}}</p>
+                    </div>
+                </a> 
+            </div>
+        </div>
+    </div>
+    
+    <h3 class="special-font">Statistiques {{match.team1.name}}</h3>
+    <div class="row mt-3 mb-5">
+        <div class="col-8 offset-2">
+            <div class="row team-stat">
+                <div class="col-md-auto col-lg-3 stat">
+                    <div class="stat-nbr-wins">
+                        <div>{{match.team1.wins|length}}</div>
+                    </div>
+                    <p class="text-center">Victoires</p>
+                </div>
+                <div class="col-md-auto col-lg-3 stat">
+                    <div class="stat-nbr">
+                        <div>{{match.team1.Draws|length}}</div>
+                    </div>
+                    <p class="text-center">Matchs nul</p>
+                </div>
+                <div class="col-md-auto col-lg-3 stat">
+                    <div class="stat-nbr-defeats">
+                        <div>{{match.team1.defeats|length}}</div>
+                    </div>
+                    <p class="text-center">Défaites</p>
+                </div>
+                <div class="col-md-auto col-lg-3 stat">
+                    <div class="stat-nbr">
+                        <div>{{match.team1.Goals}}</div>
+                    </div>
+                    <p class="text-center">Buts marqués</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <h3 class="special-font">Statistiques {{match.team2.name}}</h3>
+    <div class="row mt-3 mb-5">
+        <div class="col-8 offset-2">
+            <div class="row team-stat">
+                <div class="col-md-auto col-lg-3 stat">
+                    <div class="stat-nbr-wins">
+                        <div>{{match.team2.wins|length}}</div>
+                    </div>
+                    <p class="text-center">Victoires</p>
+                </div>
+                <div class="col-md-auto col-lg-3 stat">
+                    <div class="stat-nbr">
+                        <div>{{match.team2.Draws|length}}</div>
+                    </div>
+                    <p class="text-center">Matchs nul</p>
+                </div>
+                <div class="col-md-auto col-lg-3 stat">
+                    <div class="stat-nbr-defeats">
+                        <div>{{match.team2.defeats|length}}</div>
+                    </div>
+                    <p class="text-center">Défaites</p>
+                </div>
+                <div class="col-md-auto col-lg-3 stat">
+                    <div class="stat-nbr">
+                        <div>{{match.team2.Goals}}</div>
+                    </div>
+                    <p class="text-center">Buts marqués</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="special-font">Avis & commentaires</h3>
+    <hr>
+    {% if app.user %}
+        {{ form_start(form) }}
+            {% if match.isPlayed and ratingFromAuth|length < 1 %}
+                <div class="rating" name="rating">
+                    {% for i in 1..5 %}
+                        <i value={{i}} class="fa fa-star"></i>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {% if ratingFromAuth %}
+                    {% for comment in ratingFromAuth %}
+                        <p class="special-font">Vous avez donné une note de: <strong>{{comment.rating}}</strong></p>
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+            {{form_widget(form)}}
+            <button type="submit" class="btn btn-info">Envoyer</button>
+        {{form_end(form)}}
+    <hr>
+    {% endif %}
+    {% if rating|length > 0 and match.isPlayed %}
+        <p class="special-font">Note globale: <strong>{{match.GlobalRating}}</strong></p>
+    {% elseif not match.isPlayed %}
+    
+    {% else %}
+        <p class="special-font">Ce match n'a pas encore été noté</p>
+    {% endif %}
+    {% for comment in comments %}
+    {% if comment.author == app.user %}
+        <div class="row justify-content-start justify-content-md-center mt-2 mb-2">
+            <div class="col-auto align-self-center text-center">
+                <img src="/uploads/{{comment.author.picture}}" alt="avatar de {{comment.author.username}}" class="avatar-medium">
+            </div>
+            <div class="col-auto col-sm-6 comment" style="background-color: rgb(230, 230, 230);">
+                <p class="font-italic">Vous {% if comment.rating %} avez donné une note de {{comment.rating}} {% endif %}</p>
+                <p class="content">{{comment.content}}</p>
+                <p class="light-text font-italic date">le {{comment.createdAt | date('d/m/Y')}} à {{comment.createdAt | date('H:i')}}</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="row justify-content-end justify-content-md-center mt-2 mb-2">
+            <div class="col-auto col-sm-6 comment">
+                <p class="font-italic"><a href="{{path('user_show',{id:comment.author.id})}}">@{{comment.author.username}}</a>
+                {% if comment.rating %} à donné une note de {{comment.rating}} {% endif %}</p>
+                <p class="content">{{comment.content}}</p>
+                <p class="light-text font-italic date">le {{comment.createdAt | date('d/m/Y')}} à {{comment.createdAt | date('H:i')}}</p>
+            </div>
+            <div class="col-auto align-self-center text-center">
+                <img src="/uploads/{{comment.author.picture}}" alt="avatar de {{comment.author.username}}" class="avatar-medium">
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var ratingBox = document.querySelectorAll('.rating')[0];
+        var stars = ratingBox.querySelectorAll('i');
+        var input = document.getElementById('comment_rating');
+
+        stars.forEach(function(star,key){
+            star.onclick = function(){
+                rating = key + 1;
+                input.value = rating;
+
+                ratingBox.classList.add('active');
+                stars.forEach(function(star,key){
+                    star.classList.remove('active');
+                });
+                star.classList.add('active');
+            }
+        });
+    </script>
+{% endblock %}

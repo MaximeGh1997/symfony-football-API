@@ -1,0 +1,13 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Encodage du résultat {{match.team1.name}} - {{match.team2.name}}{% endblock %}
+
+{% block body %}
+<div class="container h-100 cont-admin">
+    <h3 class="mt-3 mb-3">Résultat <strong>{{match.team1.name}} - {{match.team2.name}}</strong></h3>
+    {{form_start(form)}}
+        {{form_widget(form)}}
+        <button type="submit" class="mb-3 btn btn-info">Encoder le résultat</button>
+    {{form_end(form)}}
+</div>
+{% endblock %}

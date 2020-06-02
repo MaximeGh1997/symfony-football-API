@@ -1,0 +1,713 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Phase finale{% endblock %}
+
+{% block body %}
+<div class="container match-cont">
+    <h1 class="special-font d-none d-xl-block">Arbre final</h1>
+    <hr class="mb-3 d-none d-xl-block">
+</div>
+
+<div class="bracket-container mb-5 d-none d-xl-flex">
+
+{# 1/8 de finales left #}
+  <div class="bracket-level">
+  {# MATCH 1 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[0].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[0].team1.name}}</div><div class="bracket-score">{{eight[0].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">2A</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[0].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[0].team2.name}}</div><div class="bracket-score">{{eight[0].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">2B</div>
+      {% endif %}
+      </div>
+      {% if eight %}
+        {% if eight[0].draw %}
+          <p class="font-italic bracket-info">* {{eight[0].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+
+    {# MATCH 2 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[1].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[1].team1.name}}</div><div class="bracket-score">{{eight[1].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">1A</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[1].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[1].team2.name}}</div><div class="bracket-score">{{eight[1].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">2C</div>
+      {% endif %}
+      </div>
+      {% if eight %}
+        {% if eight[1].draw %}
+          <p class="font-italic bracket-info">* {{eight[1].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+
+    {# MATCH 3 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[2].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[2].team1.name}}</div><div class="bracket-score">{{eight[2].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">1C</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[2].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[2].team2.name}}</div><div class="bracket-score">{{eight[2].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">3e</div>
+      {% endif %}
+      </div>
+      {% if eight %}
+        {% if eight[2].draw %}
+          <p class="font-italic bracket-info">* {{eight[2].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+
+    {# MATCH 4 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[3].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[3].team1.name}}</div><div class="bracket-score">{{eight[3].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">1B</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[3].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[3].team2.name}}</div><div class="bracket-score">{{eight[3].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">3e</div>
+      {% endif %}
+      </div>
+      {% if eight %}
+        {% if eight[3].draw %}
+          <p class="font-italic bracket-info">* {{eight[3].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+    
+  </div>
+{# #}
+
+{# 1/4 de finales left #}
+  <div class="bracket-level">
+    
+    <div class="bracket-matchup"></div>
+    
+    {# MATCH 1 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if quarter %}
+        <img src="{{quarter[0].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[0].team1.name}}</div><div class="bracket-score">{{quarter[0].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/8 n°1</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if quarter %}
+        <img src="{{quarter[0].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[0].team2.name}}</div><div class="bracket-score">{{quarter[0].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/8 n°2</div>
+      {% endif %}
+      </div>
+      {% if quarter %}
+        {% if quarter[0].draw %}
+          <p class="font-italic bracket-info">* {{quarter[0].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+
+    {# MATCH 2 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if quarter %}
+        <img src="{{quarter[1].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[1].team1.name}}</div><div class="bracket-score">{{quarter[1].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/8 n°3</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if quarter %}
+        <img src="{{quarter[1].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[1].team2.name}}</div><div class="bracket-score">{{quarter[1].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/8 n°4</div>
+      {% endif %}
+      </div>
+      {% if quarter %}
+        {% if quarter[1].draw %}
+          <p class="font-italic bracket-info">* {{quarter[1].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+  </div>
+{# #}
+
+{# 1/2 finales left #}
+  <div class="bracket-level">
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+
+    {# MATCH 1 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if semi %}
+        <img src="{{semi[0].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{semi[0].team1.name}}</div><div class="bracket-score">{{semi[0].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/4 n°1</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if semi %}
+        <img src="{{semi[0].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{semi[0].team2.name}}</div><div class="bracket-score">{{semi[0].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/4 n°2</div>
+      {% endif %}
+      </div>
+      {% if semi %}
+        {% if semi[0].draw %}
+          <p class="font-italic bracket-info">* {{semi[0].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+  </div>
+{# #}
+
+{# finalistes #}
+  <div class="bracket-level">
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+
+    {# TEAM 1 #}
+    <div class="bracket-finalist">
+      <div class="bracket-team">
+      {% if final %}
+          <img src="{{final[0].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{final[0].team1.name}}</div><div class="bracket-score">{{final[0].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/2 n°1</div>
+      {% endif %}
+      </div>
+    </div>
+
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>  
+  </div>
+
+  <div class="bracket-level">
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+
+    {# TEAM 2 #}
+    <div class="bracket-finalist">
+      <div class="bracket-team">
+      {% if final %}
+          <img src="{{final[0].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{final[0].team2.name}}</div><div class="bracket-score">{{final[0].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/2 n°2</div>
+      {% endif %}
+        </div>
+    </div>
+
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>  
+  </div>
+{#  #}
+
+
+{# 1/2 finales right #}
+  <div class="bracket-level">
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+
+    {# MATCH 2 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if semi %}
+        <img src="{{semi[1].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{semi[1].team1.name}}</div><div class="bracket-score">{{semi[1].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/4 n°3</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if semi %}
+        <img src="{{semi[1].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{semi[1].team2.name}}</div><div class="bracket-score">{{semi[1].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/4 n°4</div>
+      {% endif %}
+      </div>
+      {% if semi %}
+        {% if semi[1].draw %}
+          <p class="font-italic bracket-info">* {{semi[1].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+  </div>
+{# #}
+
+{# 1/4 de finales right #}
+  <div class="bracket-level">
+    <div class="bracket-matchup"></div>
+
+    {# MATCH 1 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if quarter %}
+        <img src="{{quarter[2].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[2].team1.name}}</div><div class="bracket-score">{{quarter[2].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/8 n°5</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if quarter %}
+        <img src="{{quarter[2].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[2].team2.name}}</div><div class="bracket-score">{{quarter[2].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/8 n°6</div>
+      {% endif %}
+      </div>
+      {% if quarter %}
+        {% if quarter[2].draw %}
+          <p class="font-italic bracket-info">* {{quarter[2].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+    <div class="bracket-matchup"></div>
+
+    {# MATCH 2 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if quarter %}
+        <img src="{{quarter[3].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[3].team1.name}}</div><div class="bracket-score">{{quarter[3].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/8 n°7</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if quarter %}
+        <img src="{{quarter[3].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{quarter[3].team2.name}}</div><div class="bracket-score">{{quarter[3].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">V 1/8 n°8</div>
+      {% endif %}
+      </div>
+      {% if quarter %}
+        {% if quarter[3].draw %}
+          <p class="font-italic bracket-info">* {{quarter[3].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+  </div>
+{# #}
+
+{# 1/8 de finales right #}
+  <div class="bracket-level">
+
+  {# MATCH 1 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[4].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[4].team1.name}}</div><div class="bracket-score">{{eight[4].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">2D</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[4].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[4].team2.name}}</div><div class="bracket-score">{{eight[4].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">2E</div>
+      {% endif %}
+      </div>
+      {% if eight %}
+        {% if eight[4].draw %}
+          <p class="font-italic bracket-info">* {{eight[4].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+
+    {# MATCH 2 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[5].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[5].team1.name}}</div><div class="bracket-score">{{eight[5].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">1F</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[5].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[5].team2.name}}</div><div class="bracket-score">{{eight[5].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">3e</div>
+      {% endif %}
+      </div>
+      {% if eight %}
+        {% if eight[5].draw %}
+          <p class="font-italic bracket-info">* {{eight[5].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+
+    {# MATCH 3 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[6].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[6].team1.name}}</div><div class="bracket-score">{{eight[6].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">1D</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[6].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[6].team2.name}}</div><div class="bracket-score">{{eight[6].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">2F</div>
+      {% endif %}
+      </div>
+      {% if eight %}
+        {% if eight[6].draw %}
+          <p class="font-italic bracket-info">* {{eight[6].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="bracket-matchup"></div>
+
+    {# MATCH 4 #}
+    <div class="bracket-matchup">
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[7].team1.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[7].team1.name}}</div><div class="bracket-score">{{eight[7].scoreT1}}</div>
+      {% else %}
+        <div class="bracket-name">1E</div>
+      {% endif %}
+      </div>
+      <div class="bracket-team">
+      {% if eight %}
+        <img src="{{eight[7].team2.logo}}" alt="" class="logo-team-bracket align-self-center"><div class="bracket-name">{{eight[7].team2.name}}</div><div class="bracket-score">{{eight[7].scoreT2}}</div>
+      {% else %}
+        <div class="bracket-name">3e</div>
+      {% endif %}
+      </div>
+      {% if eight %}
+        {% if eight[7].draw %}
+          <p class="font-italic bracket-info">* {{eight[7].winner.name}} après prolongation</p>
+        {% endif %}
+      {% endif %}
+    </div>
+
+  </div>
+{# #}
+
+</div>
+
+<div class="container pt-5 mb-5">
+  <h1 class="special-font">Les matchs</h1>
+    <hr class="mb-3">
+    <form class="form-group" action="{{path('stages_index')}}" method="POST">
+        <select class="custom-select" name="stage">
+            {% for stage in stages %}
+                <option value="{{stage.id}}">{{stage.name}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="mt-3 mb-3 btn btn-info">Valider</button>
+    </form>
+  {% if not matchs %}
+    {% if stageId == 1 %}
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">2A</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Huitième de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">2B</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">1A</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Huitième de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">2C</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">1C</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Huitième de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">3e de groupe</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">1B</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Huitième de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">3e de groupe</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">2D</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Huitième de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">2E</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">1F</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Huitième de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">3e de groupe</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">1D</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Huitième de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">2F</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">1E</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Huitième de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">3e de groupe</div>
+          </div>
+        </div>
+      </div>
+
+    {% elseif stageId == 2 %}
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°1</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Quart de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°2</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°3</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Quart de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°4</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°5</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Quart de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°6</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°7</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Quart de finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°8</div>
+          </div>
+        </div>
+      </div>
+    
+    {% elseif stageId == 3 %}
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°9</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Demi finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°10</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°11</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Demi finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°12</div>
+          </div>
+        </div>
+      </div>
+
+    {% elseif stageId == 4 %}
+      <div class="row justify-content-center match">
+        <div class="col-10 col-lg-6 align-self-center">
+          <div class="row">
+              <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°13</div>
+                <div class="col-4 align-self-center">
+                  <p class="light-text text-center" style="font-size: 14px; color: gray;">
+                    <div class="row justify-content-center">Finale</div>
+                  </p>
+                </div>
+            <div class="col-4 col-sm-auto special-font align-self-center">Vainqueur n°14</div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    
+  {% else %}
+      {% for match in matchs | sort((a,b) => a.date.date <=> b.date.date) %}
+        <div class="row justify-content-center match">
+            <div class="col-10 col-lg-6 align-self-center">
+            <div class="row">
+                <div class="col-2 special-font align-self-center d-none d-sm-block">{{match.team1.name}}</div>
+                <div class="col-4 col-sm-2 align-self-center text-center"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
+                {% if match.isPlayed %}
+                    <div class="col-4 score">
+                    <a href="{{path('matchs_show',{'id':match.id})}}">
+                        <div class="row justify-content-center align-self-center">
+                        {{match.scoreT1}} - {{match.scoreT2}}
+                        </div>
+                    </a>
+                    </div>
+                {% else %}
+                    <div class="col-4 align-self-center">
+                    <a href="{{path('matchs_show',{'id':match.id})}}" class="light-text text-center" style="font-size: 14px; color: gray;">
+                        <div class="row justify-content-center">{{match.stage.name}}</div>
+                        <div class="row justify-content-center">{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}</div>
+                        <div class="row justify-content-center">{{match.stade.name}}</div>
+                    </a>
+                    </div>
+                {% endif %}
+                <div class="col-4 col-sm-2 align-self-center text-center"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>
+                <div class="col-2 special-font align-self-center d-none d-sm-block">{{match.team2.name}}</div>
+            </div>
+            </div>
+        </div>
+      {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

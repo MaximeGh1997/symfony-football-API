@@ -1,0 +1,43 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Les Dates{% endblock %}
+
+{% block body %}
+    <div class="container cont-admin">
+        <h1 class="mt-3 mb-3">Administration du calendrier</h1>
+        <div class="alert alert-info">Vous avez actuellement {{freeDates|length}} dates disponibles</div>
+        <a href="{{path('admin_dates_create')}}"><button type="button" class="btn btn-info mb-3">Ajouter une date</button></a>
+        
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}">
+                {% for message in messages %}
+                    <p>{{ message | raw }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Date</th>
+                <th scope="col">Match</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for date in dates %}
+            <tr>
+                <td scope="row">{{date.id}}</td>
+                <td>{{date.date | date('d/m/Y')}} {{date.date | date('H:i')}}</td>
+                <td>{% if date.matchNbr %} {{date.matchNbr.team1.name}} - {{date.matchNbr.team2.name}} {% else %} A définir {% endif %}</td>
+                <td class="text-align-center">
+                    <a href="{{path('admin_dates_edit', {'id':date.id})}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                    <a href="{{path('admin_dates_delete', {'id':date.id})}}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la date ? Cela supprimera également le match qui lui est assignée !')"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table> 
+    </div>
+{% endblock %}

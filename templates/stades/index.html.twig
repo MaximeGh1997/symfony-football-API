@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les stades{% endblock %}
+
+{% block body %}
+    <div class="w-100 pt-5 pb-5" id="stades-show">
+        <div class="col-10 offset-1">
+            <h1 class="special-font mt-5 mb-3">Les stades hôtes</h1>
+            <hr class="mb-5">
+            <div class="row">
+                {% for stade in stades %}
+                <div class="team col-6 col-sm-3 col-md-2 text-center mt-3 mb-3">
+                    <a href="{{path('stades_show', {'id':stade.id})}}" class="text-center special-font">
+                        <img src="/uploads/stadium-icon.png" alt="" class="logo-stade mb-2"><br>
+                        {{stade.name}}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

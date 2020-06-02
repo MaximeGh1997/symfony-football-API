@@ -1,0 +1,929 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
+*{
+    margin:0px;
+    padding:0px;
+}
+
+html,body{
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/** CONTAINER */
+
+.cont-admin{
+    padding-top: 75px;
+}
+
+.cont-padding{
+    padding-top: 200px;
+}
+
+/** NAV **/
+
+.nav-front{
+    background-image: url(/uploads/body_background.jpg);
+    box-shadow: 1px 1px 3px rgba(21, 78, 88, 0.7);
+}
+
+.nav-front a{
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    font-size: 18px;
+    margin-left: 10px;
+    margin-right: 10px;
+    transition: all 0.4s;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+}
+
+.nav-front a:hover{
+    color:  rgb(21, 85, 97);
+    text-shadow: none;
+}
+
+.nav-back{
+    height: 65px;
+    line-height: 65px;
+}
+
+.nav-back h4{
+    margin-bottom: 0px;
+    margin-right: 15px;
+}
+
+.nav-back a{
+    color: rgb(34, 127, 143);
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+    transition: all 0.4s;
+    display: block;
+}
+
+.nav-back a:hover{
+    color:  rgb(21, 85, 97);
+}
+
+.avatar-mini{
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    object-fit: cover;
+}
+
+.dropdown-menu{
+    background-image: url(/uploads/body_background.jpg);
+    height: auto;
+}
+
+.dropdown-menu a{
+    margin: 0 auto;
+    padding: 0;
+    font-size: 15px;
+    text-align: center;
+}
+
+.dropdown-menu a:hover{
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.dropdown-menu .dropdown-divider{
+    border-top: 1px solid rgb(32, 126, 143) ;
+}
+
+/** NAV SMARTPHONE - BURGER **/
+
+.burger{
+    width: 35px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: -35px;
+}
+
+.burger:hover span{
+    background-color: rgb(21, 85, 97);
+}
+
+.burger.active:hover span{
+    background-color: rgb(255, 98, 98);
+}
+
+.burger span{
+    width: 100%;
+    height: 5px;
+    background-color: white;
+    margin-bottom: 8px;
+    display: block;
+    transition: all 0.3s;
+}
+
+.burger.active span:nth-child(1){
+    margin-bottom: 0px;
+    margin-top: 15px;
+    transform: rotate(45deg);
+}
+
+.burger.active span:nth-child(2){
+    display: none;
+}
+
+.burger.active span:nth-child(3){
+    margin-bottom: 0px;
+    margin-top: -5px;
+    transform: rotate(-45deg);
+}
+
+#nav-burger{
+    width: 100%;
+    height: 100%;
+    background-image: url(/uploads/body_background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    z-index: 1000;
+    transition: all 0.5s;
+    transform: translateY(-100%);
+}
+
+#nav-burger.active{
+    transform: translateY(0%);
+}
+
+#nav-burger ul{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+#nav-burger ul a{
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    width: auto;
+    transition: all 0.4s;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+}
+
+#nav-burger ul a:hover{
+    color:  rgb(21, 85, 97);
+    text-shadow: none;
+}
+
+#nav-burger #links{
+    min-width: 250px;
+    height: auto;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#nav-burger #links a{
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    width: auto;
+    transition: all 0.4s;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+    float:left;
+}
+
+#nav-burger #links a:hover{
+    color:  rgb(21, 85, 97);
+    text-shadow: none;
+}
+
+.burger-admin{
+    width: 35px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.burger-admin:hover span{
+    background-color: rgb(21, 85, 97);
+}
+
+.burger-admin.active:hover span{
+    background-color: rgb(255, 98, 98);
+}
+
+.burger-admin span{
+    width: 100%;
+    height: 5px;
+    background-color: rgb(34, 127, 143);
+    margin-bottom: 8px;
+    display: block;
+    transition: all 0.3s;
+}
+
+.burger-admin.active span:nth-child(1){
+    margin-bottom: 0px;
+    margin-top: 15px;
+    transform: rotate(45deg);
+}
+
+.burger-admin.active span:nth-child(2){
+    display: none;
+}
+
+.burger-admin.active span:nth-child(3){
+    margin-bottom: 0px;
+    margin-top: -5px;
+    transform: rotate(-45deg);
+}
+
+#nav-burger-admin{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(249,249,249);
+    position: fixed;
+    z-index: 1000;
+    transition: all 0.5s;
+    transform: translateY(-100%);
+}
+
+#nav-burger-admin.active{
+    transform: translateY(0%);
+}
+
+#nav-burger-admin ul{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+#nav-burger-admin ul a{
+    color: rgb(34, 127, 143);
+    font-size: 24px;
+    text-align: center;
+    width: auto;
+    transition: all 0.4s;
+}
+
+#nav-burger-admin ul a:hover{
+    color:  rgb(21, 85, 97);
+}
+
+@media all and (max-width: 1000px) {
+    .nav-front a{
+        font-size: 14px;
+    }
+
+    .nav-back{
+        line-height: 0px;
+    }
+}
+
+
+@media all and (max-width: 768px) {
+    .logo{
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .nav-front{
+        box-shadow: none;
+    }
+}
+
+
+/** FOOTER **/
+
+.footer-front{
+    background-image: url(/uploads/body_background.jpg);
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+}
+
+.footer-front a{
+    color: white;
+    transition: all 0.4s;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+}
+
+
+.footer-front a:hover{
+    color:  rgb(21, 85, 97);
+    text-decoration: none;
+    text-shadow: none;
+}
+
+.footer-back{
+    color: rgb(23, 83, 92);
+}
+
+.footer-back a{
+    color: rgb(34, 127, 143);
+    transition: all 0.4s;
+}
+
+
+.footer-back a:hover{
+    color:  rgb(21, 85, 97);
+    text-decoration: none;
+}
+
+.special-font{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.logo-team-admin{
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    object-fit: cover;
+    border: 2px solid rgb(228, 228, 228);
+}
+
+.home-slider img{
+    height: 70vh;
+    object-fit: cover;
+    overflow: hidden;
+    background-position: center center;
+}
+
+#carouselExampleIndicators{
+    height: 100%;
+}
+
+.carousel-caption{
+    text-shadow: 1px 1px 2px black;
+}
+
+.match-card{
+    height: 300px;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.light-text{
+    font-size: 12px;
+    color: gray;
+}
+
+.scoreboard{
+    height: 150px;
+    line-height: 150px;
+    overflow: hidden;
+}
+
+.scoreboard img{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    border: 2px solid rgb(228, 228, 228);
+    object-fit: cover;
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
+    margin: 0px 10px 0px 10px;
+}
+
+.score{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+    color: black;
+    margin: 5px 5px 5px 5px;
+}
+
+/** PAGE TEAMS **/
+
+.logo-team{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    object-fit: cover;
+    border: 2px solid rgb(228, 228, 228);
+}
+
+.team a{
+    color: black;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s;
+}
+
+.team a:hover{
+    color: rgb(66, 66, 66);
+    text-decoration: none;
+}
+
+/** TEAMS SHOW **/
+
+.team-cover img{
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    object-position: center center;
+}
+
+@media all and (max-width: 1000px) {
+    .team-cover img{
+        height: 300px;
+    }
+}
+
+.team-flag img{
+    object-fit: cover;
+    width: 300px;
+    height: 175px;
+}
+
+.team-title{
+    font-size: 5em;
+}
+
+.team-desc{
+    margin-top: 80px;
+    margin-bottom: 30px;
+    padding: 15px;
+}
+
+/** PAGE STADES **/
+
+#stades-show{
+    min-height: 100vh;
+}
+
+.logo-stade{
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+}
+
+.stade-icon img{
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+}
+
+.info-stade{
+    width: 300px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.info-stade ul{
+    list-style:none;
+}
+
+.info-stade ul li{
+    text-align: center;
+    line-height: 50px;
+    font-size: 18px;
+}
+
+/** STADES SHOW **/
+@media all and (max-width: 1000px) {
+    .team-title{
+        font-size: 4em;
+    }
+  }
+
+  @media all and (max-width: 500px) {
+    .team-title{
+        font-size: 2.5em;
+    }
+  }
+
+/** PAGE RANKINGS **/
+
+.table-borderless td, .table-borderless th{
+    border: 0;
+}
+
+.match{
+    height: 120px;
+    border-top:1px solid lightgrey;
+}
+
+.match a{
+    color: black;
+    display: block;
+}
+
+.match a:hover{
+    text-decoration: none;
+    color: black;
+}
+
+.match .score{
+    font-size: 30px;
+    margin: 0px;
+}
+
+.match .logo-team{
+    width: 50px;
+    height: 50px;
+    border-radius: 60px;
+    object-fit: cover;
+    border: 2px solid lightgray;
+
+}
+
+/** PAGE LOGIN **/
+
+.login-bloc{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.login-bloc a{
+    color: rgb(34, 127, 143);
+}
+
+.login-bloc a:hover{
+    text-decoration: none;
+    color: rgb(27, 99, 112);
+}
+
+/** PAGE REGISTER **/
+
+.register{
+    padding-top: 100px;
+    margin-bottom: 50px;
+}
+
+/** PAGE ACCOUNT **/
+
+.avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
+/** PAGE MATCH SHOW **/
+
+.match-cover{
+    margin-top: 65px;
+    height: 400px;
+    background-image: url(/uploads/match-background2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.match-cont{
+    padding-top: 100px;
+}
+
+.match-cont .match-info{
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.match-info .light-text{
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 1px black;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.match-scoreboard{
+    height: 150px;
+    font-size: 35px;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    text-shadow: 1px 1px 4px black;
+}
+
+.match-scoreboard #date{
+    height: auto;
+    font-size: 30px;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    text-shadow: 1px 1px 4px black;
+}
+
+.match-scoreboard .logo-team{
+    width: 90px;
+    height: 90px;
+    border-radius: 90px;
+    border: 3px solid rgb(228, 228, 228);
+}
+
+#infos{
+    height: 250px;
+    background-color: rgb(247, 247, 247);
+    padding: 10px;
+    border-radius: 20px;
+}
+
+#infos a{
+    color: black;
+    transition: all 0.2s;
+    overflow: hidden;
+}
+
+#infos a:hover{
+    text-decoration: none;
+    color: rgb(21, 85, 97);
+}
+
+#infos .team-flag p{
+    margin-bottom: 0px;
+}
+
+#infos .team-flag img{
+    width: 150px;
+    height: 100px;
+    margin-bottom: 5px;
+}
+
+.team-stat{
+    height: 250px;
+    background-color: rgb(247, 247, 247);
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.team-stat .stat{
+    margin: auto;
+}
+
+.team-stat .stat p{
+    margin-bottom: 0;
+}
+
+.team-stat .stat .stat-nbr{
+    height: 100px;
+    width: 100px;
+    border-radius: 100px;
+    border: 3px solid rgb(34, 127, 143);
+    font-size: 40px;
+    margin: auto;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.team-stat .stat .stat-nbr-wins{
+    height: 100px;
+    width: 100px;
+    border-radius: 100px;
+    border: 3px solid rgb(48, 230, 72);
+    font-size: 40px;
+    margin: auto;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.team-stat .stat .stat-nbr-defeats{
+    height: 100px;
+    width: 100px;
+    border-radius: 100px;
+    border: 3px solid rgb(255, 55, 55);
+    font-size: 40px;
+    margin: auto;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.stat-nbr div, .stat-nbr-wins div, .stat-nbr-defeats div{
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+@media all and (max-width: 1000px) {
+    .match-scoreboard #date{
+        font-size: 25px;
+    }
+
+    #infos{
+        height: auto;
+    }
+
+    #infos .team-flag img{
+        width: 100px;
+        height: 66px;
+    }
+
+    .team-stat{
+        height: auto;
+    }
+
+    .team-stat .stat .stat-nbr{
+        height: 60px;
+        width: 60px;
+        border-radius: 60px;
+        border: 2px solid rgb(34, 127, 143);
+        font-size: 20px;
+    }
+
+    .team-stat .stat p{
+        font-size: 12px;
+    }
+
+    .team-stat .stat .stat-nbr-wins{
+        height: 60px;
+        width: 60px;
+        border-radius: 60px;
+        border: 2px solid rgb(48, 230, 72);
+        font-size: 20px;
+    }
+    
+    .team-stat .stat .stat-nbr-defeats{
+        height: 60px;
+        width: 60px;
+        border-radius: 60px;
+        border: 2px solid rgb(255, 55, 55);
+        font-size: 20px;
+    }
+}
+
+@media all and (max-width: 800px) {
+    .match-cover{
+        height: 300px;
+    }
+
+    .match-cont{
+        padding-top: 50px;
+    }
+
+    #infos a{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .team-stat .stat{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+/** COMMENTS **/
+
+.rating{
+    height: 40px;
+    width: 130px;
+}
+
+.rating .fa-star {
+    color: gray;
+    cursor: pointer;
+    margin: -3.5px;
+    font-size: 25px;
+    display: inline;
+}
+
+.rating:hover .fa-star {
+    color: #ffdc0f;
+}
+
+.rating .fa-star:hover ~ .fa-star {
+    color: gray;
+}
+
+.rating.active .fa-star{
+    color: #ffdc0f;
+}
+
+.rating .fa-star.active ~ .fa-star{
+    color: gray;
+}
+
+.avatar-medium{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    object-fit: cover;
+}
+
+.comment{
+    height: auto;
+    background-color: rgb(247, 247, 247);
+    border-radius: 10px;
+    padding: 15px;
+    line-height: 15px;
+}
+
+.comment a{
+    color: rgb(34, 127, 143);
+    font-style: italic;
+}
+
+.comment a:hover{
+    color: rgb(21, 85, 97);
+    text-decoration: none;
+}
+
+.comment .content{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.comment .date{
+    margin-bottom: 0px;
+}
+
+.comment-title{
+    color: rgb(34, 127, 143);
+}
+
+/** BRACKET FINAL */
+
+.bracket-container{
+    display: flex;
+    flex-direction: row;
+    height: 90%;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .bracket-level{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    flex-grow: 1;
+    transition: all ease .5s;
+  }
+  
+  .bracket-matchup{
+    width: 90%;
+    margin: auto;
+    max-height: 50px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .bracket-team{
+    height: 100%;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    transition: all ease .5s;
+    margin: 2px;
+    padding: 5px;
+  }
+
+  .bracket-finalist{
+    width: 90%;
+    margin: auto;
+    max-height: 50px;
+    display: flex;
+    position: relative;
+    top: 3%;
+  }
+
+  .logo-team-bracket{
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    object-fit: cover;
+    border: 2px solid rgb(228, 228, 228);
+  }
+  
+  .bracket-name{
+    font-family: 'Ubuntu', sans-serif;
+    width: 75%;
+    font-size: 18px;
+    padding: .2em;
+    line-height: 1.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: black;
+    margin-left: 2px;
+  }
+  
+  .bracket-score{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+    padding: .2em;
+    line-height: 1.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    color: black;
+    text-align: right;
+  }
+
+  .bracket-info{
+    font-size: 12px;
+    color: black;
+  }

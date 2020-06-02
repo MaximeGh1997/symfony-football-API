@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg bg-light fixed-top nav-back">
+   <a class="navbar-brand" href="{{path('admin_teams_index')}}">
+    <img src="/uploads/UEFA_Euro_2020_Logo.svg.png" width="35" height="40" alt="">
+   </a>
+   <h4>Administration</h4>
+
+   <div class="burger-admin ml-auto d-block d-lg-none">
+      <span></span>
+      <span></span>
+      <span></span>
+   </div>
+   <div class="collapse navbar-collapse d-none d-lg-block">
+      <a class="nav-item nav-link" href="{{path('admin_teams_index')}}">Equipes</a>
+      <a class="nav-item nav-link" href="{{path('admin_stades_index')}}">Stades</a>
+      <a class="nav-item nav-link" href="{{path('admin_groups_index')}}">Groupes</a>
+      <a class="nav-item nav-link" href="{{path('admin_stages_index')}}">Phase finale</a>
+      <a class="nav-item nav-link" href="{{path('admin_matchs_index')}}">Matchs</a>
+      <a class="nav-item nav-link" href="{{path('admin_dates_index')}}">Calendrier</a>
+      <a class="nav-item nav-link ml-auto" href="{{path('home')}}"><i class="fas fa-door-open"></i> Retour au site</a>
+   </div>
+</nav>
+
+<div id="nav-burger-admin">
+   <ul>
+      <a class="nav-item nav-link" href="{{path('admin_teams_index')}}">Equipes</a>
+      <a class="nav-item nav-link" href="{{path('admin_stades_index')}}">Stades</a>
+      <a class="nav-item nav-link" href="{{path('admin_groups_index')}}">Groupes</a>
+      <a class="nav-item nav-link" href="{{path('admin_stages_index')}}">Phase finale</a>
+      <a class="nav-item nav-link" href="{{path('admin_matchs_index')}}">Matchs</a>
+      <a class="nav-item nav-link" href="{{path('admin_dates_index')}}">Calendrier</a>
+      <a class="nav-item nav-link ml-auto" href="{{path('home')}}"><i class="fas fa-door-open"></i> Retour au site</a>
+   </ul>
+</div>
+
+<script>
+      var burger = document.querySelectorAll('nav .burger-admin')[0];
+      var nav = document.querySelectorAll('#nav-burger-admin')[0];
+      var links = document.querySelectorAll('#nav-burger-admin ul a');
+
+        burger.onclick = function(){
+            nav.classList.toggle("active");
+            burger.classList.toggle("active");
+        };
+
+        links.forEach(function(link,num){
+            link.onclick = function(){
+                nav.classList.remove("active");
+                burger.classList.remove("active");
+            }
+        })
+   </script>

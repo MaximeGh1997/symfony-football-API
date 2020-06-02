@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classements & Résultats{% endblock %}
+
+{% block body %}
+<div class="container mb-5 pt-5">
+    <h1 class="special-font mt-5">Classements & Résultats</h1>
+    <p>Sélectionnez un groupe</p>
+    <form class="form-group" action="{{path('rankings_index')}}" method="POST">
+        <select class="custom-select" name="group">
+            {% for group in groups %}
+                <option value="{{group.name}}">Groupe {{group.name}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="mt-3 mb-3 btn btn-info">Valider</button>
+    </form>
+    <hr class="mt-3 mb-3">
+    <h1 class="special-font">Groupe {{group.name}}</h1>
+    <table class="table table-borderless mb-5">
+        <thead>
+            <tr>
+                <th scope="col" class="border-0"></th>
+                <th scope="col" class="border-0"></th>
+                <th scope="col" class="border-0"></th>
+                <th scope="col" class="border-0">MJ</th>
+                <th scope="col" class="border-0">V</th>
+                <th scope="col" class="border-0">N</th>
+                <th scope="col" class="border-0">D</th>
+                <th scope="col" class="border-0">Pts</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in group.teams %}
+            <tr>
+                <td scope="row"><img src="{{team.logo}}" alt="" class="logo-team-admin"></td>
+                <td>{{team.name}}</td>
+                <td></td>
+                <td>{{team.MatchsPlayed|length}}</td>
+                <td>{{team.groupWins|length}}</td>
+                <td>{{team.groupDraws|length}}</td>
+                <td>{{team.groupDefeats|length}}</td>
+                <td>{{team.points}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1 class="special-font">Les matchs</h1>
+    <hr class="mb-3">
+    <p>Sélectionnez une équipe</p>
+    <form class="form-group" action="{{path('rankings_index')}}" method="POST">
+        <select class="custom-select" name="team">
+            {% for team in group.teams %}
+                <option value="{{team.id}}">{{team.name}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="mt-3 mb-3 btn btn-info">Valider</button>
+    </form>
+
+    {% if not matchs %}
+        {% for match in group.matchs | sort((a,b) => a.date.date <=> b.date.date) %}
+            <div class="row justify-content-center match">
+                <div class="col-10 col-lg-6 align-self-center">
+                <div class="row">
+                    <div class="col-2 special-font align-self-center d-none d-sm-block">{{match.team1.name}}</div>
+                    <div class="col-4 col-sm-2 align-self-center text-center"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
+                    {% if match.isPlayed %}
+                        <div class="col-4 score">
+                        <a href="{{path('matchs_show',{'id':match.id})}}">
+                            <div class="row justify-content-center align-self-center">
+                            {{match.scoreT1}} - {{match.scoreT2}}
+                            </div>
+                        </a>
+                        </div>
+                    {% else %}
+                        <div class="col-4 align-self-center">
+                        <a href="{{path('matchs_show',{'id':match.id})}}" class="light-text" style="font-size: 14px; color: gray;">
+                            <div class="row justify-content-center">Groupe {{match.groupName.name}}</div>
+                            <div class="row justify-content-center">{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}</div>
+                            <div class="row justify-content-center">{{match.stade.name}}</div>
+                        </a>
+                        </div>
+                    {% endif %}
+                    <div class="col-4 col-sm-2 align-self-center text-center"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>
+                    <div class="col-2 special-font align-self-center d-none d-sm-block">{{match.team2.name}}</div>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% for match in matchs | sort((a,b) => a.date.date <=> b.date.date) %}
+            <div class="row justify-content-center match">
+                <div class="col-10 col-lg-6 align-self-center">
+                <div class="row">
+                    <div class="col-2 special-font align-self-center d-none d-sm-block">{{match.team1.name}}</div>
+                    <div class="col-4 col-sm-2 align-self-center text-center"><img src="{{match.team1.logo}}" alt="" class="logo-team"></div>
+                    {% if match.isPlayed %}
+                        <div class="col-4 score">
+                        <a href="{{path('matchs_show',{'id':match.id})}}">
+                            <div class="row justify-content-center align-self-center">
+                            {{match.scoreT1}} - {{match.scoreT2}}
+                            </div>
+                        </a>
+                        </div>
+                    {% else %}
+                        <div class="col-4 align-self-center">
+                        <a href="{{path('matchs_show',{'id':match.id})}}" class="light-text" style="font-size: 14px; color: gray;">
+                            <div class="row justify-content-center">Groupe {{match.groupName.name}}</div>
+                            <div class="row justify-content-center">{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}</div>
+                            <div class="row justify-content-center">{{match.stade.name}}</div>
+                        </a>
+                        </div>
+                    {% endif %}
+                    <div class="col-4 col-sm-2 align-self-center text-center"><img src="{{match.team2.logo}}" alt="" class="logo-team"></div>
+                    <div class="col-2 special-font align-self-center d-none d-sm-block">{{match.team2.name}}</div>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

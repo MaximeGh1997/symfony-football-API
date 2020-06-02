@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-md fixed-top nav-front">
+   <a class="navbar-brand logo" href="{{path('home')}}">
+    <img src="/uploads/UEFA_Euro_2020_Logo_White.svg.png" width="35" height="40" alt="">
+   </a>
+   <div class="burger mr-auto d-block d-md-none">
+      <span></span>
+      <span></span>
+      <span></span>
+   </div>
+   <div class="collapse navbar-collapse d-none d-md-block">
+      <a class="nav-item nav-link" href="{{path('home')}}">Acceuil</a>
+      <a class="nav-item nav-link" href="{{path('teams_index')}}">Equipes</a>
+      <a class="nav-item nav-link" href="{{path('stades_index')}}">Stades</a>
+      <a class="nav-item nav-link" href="{{path('rankings_index')}}">Classements & Résultats</a>
+      <a class="nav-item nav-link" href="{{path('stages_index')}}">Phase finale</a>
+   </div>
+   <ul class="nav ml-auto">
+      {% if app.user %}
+         <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
+               <img src="/uploads/{{app.user.picture}}" alt="avatar de {{app.user.username}}" class="avatar-mini">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
+               <a href="{{path('account_index')}}" class="dropdown-item">Mon profil</a>
+               <a href="{{path('account_edit')}}" class="dropdown-item">Modifier mon profil</a>
+               {% if 'ROLE_ADMIN' in app.user.roles %}
+               <a href="{{path('admin_teams_index')}}" class="dropdown-item">Administration</a>
+               {% endif %}
+               <div class="dropdown-divider"></div>
+               <a href="{{path('app_logout')}}" class="dropdown-item">Déconnexion</a>
+            </div>
+         </li>
+      {% else %}
+      <div class="collapse navbar-collapse d-none d-md-block">
+         <a href="{{path('account_register')}}" class="nav-item nav-link">S'inscrire</a>
+         <a href="{{path('app_login')}}" class="nav-item nav-link">Se connecter</a>
+      </div>
+      {% endif %}
+   </ul>
+</nav>
+
+<div id="nav-burger">
+   <ul>
+      <a class="nav-item nav-link" href="{{path('home')}}">Acceuil</a>
+      <a class="nav-item nav-link" href="{{path('teams_index')}}">Equipes</a>
+      <a class="nav-item nav-link" href="{{path('stades_index')}}">Stades</a>
+      <a class="nav-item nav-link" href="{{path('rankings_index')}}">Classements & Résultats</a>
+      <a class="nav-item nav-link" href="{{path('stages_index')}}">Phase finale</a>
+   </ul>
+   
+
+   {% if not app.user %}
+   <div id="links">
+      <a href="{{path('account_register')}}" class="nav-item nav-link">S'inscrire</a>
+      <a href="{{path('app_login')}}" class="nav-item nav-link">Se connecter</a>
+   </div>
+   {% endif %}
+</div>
+
+{% block javascripts %}
+   <script>
+      var burger = document.querySelectorAll('nav .burger')[0];
+      var nav = document.querySelectorAll('#nav-burger')[0];
+      var links = document.querySelectorAll('#nav-burger ul a');
+      var links2 = document.querySelectorAll('#links a');
+
+        burger.onclick = function(){
+            nav.classList.toggle("active");
+            burger.classList.toggle("active");
+        };
+
+        links.forEach(function(link,num){
+            link.onclick = function(){
+                nav.classList.remove("active");
+                burger.classList.remove("active");
+            }
+        })
+   </script>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Les matchs{% endblock %}
+
+{% block body %}
+    <div class="container cont-admin mb-3">
+        <h1 class="mt-3 mb-3">Administration des matchs</h1>
+
+        <p>Sélectionnez un groupe</p>
+        <form class="form-group" action="{{path('admin_matchs_index')}}" method="POST">
+            <select class="custom-select" name="group">
+                <option value="">Tous les matchs</option>
+                {% for group in groups %}
+                    <option value="{{group.id}}">Matchs du groupe {{group.name}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="mt-3 mb-3 btn btn-info">Valider</button>
+        </form>
+        {% if matchs and not group %}
+            <a href="{{path('admin_matchs_emptying')}}"><button type="button" class="btn btn-danger mb-3" onclick="return confirm('Êtes-vous sûr de vouloir supprimer tout les matchs ? Cela supprimera également les dates du calendrier')">Supprimer tout les matchs</button></a>
+        {% endif %}
+
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}">
+                {% for message in messages %}
+                    <p>{{ message | raw }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="container-fluid">
+            {% if group %}
+                <h3>Groupe {{group.name}}</h3>
+            {% else %}
+                <h3>Tous les matchs</h3>
+            {% endif %}
+
+            {% if group and matchs == null and dates|length >= 6 %}
+                <a href="{{path('admin_matchs_drawing', {'id':group.id})}}"><button type="button" class="btn btn-info mb-3">Tirer au sort le calendrier</button></a>
+            {% elseif group and matchs == null and dates|length < 6 %}
+                <div class="alert alert-warning">Vous devez avoir au moins 6 dates disponibles pour éffectuer le tirage au sort</div>
+            {% endif %}
+
+            {% if not matchs and not group %}
+                <div class="alert alert-warning">Effectuez les différents tirages au sort</div>
+            {% else %}
+                <table class="table table-hover mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Match</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Stade</th>
+                        <th scope="col">Score</th>
+                        <th scope="col">Vainqueur</th>
+                        <th scope="col">Perdant</th>
+                        <th scope="col">Match nul</th>
+                        <th scope="col">Phase</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in matchs %}
+                    <tr>
+                        <td scope="row">{{match.id}}</td>
+                        <td>{{match.team1.name}} - {{match.team2.name}}</td>
+                        <td>{{match.date.date | date('d/m/Y')}} {{match.date.date | date('H:i')}}</td>
+                        <td>{{match.stade.name}}</td>
+                        {% if match.scoreT1 or match.scoreT2 %} <td>{{match.scoreT1}} - {{match.scoreT2}}</td> {% else %} <td>0 - 0</td> {% endif %}
+                        {% if match.winner %} <td>{{match.winner.name}}</td> {% elseif not match.winner and match.isPlayed %} <td>/</td> {% else %} <td>A définir</td> {% endif %}
+                        {% if match.looser %} <td>{{match.looser.name}}</td> {% elseif not match.looser and match.isPlayed %} <td>/</td> {% else %} <td>A définir</td> {% endif %}
+                        {% if match.draw == true %} <td>Oui</td> {%  elseif match.winner %} <td>Non</td> {% else %} <td>A définir</td> {% endif %}
+                        {% if match.stage %} <td>{{match.stage.name}}</td> {%  elseif match.groupName %} <td>Groupe {{match.groupName.name}}</td> {% endif %}
+                        <td class="text-align-center">
+                        {% if not match.isPlayed %}
+                            <a href="{{path('admin_matchs_edit', {'id':match.id})}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                            <a href="{{path('admin_matchs_simul', {'id':match.id})}}" class="btn btn-warning" onclick="return confirm('Êtes-vous sûr de vouloir simuler ce match ?')"><i class="fas fa-forward"></i></a>
+                        {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            {% endif %}
+    </div>
+{% endblock %}

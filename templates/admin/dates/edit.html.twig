@@ -1,0 +1,13 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Modification de la date{% endblock %}
+
+{% block body %}
+<div class="container h-100 cont-admin">
+    <h3 class="mt-3 mb-3">Modification de la date <strong>{{date.date | date('d/m/Y')}} {{date.date | date('H:i')}}</strong></h3>
+    {{form_start(form)}}
+        {{form_widget(form)}}
+        <button type="submit" class="mb-3 btn btn-warning">Modifier la date</button>
+    {{form_end(form)}}
+</div>
+{% endblock %}
