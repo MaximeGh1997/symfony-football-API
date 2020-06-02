@@ -58,6 +58,21 @@ class CommentsRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByAuthorAndRatings($match, $author, $limit = null)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.matchNbr = :match')
+            ->andWhere('c.author = :author')
+            ->andWhere('c.rating IS NOT NULL')
+            ->setParameter('match', $match)
+            ->setParameter('author', $author)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Comments[] Returns an array of Comments objects
     //  */

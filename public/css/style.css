@@ -793,6 +793,14 @@ html,body{
     color: gray;
 }
 
+.rating.active .fa-star{
+    color: #ffdc0f;
+}
+
+.rating .fa-star.active ~ .fa-star{
+    color: gray;
+}
+
 .avatar-medium{
     width: 60px;
     height: 60px;

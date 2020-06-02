@@ -84,7 +84,7 @@ class AppFixtures extends Fixture
         $stade = new Stades();
 
         $stade->setName('Nom du stade')
-            ->setCity('Ex: Bruxelles')
+            ->setCity('Ville du stade')
             ->setCapacity(1000)
             ->setDescription('Description du stade')
             ->setCover('http://www.placehold.it/1000x300')

@@ -18,10 +18,11 @@ class MatchsController extends AbstractController
      */
     public function show(Matchs $match, CommentsRepository $commentsRepo, Request $request, EntityManagerInterface $manager)
     {   
-        $matchId = $match->getId();
-        $comments = $commentsRepo->findByMatchAndDate($matchId);
-        $ratingCom = $commentsRepo->findByRatings($matchId);
-        
+        $author = $this->getUser();
+        $comments = $commentsRepo->findByMatchAndDate($match->getId());
+        $ratingCom = $commentsRepo->findByRatings($match->getId());
+        $ratingComFromAuth = $commentsRepo->findByAuthorAndRatings($match->getId(),$author->getId());
+
         $comment = new Comments();
         $form = $this->createForm(CommentType::class, $comment);
 
@@ -29,7 +30,7 @@ class MatchsController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $comment->setMatchNbr($match)
-                    ->setAuthor($this->getUser());
+                    ->setAuthor($author);
 
             $manager->persist($comment);
             $manager->flush();
@@ -41,6 +42,7 @@ class MatchsController extends AbstractController
             'match' => $match,
             'comments' => $comments,
             'rating' => $ratingCom,
+            'ratingFromAuth' => $ratingComFromAuth,
             'form' => $form->createView()
         ]);
     }

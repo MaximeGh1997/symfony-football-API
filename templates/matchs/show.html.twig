@@ -121,12 +121,18 @@
     <hr>
     {% if app.user %}
         {{ form_start(form) }}
-            {% if match.isPlayed %}
+            {% if match.isPlayed and ratingFromAuth|length < 1 %}
                 <div class="rating" name="rating">
                     {% for i in 1..5 %}
                         <i value={{i}} class="fa fa-star"></i>
                     {% endfor %}
                 </div>
+            {% else %}
+                {% if ratingFromAuth %}
+                    {% for comment in ratingFromAuth %}
+                        <p class="special-font">Vous avez donné une note de: <strong>{{comment.rating}}</strong></p>
+                    {% endfor %}
+                {% endif %}
             {% endif %}
             {{form_widget(form)}}
             <button type="submit" class="btn btn-info">Envoyer</button>
@@ -147,7 +153,7 @@
                 <img src="/uploads/{{comment.author.picture}}" alt="avatar de {{comment.author.username}}" class="avatar-medium">
             </div>
             <div class="col-auto col-sm-6 comment" style="background-color: rgb(230, 230, 230);">
-                <p class="font-italic">Vous {% if comment.rating %} avez donné une note de {{comment.rating}}/5 {% endif %}</p>
+                <p class="font-italic">Vous {% if comment.rating %} avez donné une note de {{comment.rating}} {% endif %}</p>
                 <p class="content">{{comment.content}}</p>
                 <p class="light-text font-italic date">le {{comment.createdAt | date('d/m/Y')}} à {{comment.createdAt | date('H:i')}}</p>
             </div>
@@ -156,7 +162,7 @@
         <div class="row justify-content-end justify-content-md-center mt-2 mb-2">
             <div class="col-auto col-sm-6 comment">
                 <p class="font-italic"><a href="{{path('user_show',{id:comment.author.id})}}">@{{comment.author.username}}</a>
-                {% if comment.rating %} à donné une note de {{comment.rating}}/5 {% endif %}</p>
+                {% if comment.rating %} à donné une note de {{comment.rating}} {% endif %}</p>
                 <p class="content">{{comment.content}}</p>
                 <p class="light-text font-italic date">le {{comment.createdAt | date('d/m/Y')}} à {{comment.createdAt | date('H:i')}}</p>
             </div>
@@ -167,4 +173,25 @@
     {% endif %}
     {% endfor %}
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var ratingBox = document.querySelectorAll('.rating')[0];
+        var stars = ratingBox.querySelectorAll('i');
+        var input = document.getElementById('comment_rating');
+
+        stars.forEach(function(star,key){
+            star.onclick = function(){
+                rating = key + 1;
+                input.value = rating;
+
+                ratingBox.classList.add('active');
+                stars.forEach(function(star,key){
+                    star.classList.remove('active');
+                });
+                star.classList.add('active');
+            }
+        });
+    </script>
 {% endblock %}

@@ -20,13 +20,13 @@ class CalendarDateFormType extends ApplicationType
             ->add('date', DateTimeType::class,[
                 "label" => "Ajoutez une date au calendrier"
             ])
-            ->add('matchNbr', EntityType::class,[
+            /*->add('matchNbr', EntityType::class,[
                 'label' => 'Match n° (Laissez vide pour libérer la date)',
                 'class' => Matchs::class,
                 'choice_label' => 'id',
                 'required'   => false,
                 'empty_data' => null
-            ])
+            ])*/
         ;
     }
 

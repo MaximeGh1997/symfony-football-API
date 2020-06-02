@@ -22,7 +22,6 @@
                 <th scope="col">Nom</th>
                 <th scope="col">Capacité</th>
                 <th scope="col">Ville</th>
-                <th scope="col">Résident</th>
                 <th scope="col">Hôte</th>
                 <th scope="col">Date d'ajout</th>
                 <th scope="col">Actions</th>
@@ -35,7 +34,6 @@
                 <td>{{stade.name}}</td>
                 <td>{{stade.capacity}}</td>
                 <td>{{stade.city}}</td>
-                <td>{% if stade.resident %} {{stade.resident.name}} {% else %} / {% endif %}</td>
                 <td>Groupe {{stade.groups.name}}</td>
                 <td>{{stade.createdAt | date('d/m/Y')}} {{stade.createdAt | date('H:i')}}</td>
                 <td class="text-align-center">

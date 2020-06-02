@@ -20,7 +20,7 @@ class CommentsController extends AbstractController
         $manager->flush();
         $this->addFlash(
             "success",
-            "Votre commentaire à bien été supprimer"
+            "Votre commentaire à bien été supprimé"
         );
         return $this->redirectToRoute('account_index');
     }
