@@ -21,8 +21,11 @@ class MatchsController extends AbstractController
         $author = $this->getUser();
         $comments = $commentsRepo->findByMatchAndDate($match->getId());
         $ratingCom = $commentsRepo->findByRatings($match->getId());
-        $ratingComFromAuth = $commentsRepo->findByAuthorAndRatings($match->getId(),$author->getId());
-
+        $ratingComFromAuth = null;
+        if(isset($author)){
+            $ratingComFromAuth = $commentsRepo->findByAuthorAndRatings($match->getId(),$author->getId());
+        }
+        
         $comment = new Comments();
         $form = $this->createForm(CommentType::class, $comment);
 
