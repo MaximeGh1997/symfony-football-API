@@ -78,6 +78,7 @@ class AppFixtures extends Fixture
             $manager->persist($team);
         }
 
+        // groupe initial pour stades
         $newGroup = new Groups();
         $newGroup->setName('GROUPE');
         $manager->persist($newGroup);
