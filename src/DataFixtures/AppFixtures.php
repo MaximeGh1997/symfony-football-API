@@ -78,6 +78,9 @@ class AppFixtures extends Fixture
             $manager->persist($team);
         }
 
+        $newGroup = new Groups();
+        $newGroup->setName('GROUPE');
+        $manager->persist($newGroup);
 
         // ajout des stade
         for($i=1; $i<=12; $i++){
@@ -88,6 +91,7 @@ class AppFixtures extends Fixture
             ->setCapacity(1000)
             ->setDescription('Description du stade')
             ->setCover('http://www.placehold.it/1000x300')
+            ->setGroups($newGroup)
             ->setCreatedAt($now);
             
         $manager->persist($stade);
