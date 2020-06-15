@@ -308,12 +308,6 @@ class AdminMatchsController extends AbstractController
             $scoreT1 = rand(0,4);
             $scoreT2 = rand(0,4);
 
-            if($match->getStage()->getId() == 4){
-                while($scoreT2 == $scoreT1){
-                    $scoreT2 = rand(0,4);
-                }
-            }
-
             $match->setIsPlayed(true);
 
             if($scoreT1 > $scoreT2){
