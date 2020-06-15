@@ -152,7 +152,7 @@
             <div class="col-auto align-self-center text-center">
                 <img src="/uploads/{{comment.author.picture}}" alt="avatar de {{comment.author.username}}" class="avatar-medium">
             </div>
-            <div class="col-auto col-sm-6 comment" style="background-color: rgb(230, 230, 230);">
+            <div class="col-6 comment" style="background-color: rgb(230, 230, 230);">
                 <p class="font-italic">Vous {% if comment.rating %} avez donné une note de {{comment.rating}} {% endif %}</p>
                 <p class="content">{{comment.content}}</p>
                 <p class="light-text font-italic date">le {{comment.createdAt | date('d/m/Y')}} à {{comment.createdAt | date('H:i')}}</p>
@@ -160,7 +160,7 @@
         </div>
     {% else %}
         <div class="row justify-content-end justify-content-md-center mt-2 mb-2">
-            <div class="col-auto col-sm-6 comment">
+            <div class="col-6 comment">
                 <p class="font-italic"><a href="{{path('user_show',{id:comment.author.id})}}">@{{comment.author.username}}</a>
                 {% if comment.rating %} à donné une note de {{comment.rating}} {% endif %}</p>
                 <p class="content">{{comment.content}}</p>
