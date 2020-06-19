@@ -5,12 +5,19 @@ namespace App\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups as Groupes;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TeamsRepository")
  * @ORM\HasLifecycleCallbacks
+ * @ApiResource(
+ *      normalizationContext={
+ *          "groups"={"teams_read"}
+ *      }
+ * )
  */
 class Teams
 {
@@ -24,6 +31,7 @@ class Teams
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Ce champ est obligatoire")
+     * @Groupes({"teams_read", "groups_read", "matchs_subresource"})
      */
     private $name;
 
@@ -32,12 +40,14 @@ class Teams
      * @Assert\NotBlank(message="Ce champ est obligatoire")
      * @Assert\Url()
      * @Assert\Length(max=255, maxMessage="L'url de l'image doit faire moins de 255 caractères")
+     * @Groupes({"teams_read", "groups_read", "matchs_subresource"})
      */
     private $logo;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\Length(min=20, minMessage="La description doit faire au moins 20 caractères")
+     * @Groupes({"teams_read"})
      */
     private $description;
 
@@ -46,11 +56,13 @@ class Teams
      * @Assert\NotBlank(message="Ce champ est obligatoire")
      * @Assert\Url()
      * @Assert\Length(max=255, maxMessage="L'url de l'image doit faire moins de 255 caractères")
+     * @Groupes({"teams_read"})
      */
     private $cover;
 
     /**
      * @ORM\Column(type="float")
+     * @Groupes({"groups_read"})
      */
     private $points;
 
@@ -143,45 +155,61 @@ class Teams
         return $this->matchs;
     }
 
-    // Permet de récuperer le nbr total de matchs joués
+    /**
+     * Permet de récuperer le nbr total de matchs joués
+     * @Groupes({"groups_read"})
+     */
     public function getMatchsPlayed()
     {
         $matchs = $this->getAllMatchs();
+        $MP = [];
 
         foreach($matchs as $match){
             if($match->getIsPlayed() != false && $match->getStage() == null){
                 $this->matchsPlayed[] += $match->getIsPlayed();
+                $MP = $this->matchsPlayed;
             }
         }
-
-        return $this->matchsPlayed;
+        
+        return count($MP);
     }
 
-    // Permet de récupérer le nbr de victoire (UNIQUEMENT SUR LES MATCHS DE GROUPES)
+    /**
+     * Permet de récupérer le nbr de victoire (UNIQUEMENT SUR LES MATCHS DE GROUPES)
+     * @Groupes({"groups_read"})
+     */
     public function getGroupWins()
     {
         $matchs = $this->getWins();
+        $GW = [];
 
         foreach ($matchs as $match) {
             if($match->getStage() == null){
                 $this->groupWins[] = $match;
+                $GW = $this->groupWins;
             }
         }
 
-        return $this->groupWins;
+        return count($GW);
     }
 
-    // Permet de récuperer le nombre total de matchs nul (UNIQUEMENT SUR LES MATCHS DE GROUPES)
+    /**
+     * Permet de récuperer le nombre total de matchs nul (UNIQUEMENT SUR LES MATCHS DE GROUPES)
+     * @Groupes({"groups_read"})
+     */
     public function getGroupDraws()
     {
         $matchs = $this->getAllMatchs();
+        $Gdraws = [];
 
         foreach($matchs as $match){
             if($match->getDraw() != null && $match->getStage() == null){
                 $this->groupDraws[] += $match->getDraw();
+                $Gdraws = $this->groupDraws;
             }
         }
-        return $this->groupDraws;
+
+        return count($Gdraws);
     }
 
     // Permet de récuperer le nombre total de matchs nul (SUR TOUTS LES MATCHS)
@@ -197,18 +225,23 @@ class Teams
         return $this->draws;
     }
 
-    // Permet de récupérer le nbr de défaites (UNIQUEMENT SUR LES MATCHS DE GROUPES)
+    /**
+     * Permet de récupérer le nbr de défaites (UNIQUEMENT SUR LES MATCHS DE GROUPES)
+     * @Groupes({"groups_read"})
+     */
     public function getGroupDefeats()
     {
         $matchs = $this->getDefeats();
+        $GD = [];
 
         foreach ($matchs as $match) {
             if($match->getStage() == null){
                 $this->groupDefeats[] = $match;
+                $GD = $this->groupDefeats;
             }
         }
 
-        return $this->groupDefeats;
+        return count($GD);
     }
 
     // Permet de récupérer le nbr de buts marqués

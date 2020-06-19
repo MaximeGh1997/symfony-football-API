@@ -3,14 +3,23 @@
 namespace App\Entity;
 
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups as Groupes;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MatchsRepository")
  * @ORM\HasLifecycleCallbacks
+ * @ApiResource(
+ *  subresourceOperations={
+ *      "api_groups_matchs_get_subresource"={
+ *          "normalization_context"={"groups"={"matchs_subresource"}}
+ *      }
+ *  }
+ * )
  */
 class Matchs
 {
@@ -24,12 +33,14 @@ class Matchs
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Teams", inversedBy="homeMatchs")
      * @ORM\JoinColumn(nullable=false)
+     * @Groupes({"matchs_subresource"})
      */
     private $team1;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Teams", inversedBy="awayMatchs")
      * @ORM\JoinColumn(nullable=false)
+     * @Groupes({"matchs_subresource"})
      */
     private $team2;
 
@@ -39,6 +50,7 @@ class Matchs
      *     type="float",
      *     message="Le score entré est invalide."
      * )
+     * @Groupes({"matchs_subresource"})
      */
     private $scoreT1;
 
@@ -48,6 +60,7 @@ class Matchs
      *     type="float",
      *     message="Le score entré est invalide."
      * )
+     * @Groupes({"matchs_subresource"})
      */
     private $scoreT2;
 
@@ -69,11 +82,13 @@ class Matchs
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Stades", inversedBy="matchs")
      * @ORM\JoinColumn(nullable=false)
+     * @Groupes({"matchs_subresource"})
      */
     private $stade;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="matchs")
+     * @Groupes({"matchs_subresource"})
      */
     private $groupName;
 
@@ -89,6 +104,7 @@ class Matchs
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groupes({"matchs_subresource"})
      */
     private $isPlayed;
 
@@ -104,6 +120,7 @@ class Matchs
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Dates", mappedBy="matchNbr", cascade={"persist", "remove"})
+     * @Groupes({"matchs_subresource"})
      */
     private $date;
 

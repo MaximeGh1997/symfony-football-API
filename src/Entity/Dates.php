@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups as Groupes;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DatesRepository")
+ * @ApiResource
  */
 class Dates
 {
@@ -20,6 +23,7 @@ class Dates
     /**
      * @ORM\Column(type="datetime")
      * @Assert\GreaterThan("today", message="La date doit être utlérieure à la date d'aujourd'hui")
+     * @Groupes({"matchs_subresource"})
      */
     private $date;
 

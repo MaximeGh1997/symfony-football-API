@@ -4,12 +4,23 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 use App\Services\SortByFieldExtension;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups as Groupes;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GroupsRepository")
+ * @ApiResource(
+ *  normalizationContext={
+ *      "groups"={"groups_read"}
+ *  },
+ *  subresourceOperations={
+ *      "matchs_get_subresource"={"path"="/groupes/{id}/matchs"}
+ *  }
+ * )
  */
 class Groups
 {
@@ -22,17 +33,20 @@ class Groups
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groupes({"groups_read", "stades_read", "matchs_subresource"})
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Teams", mappedBy="groupName")
      * @ORM\OrderBy({"points" = "DESC"})
+     * @Groupes({"groups_read"})
      */
     private $teams;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Matchs", mappedBy="groupName")
+     * @ApiSubresource
      */
     private $matchs;
 
