@@ -19,7 +19,9 @@ use Symfony\Component\Serializer\Annotation\Groups as Groupes;
  *  },
  *  subresourceOperations={
  *      "matchs_get_subresource"={"path"="/groupes/{id}/matchs"}
- *  }
+ *  },
+ *  collectionOperations={"GET"},
+ *  itemOperations={"GET"}
  * )
  */
 class Groups
@@ -33,7 +35,7 @@ class Groups
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groupes({"groups_read", "stades_read", "matchs_subresource"})
+     * @Groupes({"groups_read", "stades_read", "matchs_subresource", "match_read"})
      */
     private $name;
 

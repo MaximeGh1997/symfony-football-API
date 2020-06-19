@@ -16,7 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *      normalizationContext={
  *          "groups"={"stades_read"}
- *      }
+ *      },
+ *      collectionOperations={"GET"},
+ *      itemOperations={"GET"}
  * )
  */
 class Stades
@@ -31,7 +33,7 @@ class Stades
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=5, minMessage="Le nom du stade doit faire au moins 5 caractères")
-     * @Groupes({"stades_read", "matchs_subresource"})
+     * @Groupes({"stades_read", "matchs_subresource", "match_read"})
      */
     private $name;
 

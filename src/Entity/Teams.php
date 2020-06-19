@@ -16,7 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *      normalizationContext={
  *          "groups"={"teams_read"}
- *      }
+ *      },
+ *      collectionOperations={"GET"},
+ *      itemOperations={"GET"}
  * )
  */
 class Teams
@@ -31,7 +33,7 @@ class Teams
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Ce champ est obligatoire")
-     * @Groupes({"teams_read", "groups_read", "matchs_subresource"})
+     * @Groupes({"teams_read", "groups_read", "matchs_subresource", "match_read"})
      */
     private $name;
 
@@ -40,7 +42,7 @@ class Teams
      * @Assert\NotBlank(message="Ce champ est obligatoire")
      * @Assert\Url()
      * @Assert\Length(max=255, maxMessage="L'url de l'image doit faire moins de 255 caractères")
-     * @Groupes({"teams_read", "groups_read", "matchs_subresource"})
+     * @Groupes({"teams_read", "groups_read", "matchs_subresource", "match_read"})
      */
     private $logo;
 
@@ -88,6 +90,7 @@ class Teams
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Matchs", mappedBy="looser")
+     * 
      */
     private $defeats;
 
@@ -212,7 +215,9 @@ class Teams
         return count($Gdraws);
     }
 
-    // Permet de récuperer le nombre total de matchs nul (SUR TOUTS LES MATCHS)
+    /**
+     * Permet de récuperer le nombre total de matchs nul (SUR TOUTS LES MATCHS)
+     */
     public function getDraws()
     {
         $matchs = $this->getAllMatchs();
@@ -244,7 +249,10 @@ class Teams
         return count($GD);
     }
 
-    // Permet de récupérer le nbr de buts marqués
+    /**
+     * Permet de récupérer le nbr de buts marqués
+     * 
+     */
     public function getGoals(){
         $this->goals = 0;
 
