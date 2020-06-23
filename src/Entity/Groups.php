@@ -30,6 +30,7 @@ class Groups
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groupes({"groups_read"})
      */
     private $id;
 

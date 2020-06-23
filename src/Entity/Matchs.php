@@ -36,6 +36,7 @@ class Matchs
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groupes({"match_read"})
      */
     private $id;
 

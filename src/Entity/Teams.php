@@ -27,6 +27,7 @@ class Teams
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groupes({"teams_read"})
      */
     private $id;
 
