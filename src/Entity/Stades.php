@@ -27,6 +27,7 @@ class Stades
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groupes({"stades_read", "match_read"})
      */
     private $id;
 
@@ -66,7 +67,7 @@ class Stades
      * @Assert\NotBlank(message="Ce champ est obligatoire")
      * @Assert\Url()
      * @Assert\Length(max=255, maxMessage="L'url de l'image doit faire moins de 255 caractères")
-     * @Groupes({"stades_read"})
+     * @Groupes({"stades_read", "match_read"})
      */
     private $cover;
 

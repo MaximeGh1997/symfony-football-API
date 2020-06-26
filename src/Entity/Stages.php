@@ -12,6 +12,9 @@ use Symfony\Component\Serializer\Annotation\Groups as Groupes;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StagesRepository")
  * @ApiResource(
+ *  normalizationContext={
+ *      "groups"={"stages_read"}
+ *  },
  *  subresourceOperations={
  *      "matchs_get_subresource"={"path"="/stages/{id}/matchs"}
  *  },
@@ -25,12 +28,13 @@ class Stages
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groupes({"stages_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groupes({"matchs_subresource", "match_read"})
+     * @Groupes({"stages_read","matchs_subresource", "match_read"})
      */
     private $name;
 

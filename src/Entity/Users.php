@@ -34,13 +34,14 @@ class Users implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groupes({"comments_subresource", "users_read", "match_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Length(min=4, max=15, minMessage="Votre nom d'utilisateur doit faire au moins 4 caractères", maxMessage="Votre nom d'utilisateur doit faire moins de 15 caractères", allowEmptyString = false)
-     * @Groupes({"comments_subresource", "users_read"})
+     * @Groupes({"comments_subresource", "users_read", "match_read"})
      */
     private $username;
 

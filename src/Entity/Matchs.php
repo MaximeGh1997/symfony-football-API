@@ -36,7 +36,7 @@ class Matchs
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groupes({"match_read"})
+     * @Groupes({"match_read", "matchs_subresource"})
      */
     private $id;
 
@@ -155,7 +155,7 @@ class Matchs
 
     /**
      * Permet de récuperer la note globale du match
-     *
+     * @Groupes({"match_read"})
      * @return float
      */
     public function getGlobalRating()
@@ -163,7 +163,9 @@ class Matchs
         $comments = $this->comments->toArray();
         $sum = 0;
         foreach ($comments as $comment) {
-            $sum = $sum + $comment->getRating(); 
+            if ($comment->getRating() !== null){
+                $sum = $sum + $comment->getRating();
+            }
         }
 
         if($sum > 0){
