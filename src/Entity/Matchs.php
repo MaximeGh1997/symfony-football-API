@@ -3,14 +3,32 @@
 namespace App\Entity;
 
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups as Groupes;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MatchsRepository")
  * @ORM\HasLifecycleCallbacks
+ * @ApiResource(
+ *  normalizationContext={
+ *      "groups"={"match_read"}
+ *  },
+ *  subresourceOperations={
+ *      "api_groups_matchs_get_subresource"={
+ *          "normalization_context"={"groups"={"matchs_subresource"}}
+ *      },
+ *      "api_stages_matchs_get_subresource"={
+ *          "normalization_context"={"groups"={"matchs_subresource"}}
+ *      }
+ *  },
+ *  collectionOperations={"GET"},
+ *  itemOperations={"GET"}
+ * )
  */
 class Matchs
 {
@@ -18,18 +36,21 @@ class Matchs
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groupes({"match_read", "matchs_subresource"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Teams", inversedBy="homeMatchs")
      * @ORM\JoinColumn(nullable=false)
+     * @Groupes({"matchs_subresource", "match_read"})
      */
     private $team1;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Teams", inversedBy="awayMatchs")
      * @ORM\JoinColumn(nullable=false)
+     * @Groupes({"matchs_subresource", "match_read"})
      */
     private $team2;
 
@@ -39,6 +60,7 @@ class Matchs
      *     type="float",
      *     message="Le score entré est invalide."
      * )
+     * @Groupes({"matchs_subresource", "match_read"})
      */
     private $scoreT1;
 
@@ -48,6 +70,7 @@ class Matchs
      *     type="float",
      *     message="Le score entré est invalide."
      * )
+     * @Groupes({"matchs_subresource", "match_read"})
      */
     private $scoreT2;
 
@@ -69,16 +92,19 @@ class Matchs
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Stades", inversedBy="matchs")
      * @ORM\JoinColumn(nullable=false)
+     * @Groupes({"matchs_subresource", "match_read"})
      */
     private $stade;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="matchs")
+     * @Groupes({"matchs_subresource", "match_read"})
      */
     private $groupName;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Stages", inversedBy="matchs")
+     * @Groupes({"matchs_subresource", "match_read"})
      */
     private $stage;
 
@@ -89,6 +115,7 @@ class Matchs
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groupes({"matchs_subresource"})
      */
     private $isPlayed;
 
@@ -99,11 +126,13 @@ class Matchs
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="matchNbr", orphanRemoval=true)
+     * @ApiSubresource
      */
     private $comments;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Dates", mappedBy="matchNbr", cascade={"persist", "remove"})
+     * @Groupes({"matchs_subresource", "match_read"})
      */
     private $date;
 
@@ -126,7 +155,7 @@ class Matchs
 
     /**
      * Permet de récuperer la note globale du match
-     *
+     * @Groupes({"match_read"})
      * @return float
      */
     public function getGlobalRating()
@@ -134,7 +163,9 @@ class Matchs
         $comments = $this->comments->toArray();
         $sum = 0;
         foreach ($comments as $comment) {
-            $sum = $sum + $comment->getRating(); 
+            if ($comment->getRating() !== null){
+                $sum = $sum + $comment->getRating();
+            }
         }
 
         if($sum > 0){

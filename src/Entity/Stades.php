@@ -5,12 +5,21 @@ namespace App\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups as Groupes;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StadesRepository")
  * @ORM\HasLifecycleCallbacks
+ * @ApiResource(
+ *      normalizationContext={
+ *          "groups"={"stades_read"}
+ *      },
+ *      collectionOperations={"GET"},
+ *      itemOperations={"GET"}
+ * )
  */
 class Stades
 {
@@ -18,18 +27,21 @@ class Stades
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groupes({"stades_read", "match_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=5, minMessage="Le nom du stade doit faire au moins 5 caractères")
+     * @Groupes({"stades_read", "matchs_subresource", "match_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Ce champ est obligatoire")
+     * @Groupes({"stades_read"})
      */
     private $city;
 
@@ -39,12 +51,14 @@ class Stades
      *     type="float",
      *     message="La capacité entrée est invalide."
      * )
+     * @Groupes({"stades_read"})
      */
     private $capacity;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\Length(min=20, minMessage="La description doit faire au moins 20 caractères")
+     * @Groupes({"stades_read"})
      */
     private $description;
 
@@ -53,6 +67,7 @@ class Stades
      * @Assert\NotBlank(message="Ce champ est obligatoire")
      * @Assert\Url()
      * @Assert\Length(max=255, maxMessage="L'url de l'image doit faire moins de 255 caractères")
+     * @Groupes({"stades_read", "match_read"})
      */
     private $cover;
 
@@ -80,6 +95,7 @@ class Stades
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="stades")
      * @ORM\JoinColumn(nullable=true)
+     * @Groupes({"stades_read"})
      */
     private $groups;
 

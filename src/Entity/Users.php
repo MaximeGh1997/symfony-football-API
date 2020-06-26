@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups as Groupes;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -16,6 +19,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  fields={"username"},
  *  message="Ce nom d'utilisateur est déjà pris, choisissez en un autre"
  * )
+ * @ApiResource(
+ *  normalizationContext={
+ *      "groups"={"users_read"}
+ *  },
+ *  collectionOperations={"GET", "POST"},
+ *  itemOperations={"GET","PUT","PATCH","DELETE"},
+ *  denormalizationContext={"disable_type_enforcement"=true}
+ * )
  */
 class Users implements UserInterface
 {
@@ -23,12 +34,14 @@ class Users implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groupes({"comments_subresource", "users_read", "match_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Length(min=4, max=15, minMessage="Votre nom d'utilisateur doit faire au moins 4 caractères", maxMessage="Votre nom d'utilisateur doit faire moins de 15 caractères", allowEmptyString = false)
+     * @Groupes({"comments_subresource", "users_read", "match_read"})
      */
     private $username;
 
@@ -52,18 +65,21 @@ class Users implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Ce champ est obligatoire")
+     * @Groupes({"users_read"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Ce champ est obligatoire")
+     * @Groupes({"users_read"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Email(message="Veuillez renseigner une adresse email valide")
+     * @Groupes({"users_read"})
      */
     private $email;
 
@@ -71,6 +87,7 @@ class Users implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Image(mimeTypes={"image/png","image/jpeg","image/gif"}, mimeTypesMessage="Votre image doit être au format png, jpg ou gif")
      * @Assert\File(maxSize="1024k", maxSizeMessage="taille du fichier trop grande")
+     * @Groupes({"users_read"})
      */
     private $picture;
 
@@ -81,6 +98,7 @@ class Users implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="author", orphanRemoval=true)
+     * @ApiSubresource
      */
     private $comments;
 
@@ -117,7 +135,7 @@ class Users implements UserInterface
         return (string) $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername($username): self
     {
         $this->username = $username;
 
@@ -152,7 +170,7 @@ class Users implements UserInterface
         return (string) $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword($password): self
     {
         $this->password = $password;
 
@@ -181,7 +199,7 @@ class Users implements UserInterface
         return $this->firstname;
     }
 
-    public function setFirstName(string $firstname): self
+    public function setFirstName($firstname): self
     {
         $this->firstname = $firstname;
 
@@ -193,7 +211,7 @@ class Users implements UserInterface
         return $this->lastname;
     }
 
-    public function setLastName(string $lastname): self
+    public function setLastName($lastname): self
     {
         $this->lastname = $lastname;
 
@@ -205,7 +223,7 @@ class Users implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail($email): self
     {
         $this->email = $email;
 
@@ -217,7 +235,7 @@ class Users implements UserInterface
         return $this->picture;
     }
 
-    public function setPicture(?string $picture): self
+    public function setPicture($picture): self
     {
         $this->picture = $picture;
 

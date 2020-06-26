@@ -2,12 +2,25 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups as Groupes;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StagesRepository")
+ * @ApiResource(
+ *  normalizationContext={
+ *      "groups"={"stages_read"}
+ *  },
+ *  subresourceOperations={
+ *      "matchs_get_subresource"={"path"="/stages/{id}/matchs"}
+ *  },
+ *  collectionOperations={"GET"},
+ *  itemOperations={"GET"}
+ * )
  */
 class Stages
 {
@@ -15,16 +28,19 @@ class Stages
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groupes({"stages_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groupes({"stages_read","matchs_subresource", "match_read"})
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Matchs", mappedBy="stage")
+     * @ApiSubresource
      */
     private $matchs;
 

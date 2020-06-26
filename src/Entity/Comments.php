@@ -3,11 +3,29 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups as Groupes;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentsRepository")
  * @ORM\HasLifecycleCallbacks
+ * @ApiResource(
+ *  attributes={
+ *      "pagination_enabled"=true
+ *  },
+ *  subresourceOperations={
+ *      "api_matchs_comments_get_subresource"={
+ *          "normalization_context"={"groups"={"comments_subresource"}}
+ *      },
+ *      "api_users_comments_get_subresource"={
+ *          "normalization_context"={"groups"={"comments_subresource"}}          
+ *      }
+ * },
+ * collectionOperations={"GET","POST"},
+ * itemOperations={"GET","DELETE"},
+ * denormalizationContext={"disable_type_enforcement"=true}
+ * )
  */
 class Comments
 {
@@ -20,17 +38,20 @@ class Comments
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groupes({"comments_subresource"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groupes({"comments_subresource"})
      */
     private $rating;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Ce champ est obligatoire")
+     * @Groupes({"comments_subresource"})
      */
     private $content;
 
@@ -43,6 +64,7 @@ class Comments
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Groupes({"comments_subresource"})
      */
     private $author;
 
@@ -80,7 +102,7 @@ class Comments
         return $this->rating;
     }
 
-    public function setRating(?int $rating): self
+    public function setRating($rating): self
     {
         $this->rating = $rating;
 
@@ -92,7 +114,7 @@ class Comments
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent($content): self
     {
         $this->content = $content;
 
