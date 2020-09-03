@@ -115,7 +115,7 @@ class Matchs
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
-     * @Groupes({"matchs_subresource"})
+     * @Groupes({"matchs_subresource", "match_read"})
      */
     private $isPlayed;
 

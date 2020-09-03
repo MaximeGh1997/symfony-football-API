@@ -12,7 +12,8 @@ use Symfony\Component\Serializer\Annotation\Groups as Groupes;
  * @ORM\HasLifecycleCallbacks
  * @ApiResource(
  *  attributes={
- *      "pagination_enabled"=true
+ *      "pagination_enabled"=false,
+ *      "order"={"createdAt":"desc"}
  *  },
  *  subresourceOperations={
  *      "api_matchs_comments_get_subresource"={

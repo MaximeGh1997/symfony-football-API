@@ -41,7 +41,7 @@ class Stades
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Ce champ est obligatoire")
-     * @Groupes({"stades_read"})
+     * @Groupes({"stades_read", "match_read"})
      */
     private $city;
 

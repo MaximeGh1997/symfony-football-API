@@ -87,7 +87,6 @@ class Users implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Image(mimeTypes={"image/png","image/jpeg","image/gif"}, mimeTypesMessage="Votre image doit être au format png, jpg ou gif")
      * @Assert\File(maxSize="1024k", maxSizeMessage="taille du fichier trop grande")
-     * @Groupes({"users_read"})
      */
     private $picture;
 
@@ -113,13 +112,14 @@ class Users implements UserInterface
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
+    /**
     public function initializePP()
     {
         if(empty($this->picture)){
             $this->setPicture('unknow.jpg');
         }
     }
-
+    */
     public function getId(): ?int
     {
         return $this->id;
