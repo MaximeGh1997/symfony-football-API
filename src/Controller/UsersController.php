@@ -242,4 +242,24 @@ class UsersController extends AbstractController
 
         return $this->redirectToRoute('account_index');
     }
+
+    /**
+     * @return JsonResponse
+     * @Route("/upload-picture", name="uploadPicture", methods="POST")
+     */
+    public function uploadPicture(Request $request):JsonResponse
+    {
+        $user = $this->getUser();
+        $file = $request->files->get('file');
+
+        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+        $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+                $file->move(
+                    $this->getParameter('uploads_directory'),
+                    $newFilename
+                );
+                echo $file; exit;
+                return $this->json($data);
+    }
 }
