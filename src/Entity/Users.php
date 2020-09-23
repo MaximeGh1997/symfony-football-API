@@ -54,6 +54,7 @@ class Users implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\Length(min=8, minMessage="Votre mot de passe doit faire au moins 8 caractères")
+     * @Groupes({"users_read"})
      */
     private $password;
 

@@ -7,6 +7,7 @@ use App\Form\AccountType;
 use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
+use App\Repository\UsersRepository;
 use Symfony\Component\Form\FormError;
 use App\Repository\CommentsRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -214,6 +215,36 @@ class UsersController extends AbstractController
 
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * Permet de modifier le mdp depuis le front VueJS
+     * @Route("/password-edit", name="editPassword", methods="POST")
+     *
+     * @return Response
+     */
+    public function editPassword(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, UsersRepository $usersRepo){
+
+        $userId = $request->get('userId');
+        $oldPassword = $request->get('oldPassword');
+
+        $user = $usersRepo->findById($userId); // récup l'utilisateur connecté
+        $user = $user[0];
+
+            // verification que le mot de passe corresponde à l'ancien (oldPassword)
+            if(!password_verify($oldPassword, $user->getPassword())){
+                //Gérer l'érreur
+                return $this->json('Votre ancien mot de passe est incorrect !');
+            }else{
+                $newPassword = $request->get('newPassword');
+                $hash = $encoder->encodePassword($user,$newPassword);
+
+                $user->setPassword($hash);
+                $manager->persist($user);
+                $manager->flush();
+
+                return $this->json($user);
+            }
     }
 
     /**
