@@ -278,9 +278,12 @@ class UsersController extends AbstractController
      * @return JsonResponse
      * @Route("/upload-picture", name="uploadPicture", methods="POST")
      */
-    public function uploadPicture(Request $request):JsonResponse
+    public function uploadPicture(Request $request, EntityManagerInterface $manager, UsersRepository $usersRepo):JsonResponse
     {
-        $user = $this->getUser();
+        $userId = $request->get('userId');
+        $user = $usersRepo->findById($userId); // récup l'utilisateur connecté
+        $user = $user[0];
+
         $file = $request->files->get('file');
 
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
@@ -290,6 +293,9 @@ class UsersController extends AbstractController
                     $this->getParameter('uploads_directory'),
                     $newFilename
                 );
+                $user->setPicture($newFilename);
+                $manager->persist($user);
+                $manager->flush();
                 echo $file; exit;
                 return $this->json($data);
     }
