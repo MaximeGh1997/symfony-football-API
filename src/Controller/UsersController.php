@@ -255,7 +255,7 @@ class UsersController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function removeImage(EntityManagerInterface $manager){
+    public function removeImage(EntityManagerInterface $manager, Request $request, UsersRepository $usersRepo){
 
         $user = $this->getUser();
         $unknow = "unknow.jpg";
@@ -272,6 +272,29 @@ class UsersController extends AbstractController
         );
 
         return $this->redirectToRoute('account_index');
+    }
+
+    /**
+     * Permet de supp l'image de l'user depuis front VueJS
+     * @Route("/remove-picture", name="removePicture", methods="POST")
+     *
+     */
+    public function removePicture(EntityManagerInterface $manager, Request $request, UsersRepository $usersRepo){
+
+        $userId = $request->get('userId');
+        $user = $usersRepo->findById($userId); // récup l'utilisateur connecté
+        $user = $user[0];
+
+        $unknow = "unknow.jpg";
+        if($user->getPicture() !== $unknow){
+            unlink($this->getParameter('uploads_directory').'/'.$user->getPicture());
+        }
+        $user->setPicture($unknow);
+        $manager->persist($user);
+        $manager->flush();
+
+        return $this->json($user);
+
     }
 
     /**
