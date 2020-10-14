@@ -10,6 +10,12 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups as Groupes;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MatchsRepository")
@@ -29,6 +35,10 @@ use Symfony\Component\Serializer\Annotation\Groups as Groupes;
  *  collectionOperations={"GET"},
  *  itemOperations={"GET"}
  * )
+ * @ApiFilter(DateFilter::class, properties={"date.date"})
+ * @ApiFilter(OrderFilter::class, properties={"date.date"}, arguments={"orderParameterName"="order"})
+ * @ApiFilter(BooleanFilter::class, properties={"isPlayed"})
+ * @ApiFilter(ExistsFilter::class, properties={"isPlayed"})
  */
 class Matchs
 {
