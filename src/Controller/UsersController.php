@@ -317,6 +317,11 @@ class UsersController extends AbstractController
 
         $file = $request->files->get('file');
 
+        $unknow = "unknow.jpg";
+        if($user->getPicture() !== $unknow){
+            unlink($this->getParameter('uploads_directory').'/'.$user->getPicture());
+        }
+
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
         $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
