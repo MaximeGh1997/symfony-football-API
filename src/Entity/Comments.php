@@ -51,7 +51,7 @@ class Comments
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Ce champ est obligatoire")
+     * @Assert\NotBlank(message="Ce champ est obligatoire !")
      * @Groupes({"comments_subresource"})
      */
     private $content;

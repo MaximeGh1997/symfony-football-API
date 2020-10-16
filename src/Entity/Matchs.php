@@ -21,6 +21,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
  * @ORM\Entity(repositoryClass="App\Repository\MatchsRepository")
  * @ORM\HasLifecycleCallbacks
  * @ApiResource(
+ *  attributes={
+ *      "order"={"date.date":"asc"}
+ *  },
  *  normalizationContext={
  *      "groups"={"match_read"}
  *  },

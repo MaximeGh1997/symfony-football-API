@@ -234,7 +234,10 @@ class UsersController extends AbstractController
             // verification que le mot de passe corresponde à l'ancien (oldPassword)
             if(!password_verify($oldPassword, $user->getPassword())){
                 //Gérer l'érreur
-                return $this->json('Votre ancien mot de passe est incorrect !');
+                $response = new Response();
+                $response->setContent('Votre ancien mot de passe est incorrect !');
+                $response->setStatusCode(401);
+                return $response;
             }else{
                 $newPassword = $request->get('newPassword');
                 $hash = $encoder->encodePassword($user,$newPassword);
@@ -243,7 +246,9 @@ class UsersController extends AbstractController
                 $manager->persist($user);
                 $manager->flush();
 
-                return $this->json($user);
+                $response = new Response();
+                $response->setStatusCode(200);
+                return $response;
             }
     }
 
@@ -277,6 +282,7 @@ class UsersController extends AbstractController
     /**
      * Permet de supp l'image de l'user depuis front VueJS
      * @Route("/remove-picture", name="removePicture", methods="POST")
+     * @return Response
      *
      */
     public function removePicture(EntityManagerInterface $manager, Request $request, UsersRepository $usersRepo){
@@ -293,15 +299,17 @@ class UsersController extends AbstractController
         $manager->persist($user);
         $manager->flush();
 
-        return $this->json($user);
+        $response = new Response();
+        $response->setStatusCode(200);
+        return $response;
 
     }
 
     /**
-     * @return JsonResponse
      * @Route("/upload-picture", name="uploadPicture", methods="POST")
+     * @return Response
      */
-    public function uploadPicture(Request $request, EntityManagerInterface $manager, UsersRepository $usersRepo):JsonResponse
+    public function uploadPicture(Request $request, EntityManagerInterface $manager, UsersRepository $usersRepo)
     {
         $userId = $request->get('userId');
         $user = $usersRepo->findById($userId); // récup l'utilisateur connecté
@@ -319,7 +327,9 @@ class UsersController extends AbstractController
                 $user->setPicture($newFilename);
                 $manager->persist($user);
                 $manager->flush();
-                echo $file; exit;
-                return $this->json($data);
+                
+                $response = new Response();
+                $response->setStatusCode(200);
+                return $response;
     }
 }
