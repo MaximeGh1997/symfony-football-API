@@ -59,6 +59,7 @@ class Comments
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Matchs", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Groupes({"comments_subresource"})
      */
     private $matchNbr;
 

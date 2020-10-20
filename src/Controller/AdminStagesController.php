@@ -83,27 +83,27 @@ class AdminStagesController extends AbstractController
                         // SI TOUT EST OK
                         // DONNER UNE PLACE POUR CHAQUE EQUIPE
                         // LES 2 MEILLEURS DE CHAQUE GROUPE
-                        $teamsG1 = $teamsRepo->findBestsTeams(1,2);
+                        $teamsG1 = $teamsRepo->findBestsTeams(19,2);
                         $T1G1 = $teamsG1[0];
                         $T2G1 = $teamsG1[1];
 
-                        $teamsG2 = $teamsRepo->findBestsTeams(2,2);
+                        $teamsG2 = $teamsRepo->findBestsTeams(20,2);
                         $T1G2 = $teamsG2[0];
                         $T2G2 = $teamsG2[1];
 
-                        $teamsG3 = $teamsRepo->findBestsTeams(3,2);
+                        $teamsG3 = $teamsRepo->findBestsTeams(21,2);
                         $T1G3 = $teamsG3[0];
                         $T2G3 = $teamsG3[1];
 
-                        $teamsG4 = $teamsRepo->findBestsTeams(4,2);
+                        $teamsG4 = $teamsRepo->findBestsTeams(22,2);
                         $T1G4 = $teamsG4[0];
                         $T2G4 = $teamsG4[1];
 
-                        $teamsG5 = $teamsRepo->findBestsTeams(5,2);
+                        $teamsG5 = $teamsRepo->findBestsTeams(23,2);
                         $T1G5 = $teamsG5[0];
                         $T2G5 = $teamsG5[1];
 
-                        $teamsG6 = $teamsRepo->findBestsTeams(6,2);
+                        $teamsG6 = $teamsRepo->findBestsTeams(24,2);
                         $T1G6 = $teamsG6[0];
                         $T2G6 = $teamsG6[1];
 
