@@ -56,14 +56,14 @@ class Matchs
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Teams", inversedBy="homeMatchs")
      * @ORM\JoinColumn(nullable=false)
-     * @Groupes({"matchs_subresource", "match_read"})
+     * @Groupes({"matchs_subresource", "match_read", "comments_subresource"})
      */
     private $team1;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Teams", inversedBy="awayMatchs")
      * @ORM\JoinColumn(nullable=false)
-     * @Groupes({"matchs_subresource", "match_read"})
+     * @Groupes({"matchs_subresource", "match_read", "comments_subresource"})
      */
     private $team2;
 

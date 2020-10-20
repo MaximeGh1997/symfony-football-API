@@ -34,7 +34,7 @@ class Teams
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Ce champ est obligatoire")
-     * @Groupes({"teams_read", "groups_read", "matchs_subresource", "match_read"})
+     * @Groupes({"teams_read", "groups_read", "matchs_subresource", "match_read", "comments_subresource"})
      */
     private $name;
 
