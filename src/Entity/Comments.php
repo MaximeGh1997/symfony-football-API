@@ -34,6 +34,7 @@ class Comments
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groupes({"comments_subresource"})
      */
     private $id;
 
