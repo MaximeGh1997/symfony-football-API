@@ -150,11 +150,6 @@ class AdminGroupsController extends AbstractController
         $group->addTeam($team4[0]);
 
         $manager->persist($group);
-        $manager->persist($team1[0]);
-        $manager->persist($team2[0]);
-        $manager->persist($team3[0]);
-        $manager->persist($team4[0]);
-
         $manager->flush();
 
         $this->addFlash(

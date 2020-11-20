@@ -49,7 +49,7 @@ class Matchs
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groupes({"match_read", "matchs_subresource"})
+     * @Groupes({"match_read", "matchs_subresource", "comments_subresource"})
      */
     private $id;
 
