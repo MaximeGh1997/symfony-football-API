@@ -21,7 +21,7 @@
         {% endfor %}
 
         {% for group in groups %}
-        <h3>Groupe {{group.name}}</h3>
+        <h3>Groupe {{group.name}}</h3> <a href="{{path('admin_groups_compose', {'id':group.id})}}"><button type="button" class="btn btn-info mb-3">Composer le groupe</button></a>
         <table class="table table-hover">
         <thead>
             <tr>

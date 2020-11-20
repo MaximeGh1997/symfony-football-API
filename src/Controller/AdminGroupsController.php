@@ -8,6 +8,7 @@ use App\Repository\TeamsRepository;
 use App\Repository\GroupsRepository;
 use App\Repository\MatchsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,6 +58,108 @@ class AdminGroupsController extends AbstractController
         $this->addFlash(
             "success",
             "Les groupes ont bien été formé"
+        );
+        return $this->redirectToRoute('admin_groups_index');
+    }
+
+    /**
+     * @Route("/admin/groups/{id}/compose", name="admin_groups_compose")
+     * 
+     * @return Response
+     */
+    public function compose(Groups $group, TeamsRepository $teamsRepo)
+    {
+        $freeTeams = $teamsRepo->findFreeTeams();
+
+        return $this->render('admin/groups/compose.html.twig', [
+            'group' => $group,
+            'freeTeams' => $freeTeams
+        ]);
+    }
+
+    /**
+     * @Route("/admin/groups/{id}/compose/treatment", name="compose_treatment")
+     * 
+     */
+    public function composeTreatment(Groups $group, TeamsRepository $teamsRepo, Request $request, EntityManagerInterface $manager)
+    {
+        $team1Id = $request->request->get('team1');
+        $team2Id = $request->request->get('team2');
+        $team3Id = $request->request->get('team3');
+        $team4Id = $request->request->get('team4');
+        $params = $request->request->all();
+        
+        // GESTION ERREUR SI UN CHAMP VIDE
+        foreach($params as $param) {
+            if ($param == "null") {
+                $this->addFlash(
+                    "danger",
+                    "Veuillez selectionnez 4 équipes"
+                );
+                return $this->redirectToRoute('admin_groups_compose', [
+                    'id' => $group->getId()
+                ]);
+            }
+        }
+
+        
+        // GESTION ERREUR SI 2 EQUIPES IDENTIQUES 
+        if ($team1Id == $team2Id || $team1Id == $team3Id || $team1Id == $team4Id) {
+            $this->addFlash(
+                "danger",
+                "Veuillez selectionnez 4 équipes différentes"
+            );
+            return $this->redirectToRoute('admin_groups_compose', [
+                'id' => $group->getId()
+            ]);
+        } elseif ($team2Id == $team3Id || $team2Id == $team4Id) {
+            $this->addFlash(
+                "danger",
+                "Veuillez selectionnez 4 équipes différentes"
+            );
+            return $this->redirectToRoute('admin_groups_compose', [
+                'id' => $group->getId()
+            ]);
+        } elseif ($team3Id == $team4Id) {
+            $this->addFlash(
+                "danger",
+                "Veuillez selectionnez 4 équipes différentes"
+            );
+            return $this->redirectToRoute('admin_groups_compose', [
+                'id' => $group->getId()
+            ]);
+        }
+
+        $countGroupTeams = count($group->getTeams());
+        if ($countGroupTeams >= 4) {
+            $this->addFlash(
+                "danger",
+                "Ce groupe est déjà rempli"
+            );
+            return $this->redirectToRoute('admin_groups_index');
+        }
+        
+        $team1 = $teamsRepo->findById($team1Id);
+        $team2 = $teamsRepo->findById($team2Id);
+        $team3 = $teamsRepo->findById($team3Id);
+        $team4 = $teamsRepo->findById($team4Id);
+
+        $group->addTeam($team1[0]);
+        $group->addTeam($team2[0]);
+        $group->addTeam($team3[0]);
+        $group->addTeam($team4[0]);
+
+        $manager->persist($group);
+        $manager->persist($team1[0]);
+        $manager->persist($team2[0]);
+        $manager->persist($team3[0]);
+        $manager->persist($team4[0]);
+
+        $manager->flush();
+
+        $this->addFlash(
+            "success",
+            "Le groupe à bien été rempli"
         );
         return $this->redirectToRoute('admin_groups_index');
     }
